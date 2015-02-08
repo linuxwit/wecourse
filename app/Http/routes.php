@@ -21,4 +21,4 @@ Route::controllers([
 ]);
 
 Route::post('/wechat', 'WechatController@index');
-Route::get('/wechat', 'WechatController@index');
+Route::get('/wechat/menu/create', 'WechatController@setmenu');
