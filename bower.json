@@ -1,0 +1,24 @@
+{
+  "name": "angoa",
+  "version": "0.0.1",
+  "authors": [
+    "linuxwit <linuxwit@gmail.com>"
+  ],
+  "description": "light oa",
+  "moduleType": [
+    "node"
+  ],
+  "license": "GPL",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-material": "~0.7.1",
+    "bootstrap-material-design": "~0.2.2"
+  }
+}
