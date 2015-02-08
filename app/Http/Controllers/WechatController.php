@@ -5,8 +5,8 @@ use \App\Witleaf\Wechat\Wechat;
 Class WechatController extends Controller {
 	public function index() {
 		$options = array(
-			'token' => 'tokenaccesskey', //填写你设定的key
-			'encodingaeskey' => 'encodingaeskey', //填写加密用的EncodingAESKey
+			'token' => 'course20150208', //填写你设定的key
+			'encodingaeskey' => '', //填写加密用的EncodingAESKey
 			'appid' => 'wx75a1158641f7f353', //填写高级调用功能的app id
 			'appsecret' => '5fc8f2e348998da9f0e64d450f51e105', //填写高级调用功能的密钥
 		);
