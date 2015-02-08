@@ -11,7 +11,7 @@ Class WechatController extends Controller {
 			'appsecret' => '5fc8f2e348998da9f0e64d450f51e105', //填写高级调用功能的密钥
 		);
 		$weObj = new Wechat($options);
-		echo $weObj->valid();
+		$weObj->valid();
 		$type = $weObj->getRev()->getRevType();
 		switch ($type) {
 			case Wechat::MSGTYPE_TEXT:
