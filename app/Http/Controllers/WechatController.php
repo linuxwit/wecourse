@@ -1,8 +1,9 @@
 <?php namespace App\Http\Controllers;
 
+use Illuminate\Routing\Controller as BaseController;
 use \App\Witleaf\Wechat\Wechat;
 
-Class WechatController extends Controller {
+Class WechatController extends BaseController {
 	public function index() {
 		$options = array(
 			'token' => 'course20150208', //填写你设定的key
