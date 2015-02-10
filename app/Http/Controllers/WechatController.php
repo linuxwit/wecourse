@@ -10,6 +10,7 @@ Class WechatController extends BaseController {
 			'appid' => 'wx75a1158641f7f353', //填写高级调用功能的app id
 			'appsecret' => '5fc8f2e348998da9f0e64d450f51e105', //填写高级调用功能的密钥
 		);
+
 		$weObj = new Wechat($options);
 		$weObj->valid();
 		$type = $weObj->getRev()->getRevType();
@@ -19,15 +20,15 @@ Class WechatController extends BaseController {
 				exit;
 				break;
 			case Wechat::MSGTYPE_EVENT:
-					$result=array(
-					  	"0"=>array(
-					  		'Title'=>'msg title'.$weObj->getRev()->getRevEvent(),
-					  		'Description'=>'summary text',
-					  		'PicUrl'=>'http://lovejog.qiniudn.com/6001168622476609005',
-					  		'Url'=>'http://lovejog.com?id='.weObj->getRev()->getRevFrom()
-					  	)
-	   				);
-					$weObj->news($result)->reply();
+				$result = array(
+					"0" => array(
+						'Title' => 'msg title' . $weObj->getRev()->getRevEvent(),
+						'Description' => 'summary text',
+						'PicUrl' => 'http://lovejog.qiniudn.com/6001168622476609005',
+						'Url' => 'http://lovejog.com?id=' . $weObj->getRev()->getRevFrom(),
+					),
+				);
+				$weObj->news($result)->reply();
 				break;
 			case Wechat::MSGTYPE_IMAGE:
 				$weObj->text('图片')->reply();
@@ -37,11 +38,6 @@ Class WechatController extends BaseController {
 				$weObj->text("help info")->reply();
 		}
 	}
-
-
-   private funciton processEvent($weObj){
-
-   }
 
 	public function setmenu() {
 		$options = array(
