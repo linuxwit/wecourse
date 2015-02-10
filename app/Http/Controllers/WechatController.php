@@ -19,15 +19,30 @@ Class WechatController extends BaseController {
 				exit;
 				break;
 			case Wechat::MSGTYPE_EVENT:
-				$weObj->text('事件')->reply();
+					$result=array(
+					  	"0"=>array(
+					  		'Title'=>'msg title'.$weObj->getRev()->getRevEvent(),
+					  		'Description'=>'summary text',
+					  		'PicUrl'=>'http://lovejog.qiniudn.com/6001168622476609005',
+					  		'Url'=>'http://lovejog.com?id='.weObj->getRev()->getRevFrom()
+					  	)
+	   				);
+					$weObj->news($result)->reply();
 				break;
 			case Wechat::MSGTYPE_IMAGE:
 				$weObj->text('图片')->reply();
+
 				break;
 			default:
 				$weObj->text("help info")->reply();
 		}
 	}
+
+
+   private funciton processEvent($weObj){
+
+   }
+
 	public function setmenu() {
 		$options = array(
 			'token' => 'course20150208', //填写你设定的key
@@ -37,8 +52,6 @@ Class WechatController extends BaseController {
 		);
 		$weObj = new Wechat($options);
 		$menu = $weObj->getMenu();
-
-		var_dump($menu);
 		$newmenu = array(
 			"button" => array(
 				array(
@@ -71,7 +84,7 @@ Class WechatController extends BaseController {
 		);
 		$result = $weObj->createMenu($newmenu);
 
-		var_dump($result);
+		echo $reust;
 
 	}
 }
