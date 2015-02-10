@@ -20,15 +20,6 @@ Class WechatController extends BaseController {
 				exit;
 				break;
 			case Wechat::MSGTYPE_EVENT:
-				$result = array(
-					"0" => array(
-						'Title' => 'msg title' . $weObj->getRev()->getRevEvent(),
-						'Description' => 'summary text',
-						'PicUrl' => 'http://lovejog.qiniudn.com/6001168622476609005',
-						'Url' => 'http://lovejog.com?id=' . $weObj->getRev()->getRevFrom(),
-					),
-				);
-				$weObj->news($result)->reply();
 				break;
 			case Wechat::MSGTYPE_IMAGE:
 				$weObj->text('图片')->reply();
