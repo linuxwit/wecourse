@@ -25,7 +25,7 @@ Class WechatController extends BaseController {
 						'Title' => 'msg title' . $weObj->getRev()->getRevEvent()['key'],
 						'Description' => 'summary text' . $weObj->getRev()->getRevEvent()['event'],
 						'PicUrl' => 'http://lovejog.qiniudn.com/6001168622476609005',
-						'Url' => 'http://lovejog.com?id=' . $weObj->getRev()->getRevFrom(),
+						'Url' => 'http://new.lovejog.com/mobile?id=' . $weObj->getRev()->getRevFrom(),
 					),
 				);
 				$weObj->news($result)->reply();
