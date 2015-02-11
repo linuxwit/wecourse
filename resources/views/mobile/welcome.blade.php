@@ -15,34 +15,28 @@
         <link rel="stylesheet" href="app/mobile/css/all-animation.css">
     </head>
     <style type="text/css">
-    .box{
-    margin: 10px auto;
-    width: 30%;
-    height: 50px;
-    border: 1px solid #FFF;
-    }
     </style>
     <body>
         <div class="wp">
             <div class="wp-inner">
                 <div class="page page1">
                     <div class="box" data-anim="four-rock">
-                        1
+                        学
                     </div>
                 </div>
                 <div class="page page2">
                     <div class="box" data-anim="four-rock">
-                        2
+                        无
                     </div>
                 </div>
                 <div class="page page3">
                     <div class="box" data-anim="four-rock">
-                        3
+                        止
                     </div>
                 </div>
                 <div class="page page4">
                     <div class="box" data-anim="four-rock">
-                        4
+                        境
                     </div>
                 </div>
             </div>
