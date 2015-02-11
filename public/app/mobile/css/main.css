@@ -91,3 +91,23 @@
     -webkit-animation: start 1.5s infinite ease-in-out;
     animation: start 1.5s infinite ease-in-out;
 }
+
+
+        .indicator{
+            position: fixed;
+            right: 10px;
+            top: 50%;
+            margin-top: -40px;
+        }
+        .indicator li{
+            margin-top: 10px;
+            width: 10px;
+            height: 10px;
+            border-radius: 100px;
+            background: rgba(0,0,0,0.5);
+            text-indent: -9999px;
+            list-style: none;
+        }
+        .indicator li.cur{
+            background: rgba(255,255,255,0.5);
+        }
