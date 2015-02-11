@@ -30,9 +30,21 @@
                         1
                     </div>
                 </div>
-                <div class="page page2">2</div>
-                <div class="page page3">3</div>
-                <div class="page page4">4</div>
+                <div class="page page2">
+                    <div class="box" data-anim="four-rock">
+                        2
+                    </div>
+                </div>
+                <div class="page page3">
+                    <div class="box" data-anim="four-rock">
+                        3
+                    </div>
+                </div>
+                <div class="page page4">
+                    <div class="box" data-anim="four-rock">
+                        4
+                    </div>
+                </div>
             </div>
             <ul class="indicator">
                 <li>1</li>
