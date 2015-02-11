@@ -22,3 +22,5 @@ Route::controllers([
 
 Route::post('/wechat', 'WechatController@index');
 Route::get('/wechat/menu/create', 'WechatController@setmenu');
+
+Route::get('/mobile', 'MobileController@index');
