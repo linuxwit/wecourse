@@ -27,6 +27,8 @@
     font-size: 72px;
     line-height: 320px;
     text-align: center;
+    vertical-align: middle;
+    position: relative;
 }
 .page1{
     background: red;
