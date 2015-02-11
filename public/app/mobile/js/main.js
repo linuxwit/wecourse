@@ -2,8 +2,7 @@ $('.wp-inner').fullpage({
 change: function (e) {
 console.log('change', e.next, e.cur);
 $('.indicator li').removeClass('cur').eq(e.next).addClass('cur');
-   alert(e.cur);
-    $('.page'+(e.cur+2)).find('div.box').each(function(i){
+    $('.wp-inner .page').eq(e.next).find('div.box').each(function(i){
                         var anim=$(this).attr('data-anim');
                         console.log(anim);
                         $(this).removeClass(anim);
