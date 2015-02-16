@@ -19,6 +19,8 @@
   ],
   "dependencies": {
     "angular-material": "~0.7.1",
-    "bootstrap-material-design": "~0.2.2"
+    "bootstrap-material-design": "~0.2.2",
+    "bootstrap": "~3.3.2",
+    "font-awesome": "~4.3.0"
   }
 }

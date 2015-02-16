@@ -23,9 +23,9 @@ Class WechatController extends BaseController {
 				$result = array(
 					"0" => array(
 						'Title' => 'msg title' . $weObj->getRev()->getRevEvent()['key'],
-						'Description' => 'summary text' . $weObj->getRev()->getRevEvent()['event'],
+						'Description' => 'summary textsummary textsummary textsummary textsummary textsummary textsummary textsummary textsummary textsummary textsummary textsummary textsummary textsummary textsummary textsummary textsummary textsummary textsummary textsummary textsummary textsummary textsummary textsummary textsummary textsummary textsummary textsummary textsummary textsummary textsummary textsummary textsummary textsummary textsummary textsummary textsummary textsummary textsummary textsummary textsummary textsummary textsummary textsummary textsummary textsummary textsummary text' . $weObj->getRev()->getRevEvent()['event'],
 						'PicUrl' => 'http://lovejog.qiniudn.com/6001168622476609005',
-						'Url' => 'http://new.lovejog.com/mobile?id=' . $weObj->getRev()->getRevFrom(),
+						//'Url' => 'http://new.lovejog.com/mobile?id=' . $weObj->getRev()->getRevFrom(),
 					),
 				);
 				$weObj->news($result)->reply();

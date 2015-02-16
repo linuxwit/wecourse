@@ -4,13 +4,11 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Laravel</title>
 
-	<link href="/css/app.css" rel="stylesheet">
-
-
-	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<title>学习互动吧</title>
+	<link href="//cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+	<link href="//cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
 	<!--[if lt IE 9]>
 		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -26,23 +24,34 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Laravel</a>
+				<a class="navbar-brand" href="#">学习互动吧</a>
 			</div>
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li><a href="/">Home</a></li>
+					<li><a href="/">首页</a></li>
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
 					@if (Auth::guest())
-						<li><a href="/auth/login">Login</a></li>
-						<li><a href="/auth/register">Register</a></li>
+						<li><a href="/auth/login">登录</a></li>
+						<li><a href="/auth/register">免费注册</a></li>
 					@else
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
-								<li><a href="/auth/logout">Logout</a></li>
+								@if (Auth::user()->isadmin)
+									<li><a href="/backbone/user/index">用户管理</a></li>
+								@endif
+								@if (Auth::user()->ispartner || Auth::user()->isadmin)
+									<li><a href="/wxmp/account">微信管理</a></li>
+									<li><a href="/course">课程管理</a></li>
+									<li><a href="/teacher">讲师管理</a></li>
+									<li><a href="/order">订单管理</a></li>
+									<li><a href="/media">图片管理</a></li>
+								@endif
+								<li><a href="/user/profile">我的设置</a></li>
+								<li><a href="/auth/logout">安全退出</a></li>
 							</ul>
 						</li>
 					@endif
@@ -54,7 +63,11 @@
 	@yield('content')
 
 	<!-- Scripts -->
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	<script src="//cdn.bootcss.com/jquery/2.1.3/jquery.min.js"></script>
+	<script src="//cdn.bootcss.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	<script>
+    	window.jQuery || document.write('<script src="js/jquery.min.js"><\/script><script src="js/bootstrap.min.js"><\/script>') ;
+	</script>
+	<script src="/js/main.js"></script>
 </body>
 </html>

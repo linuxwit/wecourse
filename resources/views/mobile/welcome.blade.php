@@ -15,14 +15,17 @@
         <link rel="stylesheet" href="app/mobile/css/all-animation.css">
     </head>
     <style type="text/css">
+    .box{
+        border: 1px solid #FFF;
+    }
     </style>
     <body>
         <div class="wp">
             <div class="wp-inner">
                 <div class="page page1">
-                    <div class="box" data-anim="four-rock">
+                    <span class="box" data-anim="four-rock">
                         学
-                    </div>
+                    </span>
                 </div>
                 <div class="page page2">
                     <div class="box" data-anim="four-rock">
