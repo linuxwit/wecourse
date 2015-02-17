@@ -46,7 +46,7 @@ Class WechatController extends BaseController {
 			case Wechat::MSGTYPE_EVENT:
 				$key = $rev->getRevEvent()['key'];
 				$event = $rev->getRevEvent()['event'];
-				$this->doEvent($weObj, $key, $event, $account, $uid);
+				$this->doEvent($weObj, $key, $event, $account, $id);
 				break;
 			case Wechat::MSGTYPE_IMAGE:
 				$weObj->text('图片')->reply();
