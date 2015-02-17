@@ -22,8 +22,12 @@ Class WechatController extends BaseController {
 		);
 		$weObj = new Wechat($options);
 		$weObj->valid();
+		Log::debug('pass valid');
+
 		$rev = $weObj->getRev();
 		$type = $rev->getRevType();
+
+		Log::debug('记录用户操作信息');
 		//记录用户操作信息
 		Message::create([
 			'accountid' => $account->id,
@@ -33,6 +37,8 @@ Class WechatController extends BaseController {
 			'createtime' => $rev->getRevTime(),
 			'content' => json_encode($rev->getRevData()),
 		]);
+
+		Log::debug('响应用请求');
 		switch ($type) {
 			case Wechat::MSGTYPE_TEXT:
 				$weObj->text("hello, I'm wechat")->reply();
