@@ -63,7 +63,7 @@ Class WechatController extends BaseController {
 				break;
 			case Wechat::EVENT_MENU_CLICK:
 				if ($key) {
-					$reply = Reply::whereRaw('uid =? and matchtype = ? and matchvalue = ?', [$uid, $key, $event])->first();
+					$reply = Reply::whereRaw('uid =? and matchtype = ? and matchvalue = ?', [$uid, $event, $key])->first();
 					if ($reply) {
 						$type = $reply->msgtype;
 						$weObj->$type(json_decode($reply->content))->reply();
