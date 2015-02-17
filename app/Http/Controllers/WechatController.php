@@ -21,7 +21,7 @@ Class WechatController extends BaseController {
 			'appsecret' => $account->appsecret, //填写高级调用功能的密钥
 		);
 		$weObj = new Wechat($options);
-		$weObj->valid();
+		//$weObj->valid();
 		Log::debug('pass valid');
 
 		$rev = $weObj->getRev();
@@ -34,7 +34,7 @@ Class WechatController extends BaseController {
 			'tousername' => $rev->getRevTo(),
 			'fromusername' => $rev->getRevFrom(),
 			'msgtype' => $type,
-			'createtime' => $rev->getRevTime(),
+			'createtime' => $rev->getRevCtime(),
 			'content' => json_encode($rev->getRevData()),
 		]);
 
