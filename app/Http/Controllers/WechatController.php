@@ -35,7 +35,7 @@ Class WechatController extends BaseController {
 			'fromusername' => $rev->getRevFrom(),
 			'msgtype' => $type,
 			'createtime' => $rev->getRevCtime(),
-			'content' => json_encode($rev->getRevData()),
+			'context' => json_encode($rev->getRevData()), //TODO
 		]);
 
 		Log::debug('响应用请求');
