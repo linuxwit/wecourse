@@ -26,7 +26,7 @@ Route::get('wxmp/subscribe', ['middleware' => 'auth', 'uses' => 'Wxmp\SubscribeC
 Route::get('wxmp/account/setting', ['middleware' => 'auth', 'uses' => 'Wxmp\AccountController@setting']);
 Route::get('wxmp/account', ['middleware' => 'auth', 'uses' => 'Wxmp\AccountController@show']);
 Route::get('wxmp/reply', ['middleware' => 'auth', 'uses' => 'Wxmp\ReplyController@show']);
-Route::post('/wechat', 'WechatController@index'); //微信接口
+Route::post('/wechat/{id}', 'WechatController@index'); //微信接口
 Route::get('/wechat/menu/create/{id}', 'WechatController@setmenu');
 
 Route::get('/wechat/{id}', 'WechatController@index');
