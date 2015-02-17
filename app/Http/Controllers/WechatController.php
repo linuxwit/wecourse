@@ -2,6 +2,8 @@
 use Illuminate\Routing\Controller as BaseController;
 use Log;
 use \App\Account;
+use \App\Message;
+use \App\Reply;
 use \App\Witleaf\Wechat\Wechat;
 
 Class WechatController extends BaseController {
