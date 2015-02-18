@@ -1,6 +1,14 @@
 ###db install
 CREATE SCHEMA `wecourse` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
 
+
+db:
+
+ALTER TABLE `wecourse`.`mp_account` 
+CHANGE COLUMN `subscribecontext` `subscribecontent` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NULL DEFAULT NULL ,
+CHANGE COLUMN `nomatchcontext` `nomatchcontent` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NULL DEFAULT NULL ;
+
+
 if(strpos($_SERVER["HTTP_USER_AGENT"],"MicroMessenger"))
     echo "Welcome to wechat word";
 else

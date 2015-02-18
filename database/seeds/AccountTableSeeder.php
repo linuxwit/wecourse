@@ -45,10 +45,10 @@ class AccountTableSeeder extends Seeder {
 			'menu' => json_encode($menu),
 			'subscribeenable' => '1',
 			'subscribemsgtype' => 'text',
-			'subscribecontext' => json_encode(array('content' => '欢迎关注')),
+			'subscribecontent' => json_encode(array('content' => '欢迎关注')),
 			'nomatchenable' => '1',
 			'nomatchmsgtype' => 'text',
-			'nomatchcontext' => json_encode(array('content' => '暂时没有相关内容，有问题找客服')),
+			'nomatchcontent' => json_encode(array('content' => '暂时没有相关内容，有问题找客服')),
 			'times' => 0,
 		]);
 	}
