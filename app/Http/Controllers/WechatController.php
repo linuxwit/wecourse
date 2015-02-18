@@ -53,6 +53,8 @@ Class WechatController extends BaseController {
 			case Wechat::MSGTYPE_EVENT:
 				$key = $rev->getRevEvent()['key'];
 				$event = $rev->getRevEvent()['event'];
+
+				Log::debug('响应事件');
 				$this->doEventReply($key, $event, $id);
 				break;
 			case Wechat::MSGTYPE_IMAGE:
@@ -115,7 +117,7 @@ Class WechatController extends BaseController {
 					$this->weObj->text($content['text'])->reply();
 					break;
 				case Wechat::MSGTYPE_NEWS:
-					$this->weObj->news($news)->reply();
+					$this->weObj->news($content)->reply();
 					break;
 				default:
 					Log::error('unknow no match msg type:' . $this->account->nomatchmsgtype);
@@ -137,7 +139,7 @@ Class WechatController extends BaseController {
 					$this->weObj->text($content['text'])->reply();
 					break;
 				case Wechat::MSGTYPE_NEWS:
-					$this->weObj->news($news)->reply();
+					$this->weObj->news($content)->reply();
 					break;
 				default:
 					Log::error('unknow no match msg type:' . $this->account->nomatchmsgtype);
