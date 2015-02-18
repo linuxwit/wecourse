@@ -2,6 +2,7 @@
 use Illuminate\Routing\Controller as BaseController;
 use Log;
 use \App\Account;
+use \App\Message;
 use \App\Witleaf\Wechat\Wechat;
 
 Class WechatController extends BaseController {
@@ -22,25 +23,25 @@ Class WechatController extends BaseController {
 			'appid' => $this->account->appid, //填写高级调用功能的app id
 			'appsecret' => $this->account->appsecret, //填写高级调用功能的密钥
 		);
-		$weObj = new Wechat($this->options);
-		$weObj->valid();
+		$this->weObj = new Wechat($this->options);
+		//$this->weObj->valid();
 	}
 
 	public function index($id) {
 		$this->init($id);
 		Log::debug('通过检查');
 		$rev = $this->weObj->getRev();
-		$type = $this->rev->getRevType();
+		$type = $rev->getRevType();
 
 		Log::debug('记录用户操作信息');
 		//记录用户操作信息
 		Message::create([
 			'accountid' => $this->account->id,
-			'tousername' => $this->rev->getRevTo(),
-			'fromusername' => $this->rev->getRevFrom(),
+			'tousername' => $rev->getRevTo(),
+			'fromusername' => $rev->getRevFrom(),
 			'msgtype' => $type,
-			'createtime' => $this->rev->getRevCtime(),
-			'context' => json_encode($this->rev->getRevData()), //TODO
+			'createtime' => $rev->getRevCtime(),
+			'context' => json_encode($rev->getRevData()), //TODO
 		]);
 
 		Log::debug('响应用请求');
@@ -55,10 +56,10 @@ Class WechatController extends BaseController {
 				$this->doEventReply($key, $event, $id);
 				break;
 			case Wechat::MSGTYPE_IMAGE:
-				$weObj->text('')->reply();
+				$this->weObj->text('')->reply();
 				break;
 			default:
-				$weObj->text("非常抱谦，暂时找不到相关服务，有问题请找客服")->reply();
+				$this->weObj->text("非常抱谦，暂时找不到相关服务，有问题请找客服")->reply();
 		}
 	}
 
