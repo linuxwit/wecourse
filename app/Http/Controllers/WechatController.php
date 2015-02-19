@@ -92,6 +92,7 @@ Class WechatController extends BaseController {
 				if ($key) {
 					$reply = Reply::whereRaw('uid =? and matchtype = ? and matchvalue = ?', [$uid, $event, $key])->first();
 					if ($reply) {
+						Log::debug('处理菜单事件');
 						$this->doMatchReply($reply);
 					} else {
 						Log::error('没有配置菜单响应用内容');
@@ -110,7 +111,9 @@ Class WechatController extends BaseController {
 	private function doMatchReply($reply) {
 		$type = $reply->msgtype;
 		//匹配关键字回复
+		Log::debug('处理Match回复,消息类型为' . $type);
 		if ($reply->content) {
+			Log::debug('处理Match回复,内容为' . $reply->content);
 			$content = json_decode($reply->content, true);
 			switch ($type) {
 				case Wechat::MSGTYPE_TEXT:
@@ -125,6 +128,7 @@ Class WechatController extends BaseController {
 					break;
 			}
 		} else {
+			Log::debug('回复内容为空');
 			//没有定义时，回复空
 			$this->weObj->text('')->reply();
 		}
