@@ -3,6 +3,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Log;
 use \App\Account;
 use \App\Message;
+use \App\Reply;
 use \App\Witleaf\Wechat\Wechat;
 
 Class WechatController extends BaseController {
@@ -54,7 +55,7 @@ Class WechatController extends BaseController {
 				$key = $rev->getRevEvent()['key'];
 				$event = $rev->getRevEvent()['event'];
 
-				Log::debug("响应事件{$key}={$event}");
+				Log::debug("响应事件,{$key}={$event}");
 				if ($key && $event) {
 					$this->doEventReply($key, $event, $id);
 				} else {
