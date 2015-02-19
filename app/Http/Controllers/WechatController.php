@@ -54,8 +54,12 @@ Class WechatController extends BaseController {
 				$key = $rev->getRevEvent()['key'];
 				$event = $rev->getRevEvent()['event'];
 
-				Log::debug('响应事件');
-				$this->doEventReply($key, $event, $id);
+				Log::debug("响应事件{$key}={$event}");
+				if ($key && $event) {
+					$this->doEventReply($key, $event, $id);
+				} else {
+					$this->weObj->text('no key or no event')->reply();
+				}
 				break;
 			case Wechat::MSGTYPE_IMAGE:
 				$this->weObj->text('')->reply();
@@ -89,17 +93,13 @@ Class WechatController extends BaseController {
 				}
 				break;
 			case Wechat::EVENT_MENU_CLICK:
-				if ($key) {
-					$reply = Reply::whereRaw('uid =? and matchtype = ? and matchvalue = ?', [$uid, $event, $key])->first();
-					if ($reply) {
-						Log::debug('处理菜单事件');
-						$this->doMatchReply($reply);
-					} else {
-						Log::error('没有配置菜单响应用内容');
-						$this->doNoMatchReply();
-					}
+				$reply = Reply::whereRaw('uid =? and matchtype = ? and matchvalue = ?', [$uid, $event, $key])->first();
+				if ($reply) {
+					Log::debug('处理菜单事件');
+					$this->doMatchReply($reply);
 				} else {
-					$weObj->text('no key')->reply();
+					Log::error('没有配置菜单响应用内容');
+					$this->doNoMatchReply();
 				}
 				break;
 			default:
