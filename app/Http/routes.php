@@ -31,3 +31,17 @@ Route::get('/wechat/menu/create/{id}', 'WechatController@setmenu');
 
 Route::get('/wechat/{id}', 'WechatController@index');
 Route::get('/mobile', 'MobileController@index');
+
+//微课程
+Route::get('/wecourse/teacher/{id}', 'Wecourse\TeacherController@detail'); //讲师列表
+Route::get('/wecourse/teacher', 'Wecourse\TeacherController@index'); //讲师介绍
+
+Route::get('/wecourse/course', 'Wecourse\CourseController@index'); //所有课程，课程介绍
+Route::get('/wecourse/course/plan', 'Wecourse\CourseController@plan'); //课程计划表
+Route::get('/wecourse/course/newest', 'Wecourse\CourseController@newest'); //最新课程
+Route::get('/wecourse/course/old', 'Wecourse\CourseController@old'); //往期
+Route::get('/wecourse/course/{id}', 'Wecourse\CourseController@detail'); //课程详细
+
+Route::get('/wecourse/join/{id}', 'Wecourse\CourseController@join'); //报名
+Route::post('/wecourse/join/{id}', 'Wecourse\CourseController@dojoin'); //报名
+Route::get('/wecourse', 'WecourseController@index'); //首页
