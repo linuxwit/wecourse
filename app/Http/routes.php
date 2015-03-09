@@ -21,3 +21,9 @@ Route::group(['namespace' => 'Course'], function () {
 	Route::get('course/{id}', 'CourseController@detail');
 	Route::get('course', 'CourseController@index');
 });
+
+Route::group(['namespace' => 'Admin'], function () {
+	Route::get('join/course/{id}', 'CourseController@join');
+	Route::get('course/{id}', 'CourseController@detail');
+	Route::get('course', 'CourseController@index');
+});
