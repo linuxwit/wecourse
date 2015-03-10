@@ -14,12 +14,16 @@ class CreateWcTeacherTable extends Migration {
 		Schema::create('wc_teacher', function (Blueprint $table) {
 			$table->increments('id');
 			$table->integer('uid');
+			$table->string('name');
+			$table->string('phone')->nullable();
+			$table->string('mobile')->nullable();
+			$table->string('address')->nullable();
 			$table->string('title');
 			$table->string('avatar');
 			$table->string('summary')->nullable();
 			$table->text('content');
-			$table->integer('pv')->defualt(0);
-			$table->integer('uv')->defualt(0);
+			$table->integer('pv')->default(0);
+			$table->integer('uv')->default(0);
 			$table->softDeletes();
 			$table->timestamps();
 		});

@@ -1,10 +1,8 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
 class CreateWcCourseTable extends Migration {
-
 	/**
 	 * Run the migrations.
 	 * 课程表
@@ -21,20 +19,19 @@ class CreateWcCourseTable extends Migration {
 			$table->string('summary')->nullable(); //简介
 			$table->text('content'); //详细内容
 			$table->string('address'); //详细地址
-			$table->text('resolved_content'); //markdown
-			$table->time('begintime'); //开课时间
-			$table->time('endtime'); //结束时间
+			$table->datetime('begintime'); //开课时间
+			$table->datetime('endtime'); //结束时间
 			$table->decimal('currentprice'); //现价
 			$table->decimal('oldprice'); //原价
 			$table->integer('online')->default(0); //是否上线，
 			$table->integer('joinercount')->default(0); //报名人数
-			$table->integer('pv')->defualt(0); //浏览次数
-			$table->integer('uv')->defualt(0);
+			$table->integer('pv')->default(0); //浏览次数
+			$table->integer('uv')->default(0);
+			$table->text('mark')->nullable(); //mark
 			$table->softDeletes();
 			$table->timestamps();
 		});
 	}
-
 	/**
 	 * Reverse the migrations.
 	 *
@@ -43,5 +40,4 @@ class CreateWcCourseTable extends Migration {
 	public function down() {
 		Schema::drop('wc_course');
 	}
-
 }
