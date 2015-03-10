@@ -14,10 +14,8 @@ class CourseController extends Controller {
 	 */
 	public function index() {
 		//return view('admin.course.index')->withDocs(Course::all());
-
 		$model = new Course;
 		$builder = $model->orderBy('id', 'desc');
-
 		$input = Input::all();
 		foreach ($input as $field => $value) {
 			if (empty($value)) {
@@ -30,7 +28,6 @@ class CourseController extends Controller {
 			$builder->whereRaw($search['search'], [$value]);
 		}
 		$models = $builder->paginate(20);
-
 		return view('admin.course.index', [
 			'docs' => $models,
 		]);
@@ -64,6 +61,7 @@ class CourseController extends Controller {
 		$inputs = Input::only('title', 'content', 'subtitle', 'begintime', 'endtime', 'address', 'cover', 'online', 'content', 'currentprice', 'oldprice');
 		$course = Course::create(array_merge($inputs, array('uid' => Auth::id(), 'teacherid' => 1)));
 		if ($course) {
+			$file = Input::file('cover');
 			return Redirect::to('admin/course');
 		} else {
 			return Redirect::back()->withInput()->withErrors('保存失败！');
@@ -76,7 +74,7 @@ class CourseController extends Controller {
 	 * @return Response
 	 */
 	public function show($id) {
-		//
+		return Redirect::to('course/'+$id);
 	}
 	/**
 	 * Show the form for editing the specified resource.
@@ -85,7 +83,7 @@ class CourseController extends Controller {
 	 * @return Response
 	 */
 	public function edit($id) {
-		//
+		return view('admin.course.edit')->withDoc(Course::find($id));
 	}
 	/**
 	 * Update the specified resource in storage.
@@ -93,8 +91,36 @@ class CourseController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id) {
-		//
+	public function update(Request $request, $id) {
+		$rules = [
+			'title' => 'required|max:100',
+			'subtitle' => 'required|max:120',
+			'begintime' => 'required|date',
+			'endtime' => 'required|date',
+			'address' => 'required|max:200',
+			'summary' => 'required|max:500',
+			'cover' => 'required|url',
+			'online' => 'required',
+			'content' => 'required',
+		];
+		$validator = $this->validate($request, $rules);
+		$course = Course::find($id);
+		$course->title = Input::get('title');
+		$course->summary = Input::get('summary');
+		$course->content = Input::get('content');
+		$course->subtitle = Input::get('subtitle');
+		$course->begintime = Input::get('begintime');
+		$course->endtime = Input::get('endtime');
+		$course->address = Input::get('address');
+		$course->cover = Input::get('cover');
+		$course->online = Input::get('online');
+		$course->currentprice = Input::get('currentprice');
+		$course->oldprice = Input::get('oldprice');
+		if ($course->save()) {
+			return Redirect::to('admin/course');
+		} else {
+			return Redirect::back()->withInput()->withErrors('保存失败！');
+		}
 	}
 	/**
 	 * Remove the specified resource from storage.
@@ -103,6 +129,8 @@ class CourseController extends Controller {
 	 * @return Response
 	 */
 	public function destroy($id) {
-		//
+		$course = Course::find($id);
+		$course->delete();
+		return Redirect::to('admin/course');
 	}
 }
