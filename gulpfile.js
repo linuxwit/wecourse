@@ -8,8 +8,6 @@ var gulp = require('gulp'),
     notify = require('gulp-notify'),
     growl = require('gulp-notify-growl'),
     phpunit = require('gulp-phpunit');
-
-
 var paths = {
     'dev': {
         'less': './resources/assets/less/',
@@ -18,7 +16,8 @@ var paths = {
     },
     'production': {
         'css': './public/assets/css/',
-        'js': './public/assets/js/'
+        'js': './public/assets/js/',
+        'fonts': './public/assets/fonts/'
     }
 };
 
@@ -32,61 +31,76 @@ var paths = {
         .pipe(gulp.dest(paths.production.css));
 });*/
 
-gulp.task('css', function () {
-    return gulp.src([paths.dev.vendor + 'angular-material/angular-material.css'])
-        .pipe(concat('app.css'))
+gulp.task('css', function() {
+    return gulp.src([
+            paths.dev.vendor + 'bootstrap-fileinput/css/fileinput.css',
+            paths.dev.vendor + 'font-awesome/css/font-awesome.css',
+            paths.dev.vendor + 'summernote/dist/summernote.css'
+        ])
+        .pipe(concat('vendor.css'))
         .pipe(gulp.dest(paths.production.css))
-        .pipe(minify({keepSpecialComments: 0}))
-        .pipe(rename({suffix: '.min'}))
+        .pipe(minify({
+            keepSpecialComments: 0
+        }))
+        .pipe(rename({
+            suffix: '.min'
+        }))
         .pipe(gulp.dest(paths.production.css));
 });
 
-gulp.task('vendor', function () {
+gulp.task('vendor', function() {
     return gulp.src([
-        paths.dev.vendor + 'angular/angular.min.js',
-        paths.dev.vendor + 'angular-animate/angular-animate.min.js',
-        paths.dev.vendor + 'angular-aria/angular-aria.min.js',
-        paths.dev.vendor + 'angular-material/angular-material.min.js',
-        paths.dev.vendor + 'angular-messages/angular-messages.min.js'
-    ])
-        .pipe(concat('vendor.min.js'))
+            paths.dev.vendor + 'jquery/dist/jquery.js',
+            paths.dev.vendor + 'bootstrap/dist/js/bootstrap.js',
+            paths.dev.vendor + 'bootstrap-fileinput/js/fileinput.js',
+            paths.dev.vendor + 'summernote/dist/summernote.js',
+            paths.dev.vendor + 'summernote/lang/summernote-zh-CN.js'
+
+        ]).pipe(concat('vendor.min.js'))
         .pipe(gulp.dest(paths.production.js));
 });
 
+gulp.task('icons', function() { 
+    return gulp.src([paths.dev.vendor  + 'font-awesome/fonts/**.*', paths.dev.vendor + 'bootstrap/dist/fonts/**.*']) 
+        .pipe(gulp.dest(paths.production.fonts)); 
+});
 // JS
-gulp.task('js', function () {
+gulp.task('js', function() {
     return gulp.src([
-        paths.dev.js + '/app/'
-    ])
+            paths.dev.js + '/*.js'
+        ])
         .pipe(concat('app.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest(paths.production.js));
 });
 
 // PHP Unit
-gulp.task('phpunit', function () {
-    var options = {debug: false, notify: true};
+gulp.task('phpunit', function() {
+    var options = {
+        debug: false,
+        notify: true
+    };
     return gulp.src('./tests/*.php')
         .pipe(phpunit('./vendor/bin/phpunit', options))
 
-        .on('error', notify.onError({
-            title: 'PHPUnit Failed',
-            message: 'One or more tests failed.'
-        }))
+    .on('error', notify.onError({
+        title: 'PHPUnit Failed',
+        message: 'One or more tests failed.'
+    }))
 
-        .pipe(notify({
-            title: 'PHPUnit Passed',
-            message: 'All tests passed!'
-        }));
+    .pipe(notify({
+        title: 'PHPUnit Passed',
+        message: 'All tests passed!'
+    }));
 });
 
-gulp.task('watch', function () {
+gulp.task('watch', function() {
     gulp.watch(paths.dev.less + '/*.less', ['css']);
     gulp.watch(paths.dev.js + '/*.js', ['js']);
-    gulp.watch('./tests/*.php', ['phpunit']);
+    //gulp.watch('./tests/*.php', ['phpunit']);
 });
 
-gulp.task('default', ['css','vendor', 'js', 'phpunit', 'watch']);
+gulp.task('default', ['css', 'vendor', 'js', 'phpunit', 'watch']);
 /*
  |--------------------------------------------------------------------------
  | Elixir Asset Management

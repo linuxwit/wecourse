@@ -1,7 +1,10 @@
 /vendor
 /node_modules
 .env
+/resources/assets/vendor
 
 storage
 
 
+
+app/upload/image/course/acf2a9d8e253c3bf32b6c745225cc31f.jpg
