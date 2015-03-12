@@ -58,15 +58,17 @@ class TeacherController extends Controller {
 			$clientName = $file->getClientOriginalName();
 			$mimeTye = $file->getMimeType();
 			$entension = $file->getClientOriginalExtension();
-			$newName = md5(date('ymdhis') . $clientName) . "." . $extension;
-			$path = $file->move('/upload/image/course/', $newName);
+			$newName = md5(date('ymdhis') . $clientName) . "." . $entension;
+			$newFullName = '/upload/image/course/' . $newName;
+			$path = $file->move(app_path() . '/upload/image/course/', $newName);
+			$model = Teacher::create(array_merge($inputs, array('uid' => Auth::id(), 'avatar' => $newFullName)));
+			if ($model) {
+				return Redirect::to('admin/teacher');
+			} else {
+				return Redirect::back()->withInput()->withErrors('保存失败！');
+			}
 		}
-		$model = Teacher::create(array_merge($inputs, array('uid' => Auth::id())));
-		if ($model) {
-			return Redirect::to('admin/teacher');
-		} else {
-			return Redirect::back()->withInput()->withErrors('保存失败！');
-		}
+
 	}
 	/**
 	 * Display the specified resource.
@@ -110,7 +112,7 @@ class TeacherController extends Controller {
 			$mimeTye = $file->getMimeType();
 			$newName = md5(date('ymdhis') . $clientName) . "." . $file->getClientOriginalExtension();
 			$path = $file->move(storage_path() . '/upload/image/course/', $newName);
-			$model->avatar = $path;
+			$model->avatar = '/upload/image/course/' . $newName;
 		}
 		$model->name = Input::get('name');
 		$model->title = Input::get('title');
