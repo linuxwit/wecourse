@@ -51,6 +51,7 @@ class CourseController extends Controller {
 			'subtitle' => 'required|max:120',
 			'begintime' => 'required|date',
 			'endtime' => 'required|date',
+			'city' => 'required|max:50',
 			'address' => 'required|max:200',
 			'summary' => 'required|max:500',
 			'cover' => 'required|url',
@@ -97,6 +98,7 @@ class CourseController extends Controller {
 			'subtitle' => 'required|max:120',
 			'begintime' => 'required|date',
 			'endtime' => 'required|date',
+			'city' => 'required|max:50',
 			'address' => 'required|max:200',
 			'summary' => 'required|max:500',
 			'cover' => 'required|url',
@@ -111,6 +113,7 @@ class CourseController extends Controller {
 		$course->subtitle = Input::get('subtitle');
 		$course->begintime = Input::get('begintime');
 		$course->endtime = Input::get('endtime');
+		$course->city = Input::get('city');
 		$course->address = Input::get('address');
 		$course->cover = Input::get('cover');
 		$course->online = Input::get('online');

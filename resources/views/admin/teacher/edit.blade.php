@@ -35,19 +35,13 @@
               <div class="form-group">
                 <label class="col-lg-2 control-label" for="iCover">头像<span class="text-danger">*</span></label>
                 <div class="col-lg-10">
-                  <input type="file" name="avatar" value="{{ $doc->avatar }}" placeholder="" required>
+                  <input type="file" name="avatar"  class="inputfile" placeholder="" value="{{ $doc->avatar }}" >
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-lg-2 control-label" for="iSumarry">简介<span class="text-danger">*</span></label>
                 <div class="col-lg-10">
                   <textarea  name="summary" class="form-control" >{{ $doc->summary }}</textarea>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-lg-2 control-label" for="iSumarry">详细介绍<span class="text-danger">*</span></label>
-                <div class="col-lg-10">
-                  <textarea  name="content" class="form-control">{{ $doc->content }}</textarea>
                 </div>
               </div>
               <div class="form-group">
@@ -69,6 +63,12 @@
                 </div>
               </div>
               <div class="form-group">
+                <label class="col-lg-2 control-label" for="content">详细介绍<span class="text-danger">*</span></label>
+                <div class="col-lg-10">
+                  <textarea  name="content" class="editor" >{{ $doc->content }}</textarea>
+                </div>
+              </div>
+              <div class="form-group">
                 <div class="col-lg-10 col-lg-offset-2">
                   <button class="btn btn-success" type="submit" name="save"  value="save">保存</button>
                 </div>
@@ -81,4 +81,9 @@
   </div>
 </div>
 </div>
+<input id="input-id" type="file" class="file" data-preview-file-type="text" >
+
+
+
+
 @endsection

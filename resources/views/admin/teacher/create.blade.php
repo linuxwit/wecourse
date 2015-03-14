@@ -33,7 +33,7 @@
               <div class="form-group">
                 <label class="col-lg-2 control-label" for="iCover">头像<span class="text-danger">*</span></label>
                 <div class="col-lg-10">
-                  <input type="file" name="avatar" value="{{ Input::old('avatar') }}" required>
+                  <input type="file" name="avatar" class="inputfile" value="{{ Input::old('avatar') }}" required>
                 </div>
               </div>
               <div class="form-group">
@@ -43,27 +43,27 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-lg-2 control-label" for="iSumarry">详细介绍<span class="text-danger">*</span></label>
-                <div class="col-lg-10">
-                  <textarea name="content" class="form-control" id="editor" cols="30" rows="10"></textarea>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-lg-2 control-label" for="iMobile">手机<span class="text-danger">*</span></label>
+                <label class="col-lg-2 control-label" for="iMobile">联系手机<span class="text-danger">*</span></label>
                 <div class="col-lg-10">
                   <input type="text" name="mobile"  value="{{ Input::old('mobile') }}" class="form-control" placeholder="" required>
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-lg-2 control-label" for="iPhone">电话<span class="text-danger">*</span></label>
+                <label class="col-lg-2 control-label" for="iPhone">联系电话</label>
                 <div class="col-lg-10">
                   <input type="text" name="phone"  value="{{ Input::old('phone') }}" class="form-control" placeholder="" required>
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-lg-2 control-label" for="iAddress">地址<span class="text-danger">*</span></label>
+                <label class="col-lg-2 control-label" for="iAddress">联系地址<span class="text-danger">*</span></label>
                 <div class="col-lg-10">
                   <input type="text" name="address"  value="{{ Input::old('adderss') }}" class="form-control" placeholder="" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-lg-2 control-label" for="iContent">详细信息<span class="text-danger">*</span></label>
+                <div class="col-lg-10">
+                  <textarea name="content"  class="editor">"{{ Input::old('content') }}"</textarea>
                 </div>
               </div>
               <div class="form-group">

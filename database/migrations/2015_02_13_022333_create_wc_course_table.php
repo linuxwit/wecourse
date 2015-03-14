@@ -18,6 +18,7 @@ class CreateWcCourseTable extends Migration {
 			$table->string('cover'); //封面
 			$table->string('summary')->nullable(); //简介
 			$table->text('content'); //详细内容
+			$table->string('city'); //开课城市
 			$table->string('address'); //详细地址
 			$table->datetime('begintime'); //开课时间
 			$table->datetime('endtime'); //结束时间

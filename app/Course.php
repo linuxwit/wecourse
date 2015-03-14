@@ -16,7 +16,7 @@ class Course extends Model {
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['uid', 'teacherid', 'title', 'subtitle', 'cover', 'summary', 'content', 'address', 'begintime', 'endtime', 'currentprice', 'oldprice', 'joinercount', 'pv', 'uv'];
+	protected $fillable = ['uid', 'teacherid', 'title', 'subtitle', 'city', 'cover', 'summary', 'content', 'address', 'begintime', 'endtime', 'currentprice', 'oldprice', 'joinercount', 'pv', 'uv'];
 	public function teacher() {
 		return $this->hasOne('Teacher', 'teacherid', 'id');
 	}

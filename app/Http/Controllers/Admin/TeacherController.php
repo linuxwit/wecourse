@@ -60,7 +60,7 @@ class TeacherController extends Controller {
 			$entension = $file->getClientOriginalExtension();
 			$newName = md5(date('ymdhis') . $clientName) . "." . $entension;
 			$newFullName = '/upload/image/course/' . $newName;
-			$path = $file->move(app_path() . '/upload/image/course/', $newName);
+			$path = $file->move(storage_path() . '/upload/image/course/', $newName);
 			$model = Teacher::create(array_merge($inputs, array('uid' => Auth::id(), 'avatar' => $newFullName)));
 			if ($model) {
 				return Redirect::to('admin/teacher');
@@ -113,6 +113,7 @@ class TeacherController extends Controller {
 			$newName = md5(date('ymdhis') . $clientName) . "." . $file->getClientOriginalExtension();
 			$path = $file->move(storage_path() . '/upload/image/course/', $newName);
 			$model->avatar = '/upload/image/course/' . $newName;
+			$this->upload($path, $newName);
 		}
 		$model->name = Input::get('name');
 		$model->title = Input::get('title');

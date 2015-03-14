@@ -61,7 +61,10 @@ gulp.task('vendor', function() {
 });
 
 gulp.task('icons', function() { 
-    return gulp.src([paths.dev.vendor  + 'font-awesome/fonts/**.*', paths.dev.vendor + 'bootstrap/dist/fonts/**.*']) 
+    return gulp.src([
+            paths.dev.vendor + 'font-awesome/fonts/**.*',
+            paths.dev.vendor + 'bootstrap/dist/fonts/**.*'
+        ]) 
         .pipe(gulp.dest(paths.production.fonts)); 
 });
 // JS
