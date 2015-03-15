@@ -4,7 +4,7 @@
   <div class="row">
     <div class="col-lg-12">
       <div class="panel panel-default">
-        <div class="panel-heading">课程管理</div>
+        <div class="panel-heading">讲师管理</div>
         <div class="panel-body">
           <a href="{{ URL('admin/teacher/create') }}" class="btn  btn-primary pull-right">新增</a>
           <table class="table table-bordered">
@@ -25,11 +25,11 @@
                 <td>{{$item->title}}</td>
                 <td>{{$item->mobile}}</td>
                 <td>
-                  <a href="{{ URL('admin/teacher/'.$item->id.'/edit') }}" class="btn btn-success">编辑</a>
+                  <a href="{{ URL('admin/teacher/'.$item->id.'/edit') }}" class="btn btn-success btn-xs">编辑</a>
                   <form action="{{ URL('admin/teacher/'.$item->id) }}" method="POST" style="display: inline;">
                     <input name="_method" type="hidden" value="DELETE">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <button type="submit" class="btn btn-danger">删除</button>
+                    <button type="submit" class="btn btn-danger btn-xs">删除</button>
                   </form>
                 </td>
               </tr>

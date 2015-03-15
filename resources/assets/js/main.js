@@ -6,8 +6,9 @@ $(function() {
 	});
 
     var $inputifle=$('input.inputfile');
-    console.log($inputifle);
-	$('input.inputfile').fileinput({
+    console.log($inputifle.attr('value'));
+    var img="<img src='"+ $inputifle.attr('value')+"' class='file-preview-image' alt='' title=''>";
+	$inputifle.fileinput({
 		removeTitle: '删除文件',
 		uploadTitle: '上传文件',
 		indicatorNewTitle: '没有上传完成',
@@ -44,7 +45,7 @@ $(function() {
 		dropZoneTitleClass: 'file-drop-zone-title',
 		ajaxSettings: {},
 		initialPreview: [
-			"<img src='/images/desert.jpg' class='file-preview-image' alt='Desert' title='Desert'>",
+			img
 		],
 	});
 })

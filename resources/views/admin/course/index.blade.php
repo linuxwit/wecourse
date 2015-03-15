@@ -27,11 +27,11 @@
                 <td>{{$item->endtime}}</td>
                 <td>{{$item->online==1?'是':'否'}}</td>
                 <td>
-                  <a href="{{ URL('admin/course/'.$item->id.'/edit') }}" class="btn btn-success">编辑</a>
+                  <a href="{{ URL('admin/course/'.$item->id.'/edit') }}" class="btn btn-success btn-xs">编辑</a>
                   <form action="{{ URL('admin/pages/'.$item->id) }}" method="POST" style="display: inline;">
                     <input name="_method" type="hidden" value="DELETE">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <button type="submit" class="btn btn-danger">删除</button>
+                    <button type="submit" class="btn btn-danger btn-xs">删除</button>
                   </form>
                 </td>
               </tr>

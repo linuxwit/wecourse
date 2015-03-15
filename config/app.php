@@ -78,7 +78,7 @@ return [
 	|
 	 */
 
-	'key' => env('APP_KEY', 'SomeRandomString'),
+	'key' => env('APP_KEY', 'abcd1234abcd1234'),
 
 	'cipher' => MCRYPT_RIJNDAEL_128,
 
@@ -97,6 +97,17 @@ return [
 
 	'log' => 'daily',
 
+	/**
+	 * 	$accessKey = 'YG9uh4iBBLoeX20AeoAZKQIctJjn0fdH5UXoPNkC';
+	 *	$secretKey = 'lZAgNj8yCY_TmcPbcX4fPHPqB-Zg1h7IlaOyZpcb';
+	 *	$bucketName = 'wecourse';
+	 */
+	'qiniu' => array(
+		'domain' => 'http://wecourse.qiniudn.com/',
+		'bucket' => 'wecourse',
+		'ak' => 'YG9uh4iBBLoeX20AeoAZKQIctJjn0fdH5UXoPNkC',
+		'sk' => 'lZAgNj8yCY_TmcPbcX4fPHPqB-Zg1h7IlaOyZpcb',
+	),
 	/*
 	|--------------------------------------------------------------------------
 	| Autoloaded Service Providers

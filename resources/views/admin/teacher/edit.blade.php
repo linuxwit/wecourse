@@ -35,7 +35,7 @@
               <div class="form-group">
                 <label class="col-lg-2 control-label" for="iCover">头像<span class="text-danger">*</span></label>
                 <div class="col-lg-10">
-                  <input type="file" name="avatar"  class="inputfile" placeholder="" value="{{ $doc->avatar }}" >
+                  <input type="file" name="avatar"  class="inputfile" placeholder="" value="{{ $qiniu.$doc->avatar }}" >
                 </div>
               </div>
               <div class="form-group">
@@ -80,10 +80,4 @@
     </div>
   </div>
 </div>
-</div>
-<input id="input-id" type="file" class="file" data-preview-file-type="text" >
-
-
-
-
 @endsection
