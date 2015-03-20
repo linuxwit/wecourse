@@ -17,7 +17,7 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 Route::group(['namespace' => 'Course'], function () {
-	Route::get('join/course/{id}', 'CourseController@join');
+	Route::get('course/{id}/join', 'CourseController@join');
 	Route::get('course/{id}', 'CourseController@detail');
 	Route::get('course', 'CourseController@index');
 });

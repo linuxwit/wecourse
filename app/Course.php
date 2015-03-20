@@ -18,6 +18,6 @@ class Course extends Model {
 	 */
 	protected $fillable = ['uid', 'teacherid', 'title', 'subtitle', 'city', 'cover', 'summary', 'content', 'address', 'begintime', 'endtime', 'currentprice', 'oldprice', 'joinercount', 'pv', 'uv'];
 	public function teacher() {
-		return $this->hasOne('Teacher', 'teacherid', 'id');
+		return $this->hasOne('App\Teacher', 'id', 'teacherid');
 	}
 }

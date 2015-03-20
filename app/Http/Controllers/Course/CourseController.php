@@ -32,7 +32,8 @@ class CourseController extends Controller {
 		]);
 	}
 	public function detail($id) {
-		return view('course.detail')->withDoc(Course::find($id));
+		$course = Course::find($id);
+		return view('course.detail', ['doc' => $course, 'teacher' => $course->teacher]);
 	}
 
 	public function newest() {
