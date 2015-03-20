@@ -15,8 +15,8 @@ class CreateOrderTable extends Migration {
 	public function up() {
 		Schema::create('order', function (Blueprint $table) {
 			$table->increments('id');
-			$table->integer('outorderid'); //外部定单ID
-			$table->integer('uid'); //报名人的用户ID,可以为空，
+			$table->integer('outorderid')->nullable(); //外部定单ID
+			$table->integer('uid')->nullable(); //报名人的用户ID,可以为空，
 			$table->integer('itemid'); //参加的课程ID
 			$table->string('itemtitle'); //参加的课程名称
 			$table->decimal('price'); //价格
@@ -26,14 +26,14 @@ class CreateOrderTable extends Migration {
 			$table->string('title'); //职位
 			$table->string('spm'); //广告码，用于统计效果
 			$table->string('source'); //推荐人,谁介绍来报名的
-			$table->string('country');
-			$table->string('provice');
-			$table->string('city');
-			$table->string('address');
+			$table->string('country')->nullable();
+			$table->string('provice')->nullable();
+			$table->string('city')->nullable();
+			$table->string('address')->nullable();
 			$table->integer('status')->default(0); //订单状态
 			$table->boolean('paystatus')->default(0); //是否付款
 			$table->integer('paytype'); //付款方式 前期只支付线下付款，银行转帐，面对面交易
-			$table->string('mark');
+			$table->string('mark')->nullable();
 			$table->timestamps();
 		});
 	}

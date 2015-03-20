@@ -1,7 +1,11 @@
 <?php namespace App\Http\Controllers\Course;
 use App\Course;
 use App\Http\Controllers\Controller;
+use App\Order;
+use Auth;
+use Illuminate\Http\Request;
 use Input;
+use Redirect;
 
 class CourseController extends Controller {
 	/**
@@ -35,7 +39,43 @@ class CourseController extends Controller {
 		$course = Course::find($id);
 		return view('course.detail', ['doc' => $course, 'teacher' => $course->teacher]);
 	}
+	public function showJoin($id) {
+		return view('course.join')->withDoc(Course::find($id));
+	}
+	public function join(Request $request, $id) {
 
+		$rules = [
+			'name' => 'required|max:100',
+			'mobile' => 'required|max:120',
+			'company' => 'required|max:120',
+			'title' => 'required|max:120',
+			'source' => 'max:120',
+			'spm' => 'max:120',
+		];
+		$validator = $this->validate($request, $rules);
+		$course = Course::find($id);
+		if (!$course) {
+			return Redirect::to('course/');
+		}
+		$inputs = Input::only('name', 'mobile', 'company', 'title', 'spm', 'source', 'country', 'provice', 'city');
+		$order = Order::create(array_merge($inputs,
+			array(
+				'uid' => Auth::id(),
+				'itemid' => $course->id,
+				'itemtitle' => $course->title,
+				'price' => $course->currentprice,
+				'status' => 0,
+				'paystatus' => 0,
+				'paytype' => 1,
+			))
+		);
+
+		if ($order) {
+			return Redirect::to('user/course/' . $order->id);
+		} else {
+			return Redirect::back()->withInput()->withErrors('提交报名申请失败失败！请重试');
+		}
+	}
 	public function newest() {
 		return view('course.index');
 	}
@@ -44,8 +84,5 @@ class CourseController extends Controller {
 	}
 	public function plan() {
 		return view('course.plan');
-	}
-	public function join() {
-		return view('course.join');
 	}
 }

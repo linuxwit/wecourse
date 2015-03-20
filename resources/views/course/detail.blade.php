@@ -14,7 +14,7 @@
 					<p>{{ $doc->subtitle }}</p>
 					<div class="row">
 						<p  class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-							<a href="/course/{{ $doc->id }}" class="btn btn-danger pull-right" role="button">我要报名</a>
+							<a href="/course/{{ $doc->id }}/join" class="btn btn-danger pull-right" role="button">我要报名</a>
 						</p>
 						<p  class="col-sm-12 col-md-12 col-lg-12">
 							<small class="pull-left">开课城市：{{$doc->city}}</small>

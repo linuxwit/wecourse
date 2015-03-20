@@ -10,17 +10,23 @@
 |
  */
 Route::post('/wechat/{id}', 'WechatController@index'); //微信接口
+
 Route::get('/', 'WelcomeController@index');
 Route::get('home', 'HomeController@index');
+
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
+
 Route::group(['namespace' => 'Course'], function () {
-	Route::get('course/{id}/join', 'CourseController@join');
+	Route::get('course/{id}/join', 'CourseController@showJoin');
 	Route::get('course/{id}', 'CourseController@detail');
 	Route::get('course', 'CourseController@index');
+
+	Route::post('course/{id}/join', 'CourseController@join');
 });
+
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 	Route::resource('course', 'CourseController');
 	Route::resource('teacher', 'TeacherController');
