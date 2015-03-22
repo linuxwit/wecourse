@@ -5,17 +5,14 @@
 	<div class="row hidden-md hidden-lg">
 		<div class="col-md-12">
 			<div class="thumbnail">
-				<a href="/wecourse/course/{{ $doc->id }}" class="col-md-5 col-lg-4  img-responsive">
+				<a href="/wecourse/course/{{ $doc->id }}" class="img-responsive">
 					<img src="{{ $doc->cover }}" >
 				</a>
-				<div class="caption col-md-7 col-lg-8">
+				<div class="caption">
 					<h4><a href="/wecourse/course/{{ $doc->id }}">{{$doc->title}}</a>
 					</h4>
 					<p>{{ $doc->subtitle }}</p>
 					<div class="row">
-						<p  class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-							<a href="/course/{{ $doc->id }}/join" class="btn btn-danger pull-right" role="button">我要报名</a>
-						</p>
 						<p  class="col-sm-12 col-md-12 col-lg-12">
 							<small class="pull-left">开课城市：{{$doc->city}}</small>
 							<small class="pull-right">开课时间：{{ date('Y-m-d',strtotime($doc->endtime))}}</small>
@@ -29,8 +26,8 @@
 	<div class="well hidden-xs hidden-sm">
 		<div class="media">
 			<div class="media-left">
-				<a href="#">
-					<img class="media-object" src="{{ $doc->cover }}" alt="...">
+				<a href="/wecourse/course/{{ $doc->id }}">
+					<img class="media-object" src="{{ $doc->cover }}" alt="{{$doc->title}}">
 				</a>
 			</div>
 			<div class="media-body">
@@ -80,11 +77,11 @@
 		</div>
 	</div>
 </div>
-<nav class="navbar navbar-default navbar-fixed-bottom nav-bottom hidden-md hidden-lg">
-	<ul class="nav navbar-nav row">
-		<li class="pull-left text-center" style="width:25%"><a href="/course">返回</a></li>
-		<li class="pull-left text-center" style="width: 50%;border-left: 1px solid #CCC;border-right: 1px solid #CCC;"><a href="/course/{{ $doc->id }}/join">立即报名</a></li>
-		<li class="pull-left text-center" style="width: 25%"><a href="#" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">...</a></li>
+<nav class="navbar navbar-default  navbar-fixed-bottom nav-bottom hidden-md hidden-lg">
+	<ul class="nav nav-pills-bottom">
+		<li class="text-center"><a href="/course">返回</a></li>
+		<li class="text-center"><a href="/course/{{ $doc->id }}/join">立即报名</a></li>
+		<li class="text-center"><a href="#" data-toggle="collapse" data-target="#nav-header-1">...</a></li>
 	</ul>
 </nav>
 @endsection

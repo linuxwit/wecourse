@@ -52,6 +52,28 @@ body {
 	background: none;
 }
 
+/*手机上的菜单*/
+.nav-pills-bottom{
+    padding: 1px 0;
+}
+.nav-pills-bottom li{
+
+    width: 60%;
+    padding: 0;
+    
+    float: left;
+}
+.nav-pills-bottom li:first-child{
+    width: 20%;
+    padding: 0;
+    margin: 0;
+}
+.nav-pills-bottom li:last-child{
+    width: 20%;
+    padding: 0;
+    margin: 0;
+}
+
 .tree {
     min-height:20px;
     padding:19px;

@@ -13,9 +13,8 @@ abstract class Controller extends BaseController {
 
 	use DispatchesCommands, ValidatesRequests;
 
-	protected function uploadImage($file, $uid) {
-		$local = '/upload/image/teacher/' . date('ymd') . '/';
-
+	protected function upload($file, $uid, $folder = '/upload/image/teacher/') {
+		$local = $folder . date('ymd') . '/';
 		$clientName = $file->getClientOriginalName();
 		$mime = $file->getMimeType();
 		$mimeTye = $file->getMimeType();

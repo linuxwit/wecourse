@@ -60,7 +60,7 @@ class TeacherController extends Controller {
 
 		if (Input::hasFile('avatar')) {
 			$file = Input::file('avatar');
-			$media = $this->uploadImage($file, Auth::id());
+			$media = $this->upload($file, Auth::id());
 			$model->avatar = $media->cloudurl;
 			$model = Teacher::create(array_merge($inputs, array('uid' => Auth::id(), 'avatar' => $media->cloudurl)));
 			if ($model) {
@@ -111,7 +111,7 @@ class TeacherController extends Controller {
 		}
 		if (Input::hasFile('avatar')) {
 			$file = Input::file('avatar');
-			$media = $this->uploadImage($file, Auth::id());
+			$media = $this->upload($file, Auth::id());
 			$model->avatar = $media->cloudurl;
 		}
 		$model->name = Input::get('name');

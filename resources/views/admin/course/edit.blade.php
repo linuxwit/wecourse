@@ -1,10 +1,10 @@
-@extends('app')
+@extends('admin')
 @section('content')
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
       <div class="panel panel-default">
-        <div class="panel-heading">新增课程</div>
+        <div class="panel-heading">编辑课程</div>
         <div class="panel-body">
           @if (count($errors) > 0)
           <div class="alert alert-danger">
@@ -16,7 +16,7 @@
             </ul>
           </div>
           @endif
-          <form class="form-horizontal" action="{{ URL('admin/course/'.$doc->id) }}" accept-charset="UTF-8" method="post">
+          <form class="form-horizontal" action="{{ URL('admin/course/'.$doc->id) }}" accept-charset="UTF-8" method="post" enctype="multipart/form-data">
             <input name="_method" type="hidden" value="PUT">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <fieldset>
@@ -35,13 +35,13 @@
               <div class="form-group">
                 <label class="col-lg-2 control-label" for="iCover">封面图片<span class="text-danger">*</span></label>
                 <div class="col-lg-10">
-                  <input type="file" name="cover" value="{{ $doc->cover }}"class="form-control" placeholder="" required>
+                  <input type="file" name="cover" value="{{ Config::get('app.qiniu')['domain'].$doc->cover }}" class="inputfile">
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-lg-2 control-label" for="iSumarry">简介<span class="text-danger">*</span></label>
                 <div class="col-lg-10">
-                  <textarea  name="summary" class="form-control" >{{ $doc->summary }}</textarea>
+                  <textarea  name="summary" class="editor" class="form-control" >{{ $doc->summary }}</textarea>
                 </div>
               </div>
               <div class="form-group">
@@ -51,39 +51,39 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-lg-2 control-label" for="iName">结束时间<span class="text-danger">*</span></label>
+                <label class="col-lg-2 control-label" for="endtime">结束时间<span class="text-danger">*</span></label>
                 <div class="col-lg-10">
                   <input type="text" name="endtime" value="{{ $doc->endtime }}" class="form-control" placeholder="" required>
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-lg-2 control-label" for="iName">开课地址<span class="text-danger">*</span></label>
+                <label class="col-lg-2 control-label" for="iCity">开课城市<span class="text-danger">*</span></label>
+                <div class="col-lg-10">
+                  <input type="text" name="city" value="{{ $doc->city}}" class="form-control" placeholder="" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-lg-2 control-label" for="address">开课地址<span class="text-danger">*</span></label>
                 <div class="col-lg-10">
                   <input type="text" name="address" value="{{ $doc->address }}" class="form-control" placeholder="" required>
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-lg-2 control-label" for="iName">当前价格<span class="text-danger">*</span></label>
+                <label class="col-lg-2 control-label" for="currentprice">当前价格<span class="text-danger">*</span></label>
                 <div class="col-lg-10">
                   <input type="text" name="currentprice" value="{{ $doc->currentprice }}" class="form-control" placeholder="" required>
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-lg-2 control-label" for="iName">市场价格<span class="text-danger">*</span></label>
+                <label class="col-lg-2 control-label" for="oldprice">市场价格<span class="text-danger">*</span></label>
                 <div class="col-lg-10">
                   <input type="text" name="oldprice" value="{{ $doc->oldprice }}"class="form-control" placeholder="" required>
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-lg-2 control-label" for="iName">详细内容<span class="text-danger">*</span></label>
+                <label class="col-lg-2 control-label" for="content">详细内容<span class="text-danger">*</span></label>
                 <div class="col-lg-10">
-                  <textarea name="content" class="form-control" >{{ $doc->content }}</textarea>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-lg-2 control-label" for="iName">客服电话<span class="text-danger">*</span></label>
-                <div class="col-lg-10">
-                  <input type="text" name="name"  value="{{ $doc->title }}" class="form-control" placeholder="" required>
+                  <textarea name="content" class="editor" >{{ $doc->content }}</textarea>
                 </div>
               </div>
               <div class="form-group">

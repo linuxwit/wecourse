@@ -18,7 +18,6 @@ class CourseController extends Controller {
 	 * @return Response
 	 */
 	public function index() {
-		//return view('admin.course.index')->withDocs(Course::all());
 		$model = new Course;
 		$builder = $model->orderBy('id', 'desc');
 		$input = Input::all();
@@ -58,19 +57,22 @@ class CourseController extends Controller {
 			'endtime' => 'required|date',
 			'city' => 'required|max:50',
 			'address' => 'required|max:200',
-			'summary' => 'required|max:500',
-			'cover' => 'required|url',
+			'summary' => 'required',
+			'cover' => 'required',
 			'online' => 'required',
 			'content' => 'required',
 		];
 		$validator = $this->validate($request, $rules);
-		$inputs = Input::only('title', 'content', 'subtitle', 'begintime', 'endtime', 'address', 'cover', 'online', 'content', 'currentprice', 'oldprice');
-		$course = Course::create(array_merge($inputs, array('uid' => Auth::id(), 'teacherid' => 1)));
-		if ($course) {
+		$inputs = Input::only('title', 'content', 'subtitle', 'begintime', 'endtime', 'address', 'city', 'cover', 'online', 'content', 'currentprice', 'oldprice', 'teacherid');
+		if (Input::hasFile('cover')) {
 			$file = Input::file('cover');
-			return Redirect::to('admin/course');
-		} else {
-			return Redirect::back()->withInput()->withErrors('保存失败！');
+			$media = $this->upload($file, Auth::id(), '/upload/image/course');
+			$model = Course::create(array_merge($inputs, array('uid' => Auth::id(), 'cover' => $media->cloudurl, 'teacherid' => 1)));
+			if ($model) {
+				return Redirect::to('admin/course');
+			} else {
+				return Redirect::back()->withInput()->withErrors('保存失败！');
+			}
 		}
 	}
 	/**
@@ -105,8 +107,7 @@ class CourseController extends Controller {
 			'endtime' => 'required|date',
 			'city' => 'required|max:50',
 			'address' => 'required|max:200',
-			'summary' => 'required|max:500',
-			'cover' => 'required|url',
+			'summary' => 'required',
 			'online' => 'required',
 			'content' => 'required',
 		];
@@ -120,10 +121,15 @@ class CourseController extends Controller {
 		$course->endtime = Input::get('endtime');
 		$course->city = Input::get('city');
 		$course->address = Input::get('address');
-		$course->cover = Input::get('cover');
 		$course->online = Input::get('online');
 		$course->currentprice = Input::get('currentprice');
 		$course->oldprice = Input::get('oldprice');
+
+		if (Input::hasFile('cover')) {
+			$file = Input::file('cover');
+			$media = $this->upload($file, Auth::id(), '/upload/image/course');
+			$model->cover = $media->cloudurl;
+		}
 		if ($course->save()) {
 			return Redirect::to('admin/course');
 		} else {

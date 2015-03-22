@@ -14,6 +14,11 @@
                 </ul>
             </div>
             @endif
+            @if(Session::has('success'))
+            <div class="alert alert-success">
+                <strong>{{ Session::get('success') }}</strong>
+            </div>
+            @endif
             <fieldset>
                 <legend>填写报名表</legend>
                 <div class="form-group">
@@ -26,10 +31,10 @@
                     <label class="col-lg-2 control-label" for="iSex">性别</label>
                     <div class="col-lg-10">
                         <label class="radio-inline">
-                            <input type="radio" name="sex" value="男" "{{ Input::old('sex')=='男'?'checked':'' }}"> 男
+                            <input type="radio" name="sex" value="男" {{ Input::old('sex')!='女'?'checked':'' }}> 男
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="sex" value="女" "{{ Input::old('sex')=='女'?'checked':'' }}"> 女
+                            <input type="radio" name="sex" value="女" {{ Input::old('sex')=='女'?'checked':'' }}> 女
                         </label>
                     </div>
                 </div>
@@ -54,7 +59,7 @@
                 <div class="form-group">
                     <label class="col-lg-2 control-label" for="iSource">推荐人<span class="text-danger"></span></label>
                     <div class="col-lg-10">
-                        <input type="text" name="source" maxlength="30" value="{{ Input::old('source') }}" class="form-control" placeholder="填写推荐人" required>
+                        <input type="text" name="source" maxlength="30" value="{{ Input::old('source') }}" class="form-control" placeholder="如有推荐人，请填写">
                     </div>
                 </div>
                 <div class="form-group">

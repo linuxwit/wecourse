@@ -27,6 +27,11 @@ Route::group(['namespace' => 'Course'], function () {
 	Route::post('course/{id}/join', 'CourseController@join');
 });
 
+Route::group(['namespace' => 'Teacher'], function () {
+	Route::get('teacher/{id}', 'TeacherController@detail');
+	Route::get('teacher', 'TeacherController@index');
+});
+
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 	Route::resource('course', 'CourseController');
 	Route::resource('teacher', 'TeacherController');
