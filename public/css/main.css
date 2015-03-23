@@ -3,6 +3,11 @@ body {
     padding-bottom: 40px;
     background-color: #EFEFEF;
 }
+
+p.subtitle{
+    min-height: 40px;
+    color: #333;
+}
  
 .bs-callout {
   padding: 20px;

@@ -63,6 +63,7 @@ class CourseController extends Controller {
 			'content' => 'required',
 		];
 		$validator = $this->validate($request, $rules);
+
 		$inputs = Input::only('title', 'content', 'subtitle', 'begintime', 'endtime', 'address', 'city', 'cover', 'online', 'content', 'currentprice', 'oldprice', 'teacherid');
 		if (Input::hasFile('cover')) {
 			$file = Input::file('cover');

@@ -1,12 +1,12 @@
 @extends('app')
 @section('content')
-<div class="container-fluid">
+<div class="container">
 	<h4>{{ $doc->title}} <small></small></h4>
 	<div class="row hidden-md hidden-lg">
 		<div class="col-md-12">
 			<div class="thumbnail">
 				<a href="/wecourse/course/{{ $doc->id }}" class="img-responsive">
-					<img src="{{ $doc->cover }}" >
+					<img src="{{ Config::get('app.qiniu')['domain'].$doc->cover }}" alt="{{$doc->title}}"></a>
 				</a>
 				<div class="caption">
 					<h4><a href="/wecourse/course/{{ $doc->id }}">{{$doc->title}}</a>
@@ -26,8 +26,8 @@
 	<div class="well hidden-xs hidden-sm">
 		<div class="media">
 			<div class="media-left">
-				<a href="/wecourse/course/{{ $doc->id }}">
-					<img class="media-object" src="{{ $doc->cover }}" alt="{{$doc->title}}">
+				<a href="/course/{{ $doc->id }}">
+					<img class="media-object" src="{{ Config::get('app.qiniu')['domain'].$doc->cover }}" alt="{{$doc->title}}">
 				</a>
 			</div>
 			<div class="media-body">

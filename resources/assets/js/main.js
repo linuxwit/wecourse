@@ -1,13 +1,36 @@
+var submit = function(formid) {
+	$form = $(formid);
+	if (!$form) return;
+	$.ajax({
+		url: $form.attr('action'),
+		type: $form.attr('method'),
+		data: $form.serialize(),
+		success: function(data) {
+			console.log(data)
+		},
+		error: function(data) {
+			console.log(data)
+		}
+	});
+};
+
 $(function() {
+
+
+
 	$('textarea.editor').summernote({
 		height: 350,
 		tabsize: 2,
 		lang: 'zh-CN'
 	});
 
-    var $inputifle=$('input.inputfile');
-    console.log($inputifle.attr('value'));
-    var img="<img src='"+ $inputifle.attr('value')+"' class='file-preview-image' alt='' title=''>";
+	var $inputifle = $('input.inputfile');
+	var img = null;
+	if ($inputifle.attr('value')) {
+		img = ["<img src='" + $inputifle.attr('value') + "' class='file-preview-image' alt='' title=''>"];
+	}
+
+
 	$inputifle.fileinput({
 		removeTitle: '删除文件',
 		uploadTitle: '上传文件',
@@ -44,8 +67,9 @@ $(function() {
 		dropZoneTitle: '拖拽文件 &hellip;',
 		dropZoneTitleClass: 'file-drop-zone-title',
 		ajaxSettings: {},
-		initialPreview: [
-			img
-		],
+		initialPreview: img,
 	});
+
+
+
 })
