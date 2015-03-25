@@ -45,7 +45,7 @@
 								<li><a href="/backbone/user/index">用户管理</a></li>
 								@endif
 								@if (Auth::user()->ispartner || Auth::user()->isadmin)
-								<li><a href="/wxmp/account">微信管理</a></li>
+								<li><a href="/admin/account">微信管理</a></li>
 								<li><a href="/admin/course">课程管理</a></li>
 								<li><a href="/admin/teacher">讲师管理</a></li>
 								<li><a href="/admin/order">订单管理</a></li>

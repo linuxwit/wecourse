@@ -32,10 +32,12 @@ Route::group(['namespace' => 'Teacher'], function () {
 	Route::get('teacher', 'TeacherController@index');
 });
 
-Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'namespace' => 'Admin'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin'], function () {
 	Route::resource('course', 'CourseController');
 	Route::resource('teacher', 'TeacherController');
-	Route::resource('account', 'AccountController');
+
 	Route::resource('user', 'UserController');
-	Route::resource('media', 'MediaController');
+	//Route::resource('media', 'MediaController');
+
+	Route::resource('account', 'AccountController');
 });

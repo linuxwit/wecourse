@@ -2,7 +2,11 @@
 
 use App\Account;
 use App\Http\Controllers\Controller;
+use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Input;
+use Log;
 
 class AccountController extends Controller {
 
@@ -39,28 +43,41 @@ class AccountController extends Controller {
 	 * @return Response
 	 */
 	public function store(Request $request) {
+		Log::debug('create account');
 		$rules = array(
 			'name' => 'required',
 			'type' => 'required',
 			'audit' => 'required|integer',
 			'appid' => 'required|max:18',
-			'appsecretid' => 'required|max:32',
+			'appsecret' => 'required|max:32',
 		);
 		$validator = $this->validate($request, $rules);
-		if ($validator->fails()) {
-			echo $validator->messages();
+		if ($validator && $validator->fails()) {
+			return response()->json(array('s' => 0, 'm' => $validator->messages()));
 		} else {
-			$input = Input::only('name', 'type', 'audit', 'appid', 'appsecretid');
+			$input = Input::only('name', 'type', 'audit', 'appid', 'appsecret');
 			$token = md5($input['name'] . $input['type'] . $input['audit'] . $input['appid']);
-			$encodingaeskey = md5($token . $input['appsecretid']);
-			$model = Account::create(array_merge($input, array('token' => $token, 'encodingaeskey' => $encodingaeskey, 'uid' => Auth::id())));
+			$encodingaeskey = md5($token . $input['appsecret']);
+
+			$model = Account::create(
+				array_merge($input,
+					array(
+						'uid' => Auth::id(),
+						'maxlbslength' => 1000,
+						'times' => 0,
+						'subscribeenable' => 0,
+						'nomatchenable' => 0,
+						'token' => $token,
+						'encodingaeskey' => $encodingaeskey,
+					)
+				)
+			);
 			if ($model) {
-				return Redirect::to('admin/wechat');
+				return response()->json(array('s' => 1, 'm' => '添加成功'));
 			} else {
-				return '保存出错';
+				return response()->json(array('s' => 0, 'm' => '添加失败，请重试'));
 			}
 		}
-
 	}
 
 	/**

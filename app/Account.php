@@ -6,4 +6,21 @@ class Account extends Model {
 
 	protected $table = 'mp_account';
 
+	protected $fillable = ['uid',
+		'name',
+		'type',
+		'audit',
+		'appid',
+		'appsecret',
+		'token',
+		'encodingaeskey',
+		'menu',
+		'subscribeenable',
+		'subscribemsgtype',
+		'subscribecontent',
+		'nomatchenable',
+		'nomatchmsgtype',
+		'nomatchcontent',
+		'times',
+	];
 }

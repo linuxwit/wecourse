@@ -1,23 +1,31 @@
-var submit = function(formid) {
+var submitFrom = function(formid, reload, modalid) {
 	$form = $(formid);
 	if (!$form) return;
+	console.log('submitFrom');
 	$.ajax({
 		url: $form.attr('action'),
 		type: $form.attr('method'),
 		data: $form.serialize(),
 		success: function(data) {
-			console.log(data)
+			console.log(data);
+			if (data && data.s == 1) {
+				$(modalid).modal('hide');
+				if (reload) {
+					window.location.reload();
+				}
+			}else{
+				alert('操作失败');
+			}
+
 		},
 		error: function(data) {
 			console.log(data)
+				alert('操作失败');
 		}
 	});
 };
 
 $(function() {
-
-
-
 	$('textarea.editor').summernote({
 		height: 350,
 		tabsize: 2,

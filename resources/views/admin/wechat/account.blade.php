@@ -17,10 +17,11 @@
 		</div>
 		<div class="col-md-9 col-lg-10">
 			<div class="row">
+				@foreach ($accounts as $item)
 				<div class="col-sm-6 col-md-4">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<span>学习互动吧</span>
+							<span>{{$item->name}}</span>
 							<div class="dropdown pull-right">
 								<a id="dLabel" href="#" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
 									配置
@@ -34,17 +35,18 @@
 							</div>
 						</div>
 						<div class="panel-body">
-							<p>用于描述公众号的用途</p>
+							<p></p>
 						</div>
 						<ul class="list-group">
-							<li class="list-group-item">接口地址：http://xue.mf23.cn/wechat/123</li>
-							<li class="list-group-item">AppId:</li>
-							<li class="list-group-item">AppSecret:</li>
-							<li class="list-group-item">Token</li>
-							<li class="list-group-item">EncodingaesKey:</li>
+							<li class="list-group-item">接口地址：<strong>http://xue.mf23.cn/wechat/{{$item->uid}}</strong></li>
+							<li class="list-group-item">AppId:<strong>{{$item->appid}}</strong></li>
+							<li class="list-group-item">AppSecret:<strong>{{$item->appsecret}}</strong></li>
+							<li class="list-group-item">Token:<strong>{{$item->token}}</strong></li>
+							<li class="list-group-item">EncodingaesKey:<strong>{{$item->encodingaeskey}}</strong></li>
 						</ul>
 					</div>
 				</div>
+				@endforeach
 				<div class="col-sm-6 col-md-4">
 					<div class="panel panel-default box box-add-account">
 						<a href="#" data-toggle="modal" data-target="#add_wx_mp">添加公众帐号</a>
@@ -63,44 +65,51 @@
 				<h4 class="modal-title" id="myModalLabel">添加公众帐号</h4>
 			</div>
 			<div class="modal-body">
-				<form class="form-horizontal" id="formAccount" action="{{ URL('admin/account') }}" accept-charset="UTF-8" method="post">
+				<form class="form-horizontal" id="formAccount" action="{{ URL('admin/account') }}" method="post">
 					<fieldset>
+					   <input type="hidden" name="_token" value="{{ csrf_token() }}">
 						<div class="form-group">
-							<label class="col-md-3 control-label" for="iAppId">公众号名称<span class="text-danger">*</span></label>
+							<label class="col-md-3 control-label" for="name">公众号名称<span class="text-danger">*</span></label>
 							<div class="col-md-9">
-								<input type="text" name="appid"  maxlength="32"  class="form-control" required>
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-md-3 control-label" for="iAppId">类型<span class="text-danger">*</span></label>
-							<div class="col-md-9">
-								<input type="text" name="appid"  maxlength="32"  class="form-control" required>
-							</div>
-						</div>
-							<div class="form-group">
-							<label class="col-md-3 control-label" for="iAppId">是否认证<span class="text-danger">*</span></label>
-							<div class="col-md-9">
-								<input type="text" name="appid" value="{{ Input::old('name') }}" maxlength="18"  class="form-control" placeholder="请在微信公众平台的开发者中心查找" required>
+								<input type="text" name="name"  maxlength="32"  class="form-control" required>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-md-3 control-label" for="iAppId">(AppId)ID<span class="text-danger">*</span></label>
+							<label class="col-md-3 control-label" for="type">类型<span class="text-danger">*</span></label>
 							<div class="col-md-9">
-								<input type="text" name="appid" value="{{ Input::old('name') }}" maxlength="18"  class="form-control" placeholder="请在微信公众平台的开发者中心查找" required>
+								<label class="radio-inline">
+									<input type="radio" name="type" id="type" value="服务号"> 服务号
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="type" id="type" value="订阅号"> 订阅号
+								</label>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-md-3 control-label" for="iAppId">AppSecret(应用密钥)<span class="text-danger">*</span></label>
+							<label class="col-md-3 control-label" for="audit">是否认证<span class="text-danger">*</span></label>
 							<div class="col-md-9">
-								<input type="text" name="appsecret" value="{{ Input::old('name') }}" maxlength="32" class="form-control" placeholder="请在微信公众平台的开发者中心查找" required>
+								<input type="checkbox" name="audit" value="1">
 							</div>
 						</div>
+						<div class="form-group">
+							<label class="col-md-3 control-label" for="appid">(AppId)ID<span class="text-danger">*</span></label>
+							<div class="col-md-9">
+								<input type="text" name="appid" maxlength="18"  class="form-control" placeholder="请在微信公众平台的开发者中心查找" required>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-3 control-label" for="appsecretid">AppSecret(应用密钥)<span class="text-danger">*</span></label>
+							<div class="col-md-9">
+								<input type="text" name="appsecret"  maxlength="32" class="form-control" placeholder="请在微信公众平台的开发者中心查找" required>
+							</div>
+						</div>
+						<button type="submit">提交</button>
 					</fieldset>
 				</form>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-				<button type="submit" class="btn btn-primary" onclick="submit('#formAccount')" >确认</button>
+				<button type="button" class="btn btn-primary" onclick="submitFrom('#formAccount',true,'#add_wx_mp');return false" >确认</button>
 			</div>
 		</div>
 	</div>

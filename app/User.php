@@ -35,4 +35,15 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		return $this->hasOne('Profile', 'uid', 'id');
 	}
 
+	public function owns($item_creator) {
+		return $this->id == $item_creator;
+	}
+
+	public function canEdit($item_creator) {
+		return $this->isadmin or $this->owns($item_creator);
+	}
+
+	public function isAdmin() {
+		return $this->isadmin;
+	}
 }
