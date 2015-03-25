@@ -10,9 +10,9 @@
 		</div>
 		<div class="col-md-3 col-lg-2">
 			<ul class="list-group">
-				<li class="list-group-item"><a href="/wxmp/account">我的公众号</a></li>
-				<li class="list-group-item"><a href="/wxmp/message">消息管理</a></li>
-				<li class="list-group-item"><a href="/wxmp/media">素材管理</a></li>
+				<li class="list-group-item"><a href="/admin/account">我的公众号</a></li>
+				<li class="list-group-item"><a href="/admin/message">消息管理</a></li>
+				<li class="list-group-item"><a href="/admin/media">素材管理</a></li>
 			</ul>
 		</div>
 		<div class="col-md-9 col-lg-10">
@@ -28,9 +28,9 @@
 									<span class="caret"></span>
 								</a>
 								<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-									<li><a href="/wxmp/account/setting#welcome">欢迎语</a></li>
-									<li><a href="/wxmp/account/setting#menu">菜单</a></li>
-									<li><a href="/wxmp/account/setting#info">信息</a></li>
+									<li><a href="/admin/account/{{$item->id}}/edit#welcome">欢迎语</a></li>
+									<li><a href="/admin/account/{{$item->id}}/edit#menu">菜单</a></li>
+									<li><a href="/admin/account/{{$item->id}}/edit#info">信息</a></li>
 								</ul>
 							</div>
 						</div>
@@ -38,7 +38,7 @@
 							<p></p>
 						</div>
 						<ul class="list-group">
-							<li class="list-group-item">接口地址：<strong>http://xue.mf23.cn/wechat/{{$item->uid}}</strong></li>
+							<li class="list-group-item">接口地址：<strong>http://xue.mf23.cn/wechat/{{$item->id}}</strong></li>
 							<li class="list-group-item">AppId:<strong>{{$item->appid}}</strong></li>
 							<li class="list-group-item">AppSecret:<strong>{{$item->appsecret}}</strong></li>
 							<li class="list-group-item">Token:<strong>{{$item->token}}</strong></li>
@@ -65,9 +65,11 @@
 				<h4 class="modal-title" id="myModalLabel">添加公众帐号</h4>
 			</div>
 			<div class="modal-body">
+				<div class="alert alert-danger modal-message" >
+				</div>
 				<form class="form-horizontal" id="formAccount" action="{{ URL('admin/account') }}" method="post">
 					<fieldset>
-					   <input type="hidden" name="_token" value="{{ csrf_token() }}">
+						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 						<div class="form-group">
 							<label class="col-md-3 control-label" for="name">公众号名称<span class="text-danger">*</span></label>
 							<div class="col-md-9">
@@ -75,10 +77,10 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-md-3 control-label" for="type">类型<span class="text-danger">*</span></label>
+							<label class="col-md-3 control-label" for="type">类型</label>
 							<div class="col-md-9">
 								<label class="radio-inline">
-									<input type="radio" name="type" id="type" value="服务号"> 服务号
+									<input type="radio" name="type" id="type" checked value="服务号"> 服务号
 								</label>
 								<label class="radio-inline">
 									<input type="radio" name="type" id="type" value="订阅号"> 订阅号
@@ -86,9 +88,13 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-md-3 control-label" for="audit">是否认证<span class="text-danger">*</span></label>
+							<label class="col-md-3 control-label" for="audit">是否认证</label>
 							<div class="col-md-9">
-								<input type="checkbox" name="audit" value="1">
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" name="audit" value="1" checked >
+									</label>
+								</div>
 							</div>
 						</div>
 						<div class="form-group">

@@ -1,4 +1,4 @@
-@extends('app')
+@extends('admin')
 @section('content')
 <div class="container-fluid">
 	<div class="row">
@@ -10,9 +10,9 @@
 		</div>
 		<div class="col-md-3 col-lg-2">
 			<ul class="list-group">
-				<li class="list-group-item"><a href="/wxmp/account">我的公众号</a></li>
-				<li class="list-group-item"><a href="/wxmp/message">消息管理</a></li>
-				<li class="list-group-item"><a href="/wxmp/media">素材管理</a></li>
+				<li class="list-group-item"><a href="/admin/account">我的公众号</a></li>
+				<li class="list-group-item"><a href="/admin/message">消息管理</a></li>
+				<li class="list-group-item"><a href="/admin/media">素材管理</a></li>
 			</ul>
 		</div>
 		<div class="col-md-9 col-lg-10">
@@ -28,9 +28,9 @@
 									<span class="caret"></span>
 								</a>
 								<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-									<li><a href="/wxmp/account/setting#welcome">欢迎语</a></li>
-									<li><a href="/wxmp/account/setting#menu">菜单</a></li>
-									<li><a href="/wxmp/account/setting#info">信息</a></li>
+									<li><a href="/admin/account/setting#welcome">欢迎语</a></li>
+									<li><a href="/admin/account/setting#menu">菜单</a></li>
+									<li><a href="/admin/account/setting#info">信息</a></li>
 								</ul>
 							</div>
 						</div>

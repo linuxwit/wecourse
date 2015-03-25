@@ -1,69 +1,77 @@
-<h5>配置公众帐号基本信息</h5>
-<form class="form-horizontal">
-	<div class="form-group">
-		<label for="name" class="col-sm-2 col-md-2 control-label">接口地址</label>
-		<div class="col-sm-10 col-md-6">
-			<input type="text" class="form-control" disabled id="name" value="http://xue.mf23.cn/wechat/1">
+<form class="form-horizontal padding" id="formAccount" action="{{ URL('admin/account/'.$account->id) }}" method="post">
+	<fieldset>
+		@if (count($errors) > 0)
+		<div class="alert alert-danger">
+			<strong>注意!</strong>请检查以下是否输入正确.<br><br>
+			<ul>
+				@foreach ($errors->all() as $error)
+				<li>{{ $error }}</li>
+				@endforeach
+			</ul>
 		</div>
-	</div>
-	<div class="form-group">
-		<label for="name" class="col-sm-2 col-md-2 control-label">公众号名称</label>
-		<div class="col-sm-10 col-md-6">
-			<input type="text" class="form-control" id="name" placeholder="">
+		@endif
+		<input name="_method" type="hidden" value="PUT">
+		<input type="hidden" name="_token" value="{{ csrf_token() }}">
+		<div class="form-group">
+			<label for="name" class="col-sm-2 col-md-2 control-label">接口地址</label>
+			<div class="col-sm-10 col-md-6">
+				<input type="text" class="form-control" disabled id="name" value="http://xue.mf23.cn/wechat/{{$account->id}}">
+			</div>
 		</div>
-	</div>
-	<div class="form-group">
-		<label for="name" class="col-sm-2 col-md-2 control-label">公众号简介</label>
-		<div class="col-sm-10 col-md-6">
-			<textarea class="form-control" rows="3"></textarea>
+		<div class="form-group">
+			<label class="col-md-2 control-label" for="name">公众号名称<span class="text-danger">*</span></label>
+			<div class="col-md-6">
+				<input type="text" name="name"  maxlength="32" value="{{$account->name}}" class="form-control" required>
+			</div>
 		</div>
-	</div>
-	<div class="form-group">
-		<label for="name" class="col-sm-2 col-md-2 control-label">公众号类型</label>
-		<div class="col-sm-10 col-md-6">
-			<div class="radio">
-				<label>
-					<input type="radio" name="eventtype" id="optionsRadios1" value="1" checked>
-					订阅号
+		<div class="form-group">
+			<label class="col-md-2 control-label" for="type">类型</label>
+			<div class="col-md-6">
+				<label class="radio-inline">
+					<input type="radio" name="type" id="type" checked value="服务号"> 服务号
 				</label>
-				<label>
-					<input type="radio" name="eventtype" id="optionsRadios2" value="2" >
-					服务器
-				</label>
-				<label>
-					<input type="radio" name="eventtype" id="optionsRadios3" value="3" >
-					企业号
+				<label class="radio-inline">
+					<input type="radio" name="type" id="type" value="订阅号"> 订阅号
 				</label>
 			</div>
 		</div>
-	</div>
-	<div class="form-group">
-		<label for="name" class="col-sm-2 col-md-2 control-label">AppID</label>
-		<div class="col-sm-10 col-md-6">
-			<input type="text" class="form-control" id="name" placeholder="">
+		<div class="form-group">
+			<label class="col-md-2 control-label" for="audit">是否认证</label>
+			<div class="col-md-6">
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" name="audit" value="1" {{ $account->audit?'checked':'' }} >
+					</label>
+				</div>
+			</div>
 		</div>
-	</div>
-	<div class="form-group">
-		<label for="name" class="col-sm-2 col-md-2 control-label">Token</label>
-		<div class="col-sm-10 col-md-6">
-			<input type="text" class="form-control" id="name" placeholder="">
+		<div class="form-group">
+			<label class="col-md-2 control-label" for="appid">(AppId)ID<span class="text-danger">*</span></label>
+			<div class="col-md-6">
+				<input type="text" name="appid" maxlength="18"  class="form-control" value="{{$account->appid}}" required>
+			</div>
 		</div>
-	</div>
-	<div class="form-group">
-		<label for="name" class="col-sm-2 col-md-2 control-label">AppSecret</label>
-		<div class="col-sm-10 col-md-6">
-			<input type="text" class="form-control" id="name" placeholder="">
+		<div class="form-group">
+			<label class="col-md-2 control-label" for="appsecret">AppSecret(应用密钥)<span class="text-danger">*</span></label>
+			<div class="col-md-6">
+				<input type="text" name="appsecret"  maxlength="32" class="form-control" value="{{$account->appsecret}}" required>
+			</div>
 		</div>
-	</div>
-	<div class="form-group">
-		<label for="name" class="col-sm-2 col-md-2 control-label">EncodingAESKey</label>
-		<div class="col-sm-10 col-md-6">
-			<input type="text" class="form-control" id="name" placeholder="">
+		<div class="form-group">
+			<label for="name" class="col-sm-2 col-md-2 control-label">Token</label>
+			<div class="col-sm-10 col-md-6">
+				<input type="text" class="form-control" name="token"  value="{{$account->token}}" placeholder="">
+			</div>
 		</div>
-	</div>
-	<div class="form-group">
-		<div class="col-sm-offset-2 col-sm-10">
-			<button type="submit" class="btn btn-default">保存</button>
+		<div class="form-group">
+			<label for="name" class="col-sm-2 col-md-2 control-label">EncodingAESKey</label>
+			<div class="col-sm-10 col-md-6">
+				<input type="text" class="form-control"  name="encodingaeskey"  value="{{$account->encodingaeskey}}">
+			</div>
 		</div>
-	</div>
-</form>
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<button type="submit" class="btn btn-default">保存</button>
+			</div>
+		</div>
+	</form>

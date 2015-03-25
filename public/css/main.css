@@ -8,6 +8,10 @@ p.subtitle{
     min-height: 40px;
     color: #333;
 }
+
+form.padding{
+    padding: 18px 0px;
+}
  
 .bs-callout {
   padding: 20px;

@@ -1,7 +1,6 @@
 var submitFrom = function(formid, reload, modalid) {
 	$form = $(formid);
 	if (!$form) return;
-	console.log('submitFrom');
 	$.ajax({
 		url: $form.attr('action'),
 		type: $form.attr('method'),
@@ -14,6 +13,7 @@ var submitFrom = function(formid, reload, modalid) {
 					window.location.reload();
 				}
 			}else{
+				//TODO $form.find('.modal-message');
 				alert('操作失败');
 			}
 
