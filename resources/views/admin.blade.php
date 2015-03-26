@@ -7,6 +7,7 @@
 		<title>学习互动吧</title>
 		<link href="/assets/css/bootstrap.min.css" rel="stylesheet">
 		<link href="/assets/css/vendor.min.css" rel="stylesheet">
+		<link href="/assets/css/admin.min.css" rel="stylesheet">
 		<link href="/css/main.css" rel="stylesheet">
 		<!--[if lt IE 9]>
 		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -63,6 +64,7 @@
 		@yield('content')
 		<!-- Scripts -->
 		<script src="/assets/js/vendor.min.js"></script>
+		<script src="/assets/js/admin.min.js"></script>
 		<script src="/assets/js/app.min.js"></script>
 	</body>
 </html>

@@ -35,7 +35,7 @@ gulp.task('css', function() {
     return gulp.src([
             paths.dev.vendor + 'bootstrap-fileinput/css/fileinput.css',
             paths.dev.vendor + 'font-awesome/css/font-awesome.css',
-            paths.dev.vendor + 'summernote/dist/summernote.css'
+
         ])
         .pipe(concat('vendor.css'))
         .pipe(gulp.dest(paths.production.css))
@@ -48,15 +48,39 @@ gulp.task('css', function() {
         .pipe(gulp.dest(paths.production.css));
 });
 
+gulp.task('admin-css', function() {
+    return gulp.src([
+            paths.dev.vendor + 'summernote/dist/summernote.css',
+            paths.dev.vendor + 'bootstrap-table/dist/bootstrap-table.min.css'
+        ])
+        .pipe(concat('admin.css'))
+        .pipe(gulp.dest(paths.production.css))
+        .pipe(minify({
+            keepSpecialComments: 0
+        }))
+        .pipe(rename({
+            suffix: '.min'
+        }))
+        .pipe(gulp.dest(paths.production.css));
+});
+
+
 gulp.task('vendor', function() {
     return gulp.src([
             paths.dev.vendor + 'jquery/dist/jquery.js',
             paths.dev.vendor + 'bootstrap/dist/js/bootstrap.js',
-            paths.dev.vendor + 'bootstrap-fileinput/js/fileinput.js',
-            paths.dev.vendor + 'summernote/dist/summernote.js',
-            paths.dev.vendor + 'summernote/lang/summernote-zh-CN.js'
-
+            paths.dev.vendor + 'bootstrap-fileinput/js/fileinput.js'
         ]).pipe(concat('vendor.min.js'))
+        .pipe(gulp.dest(paths.production.js));
+});
+
+gulp.task('admin-js', function() {
+    return gulp.src([
+            paths.dev.vendor + 'summernote/dist/summernote.js',
+            paths.dev.vendor + 'summernote/lang/summernote-zh-CN.js',
+            paths.dev.vendor + 'bootstrap-table/dist/bootstrap-table.min.js',
+            paths.dev.vendor + 'bootstrap-table/dist/local/bootstrap-table-zh-CN.min.js'
+        ]).pipe(concat('admin.min.js'))
         .pipe(gulp.dest(paths.production.js));
 });
 
@@ -103,7 +127,7 @@ gulp.task('watch', function() {
     //gulp.watch('./tests/*.php', ['phpunit']);
 });
 
-gulp.task('default', ['css', 'vendor', 'js', 'phpunit', 'watch']);
+gulp.task('default', ['css', 'admin-css','vendor','admin-js', 'js', 'phpunit', 'watch']);
 /*
  |--------------------------------------------------------------------------
  | Elixir Asset Management
