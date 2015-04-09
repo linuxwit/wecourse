@@ -1,112 +1,115 @@
-<div class="row">
+<div class="row" ng-controller="MpMenuCtrl">
 	<div class="col-md-12">
-		<h4></h4>
+		<p>
+			<div class="btn-group btn-group-sm" role="group" aria-label="...">
+				<button type="button" class="btn btn-default btn-xs " ng-click="save('{{ URL('admin/account/'.$account->id) }}/menu/save')">保存</button>
+				<button type="button" class="btn btn-default btn-xs btn-group-sm" ng-click="save('{{ URL('admin/account/'.$account->id) }}/menu/publish')">保存并发布</button>
+				<button type="button" class="btn btn-default btn-xs btn-group-sm" ng-click="save('{{ URL('admin/account/'.$account->id) }}/menu?/revert')">撤消发布</button>
+			</div>
+		</p>
 	</div>
-	<div class="col-md-5 col-lg-4">
+	<div class="col-md-6">
 		<div class="panel panel-default">
-			<div class="panel-heading text-right">
-				<div class="btn-group" role="group" aria-label="...">
-					<button type="button" class="btn btn-default btn-group-sm">新增</button>
-					<button type="button" class="btn btn-default btn-group-sm">还原</button>
-					<button type="button" class="btn btn-default btn-group-sm">同步</button>
-				</div>
+			<div class="panel-heading">
+				<button type="button" class="btn btn-default btn-xs " ng-click="addMenu()">＋ 添加一级菜单</button>
 			</div>
 			<div class="panel-body">
-				<div class="tree">
-					<ul>
-						<li>
-							<span><i class="icon-folder-open"></i> 菜单1</span> <a href="">添加</a>
-							<ul>
-								<li>
-									<span><i class="icon-minus-sign"></i> 子菜单</span>
-								</li>
-								<li>
-									<span><i class="icon-minus-sign"></i> 子菜单</span>
+				<table class="table table-menu">
+					<thead>
+						<th style="width:10px"></th>
+						<th>菜单项</th>
+						<th class="text-center">操作</th>
+					</thead>
+				</table>
+				<ul class="list-group">
+					<li ng-repeat="(i, item) in menu.button" class="list-group-item" >
+						<div class="row" ng-click="selectMenuItem(item)">
+							<div  class="col-md-8">
+								<a href="javascript:void(0)">
+									<span aria-hidden="true" class="glyphicon glyphicon-play"></span>
+								</a>
+								<input type="text" ng-model="item.name"/>
+								<a href="javascript:void(0)" style="padding-left:5px " ng-click="addSubMenu(item)">
+									<span aria-hidden="true" class="glyphicon glyphicon-plus"></span>
+								</a>
+							</div>
+							<ul class="list-inline col-md-4" >
+								<li><a href="javascript:void(0)" ng-click="up(subitem,i)" ><span aria-hidden="true" class="glyphicon glyphicon-arrow-up"></span></a></li>
+								<li><a href="javascript:void(0)" ng-click="down(subitem,i)"><span aria-hidden="true" class="glyphicon glyphicon-arrow-down"></span></a></li>
+								<li><a href="javascript:void(0)" ng-click="toggle(subitem,i)"><span aria-hidden="true" class="glyphicon glyphicon-eye-open"></span></a></li>
+								<li><a href="javascript:void(0)" ng-click="remove(subitem,i)"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span></a></li>
+							</ul>
+						</div>
+						<div class="row">
+							<ul class="list-group sub-list-group">
+								<li ng-repeat="(j, subitem) in item.sub_button"  class="list-group-item" >
+									<div class="row" ng-click="selectMenuItem(subitem)">
+										<div  class="col-md-8">
+											<span style="margin-left: 15px">|_</span><input type="text" ng-model="subitem.name"/>
+										</div>
+										<ul class="list-inline col-md-4" >
+											<li><a href="javascript:void(0)" ng-click="up(subitem,j)" ><span aria-hidden="true" class="glyphicon glyphicon-arrow-up"></span></a></li>
+											<li><a href="javascript:void(0)" ng-click="down(subitem,j)"><span aria-hidden="true" class="glyphicon glyphicon-arrow-down"></span></a></li>
+											<li><a href="javascript:void(0)" ng-click="toggle(subitem,j)"><span aria-hidden="true" class="glyphicon glyphicon-eye-open"></span></a></li>
+											<li><a href="javascript:void(0)" ng-click="remove(subitem,j)"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span></a></li>
+										</ul>
+									</div>
 								</li>
 							</ul>
-						</li>
-						<li>
-							<span><i class="icon-folder-open"></i> 菜单2</span>
-							<ul>
-								<li>
-									<span><i class="icon-leaf"></i> 子菜单</span>
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</div>
+						</div>
+					</li>
+				</ul>
 			</div>
 		</div>
-		<div class="alert alert-warning alert-dismissible" role="alert">
-			<button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
-			<strong>注意!</strong>
-			<p>目前只有认证过的公众号、服务号可以在第三方平台自定义菜单。</p>
-			<p>同步设置后需要24小时才能生效，或者重新关注公众帐号</p>
-		</div>
 	</div>
-	<div class="col-md-7 col-lg-8">
-		<div class="panel">
-			<form class="form-horizontal">
-				<div class="form-group">
-					<label for="name" class="col-sm-2 col-md-2 control-label">菜单名称</label>
-					<div class="col-sm-10 col-md-6">
-						<input type="text" class="form-control" id="name" placeholder="">
+	<div class="col-md-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				菜单项配置
+			</div>
+			<div class="panel-body menu-item-setting">
+				<div class="row" ng-show="!selectedNode.sub_button ">
+					<div class="col-md-12">
+						<div class="btn-group btn-group-xs" role="group" aria-label="...">
+							<button type="button" class="btn btn-default btn-xs" ng-click="choose('click')">匹配关键字</button>
+							<button type="button" class="btn btn-default btn-xs" ng-click="choose('text')">文本回复</button>
+							<button type="button" class="btn btn-default btn-xs" ng-click="choose('link')">跳转网页</button>
+							<button type="button" class="btn btn-default btn-xs" ng-click="choose('module')">业务模块</button>
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label for="name" class="col-sm-2 col-md-2 control-label">菜单类型</label>
-					<div class="col-sm-10 col-md-6">
-						<div class="radio">
-							<label>
-								<input type="radio" name="eventtype" id="optionsRadios2" value="view" checked>
-								链接
-							</label>
-							<label>
-								<input type="radio" name="eventtype" id="optionsRadios1" value="click" >
-								点击事件
-							</label>
+					<div class="col-md-12">
+						<div class="popover bottom " ng-class="{true: 'active', false: ''}[selectedNode.fun=='click']">
+							<div class="arrow one"></div>
+							<div class="popover-content">
+								<p><input type="text" id="keyword" class="form-control" placeholder="请输入关键字" ng-model="selectedNode.keyword"/></p>
+							</div>
+						</div>
+						<div class="popover bottom " ng-class="{true: 'active', false: ''}[selectedNode.fun=='text']">
+							<div class="arrow two"></div>
+							<div class="popover-content">
+								<p><textarea class="form-control" id="text" placeholder="请输入响应的文本信息" ng-model="selectedNode.text"></textarea></p>
+							</div>
+						</div>
+						<div class="popover bottom " ng-class="{true: 'active', false: ''}[selectedNode.fun=='link']">
+							<div class="arrow three"></div>
+							<div class="popover-content">
+								<p><input type="url" class="form-control" id="url" placeholder="请输入要跳转的网络地址" ng-model="selectedNode.link" /></p>
+							</div>
+						</div>
+						<div class="popover bottom " ng-class="{true: 'active', false: ''}[selectedNode.fun=='module']">
+							<div class="arrow four"></div>
+							<div class="popover-content">
+								<select name="" class="form-control" id="module" ng-model="selectedNode.module">
+									<option value="">请选择</option>
+									@foreach ($modules as $item)
+										<option value="{{json_encode($item)}}">{{$item['name']}}</option>
+									@endforeach
+								</select>
+							</div>
 						</div>
 					</div>
 				</div>
-				<div class="form-group">
-					<label for="name" class="col-sm-2 col-md-2 control-label">链接地址</label>
-					<div class="col-sm-10 col-md-6">
-						<input type="url" class="form-control" id="url" placeholder="http://www.example.com">
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="name" class="col-sm-2 col-md-2 control-label">事件ID</label>
-					<div class="col-sm-10 col-md-6">
-						<input type="text" class="form-control">
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="name" class="col-sm-2 col-md-2 control-label">响应类型</label>
-					<div class="col-sm-10 col-md-6">
-						<div class="radio">
-							<label>
-								<input type="radio" name="replytype" id="replytype1" value="text" checked>
-								文字
-							</label>
-							<label>
-								<input type="radio" name="replytype" id="replytype2" value="article" >
-								图文
-							</label>
-						</div>
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="name" class="col-sm-2 col-md-2 control-label">事件响应内容</label>
-					<div class="col-sm-10 col-md-6">
-						<textarea class="form-control" rows="3"></textarea>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-sm-offset-2 col-sm-10">
-						<button type="submit" class="btn btn-default">保存</button>
-					</div>
-				</div>
-			</form>
+			</div>
 		</div>
 	</div>
 </div>

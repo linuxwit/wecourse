@@ -885,7 +885,7 @@ class Wechat {
 			is_numeric($key) && $key = "item id=\"$key\"";
 			$xml .= "<$key>";
 			$xml .= (is_array($val) || is_object($val)) ? self::data_to_xml($val) : self::xmlSafeStr($val);
-			list($key, ) = explode(' ', $key);
+			list($key) = explode(' ', $key);
 			$xml .= "</$key>";
 		}
 		return $xml;
@@ -1564,8 +1564,10 @@ class Wechat {
 		}
 
 		$result = $this->http_post(self::API_URL_PREFIX . self::MENU_CREATE_URL . 'access_token=' . $this->access_token, self::json_encode($data));
+
 		if ($result) {
 			$json = json_decode($result, true);
+
 			if (!$json || !empty($json['errcode'])) {
 				$this->errCode = $json['errcode'];
 				$this->errMsg = $json['errmsg'];
@@ -1891,7 +1893,7 @@ class Wechat {
 
 		$type = ($type && is_string($scene_id)) ? 2 : $type;
 		$data = array(
-			'action_name' => $type ? ($type == 2 ? "QR_LIMIT_STR_SCENE" : "QR_LIMIT_SCENE"):"QR_SCENE",
+			'action_name' => $type ? ($type == 2 ? "QR_LIMIT_STR_SCENE" : "QR_LIMIT_SCENE") : "QR_SCENE",
 			'expire_seconds' => $expire,
 			'action_info' => array('scene' => ($type == 2 ? array('scene_str' => $scene_id) : array('scene_id' => $scene_id))),
 		);

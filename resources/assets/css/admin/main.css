@@ -1,0 +1,44 @@
+
+.menu-item-setting .popover {
+    display: none;
+    float: left;
+    margin: 10px;
+    position: relative;
+    width: 500px;
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #EFEFEF;
+
+}
+
+.menu-item-setting .popover.active{
+	display: block;
+}
+
+.menu-item-setting .popover.bottom > .arrow::after {
+    border-bottom-color: #fff;
+}
+
+.menu-item-setting .popover.bottom > .one{
+    left: 8%;
+}
+
+.menu-item-setting .popover.bottom > .two{
+    left: 30%;
+}
+
+.menu-item-setting .popover.bottom > .three{
+    left: 55%;
+}
+
+.menu-item-setting .popover.bottom > .four{
+    left: 80%;
+}
+
+.sub-list-group{
+	margin-top:10px; 
+}
+
+.sub-list-group,.sub-list-group>li{
+	border: none;
+}

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh_cn">
+<html lang="zh_cn" ng-app="wecourse">
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -65,6 +65,6 @@
 		<!-- Scripts -->
 		<script src="/assets/js/vendor.min.js"></script>
 		<script src="/assets/js/admin.min.js"></script>
-		<script src="/assets/js/app.min.js"></script>
+		<script src="/js/admin.js"></script>
 	</body>
 </html>

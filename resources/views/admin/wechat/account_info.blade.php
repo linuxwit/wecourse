@@ -74,4 +74,5 @@
 				<button type="submit" class="btn btn-default">保存</button>
 			</div>
 		</div>
-	</form>
+	</fieldset>
+</form>

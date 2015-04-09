@@ -40,4 +40,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
 	//Route::resource('media', 'MediaController');
 
 	Route::resource('account', 'AccountController');
+
+	Route::post('account/{id}/menu/{action}', 'AccountController@menu');
 });

@@ -46,19 +46,19 @@
               </div>
               <div class="form-group">
                 <label class="col-lg-2 control-label" for="iBeginTime">开课时间<span class="text-danger">*</span></label>
-                <div class="col-lg-10">
-                  <input type="text" name="begintime" value="{{ $doc->begintime }}" class="form-control" placeholder="" required>
+                <div class="col-lg-4">
+                  <input type="text" name="begintime" value="{{ $doc->begintime }}" class="form-control form_datetime" placeholder="" required readonly>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-lg-2 control-label" for="endtime">结束时间<span class="text-danger">*</span></label>
-                <div class="col-lg-10">
-                  <input type="text" name="endtime" value="{{ $doc->endtime }}" class="form-control" placeholder="" required>
+                <div class="col-lg-4">
+                  <input type="text" name="endtime" value="{{ $doc->endtime }}" class="form-control form_datetime" placeholder="" required readonly>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-lg-2 control-label" for="iCity">开课城市<span class="text-danger">*</span></label>
-                <div class="col-lg-10">
+                <div class="col-lg-4">
                   <input type="text" name="city" value="{{ $doc->city}}" class="form-control" placeholder="" required>
                 </div>
               </div>

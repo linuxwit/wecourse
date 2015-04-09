@@ -15,6 +15,7 @@ class Account extends Model {
 		'token',
 		'encodingaeskey',
 		'menu',
+		'backupmenu',
 		'subscribeenable',
 		'subscribemsgtype',
 		'subscribecontent',

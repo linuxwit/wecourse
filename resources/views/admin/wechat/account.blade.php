@@ -8,17 +8,17 @@
 				<li class="active">我的公众号</li>
 			</ol>
 		</div>
-		<div class="col-md-3 col-lg-2">
+		<div class="col-md-2 col-lg-2">
 			<ul class="list-group">
 				<li class="list-group-item"><a href="/admin/account">我的公众号</a></li>
 				<li class="list-group-item"><a href="/admin/message">消息管理</a></li>
 				<li class="list-group-item"><a href="/admin/media">素材管理</a></li>
 			</ul>
 		</div>
-		<div class="col-md-9 col-lg-10">
+		<div class="col-md-10 col-lg-10">
 			<div class="row">
 				@foreach ($accounts as $item)
-				<div class="col-sm-6 col-md-4">
+				<div class="col-sm-6 col-md-5">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<span>{{$item->name}}</span>

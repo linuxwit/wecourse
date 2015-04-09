@@ -53,10 +53,10 @@
 			</ul>
 			<div class="tab-content" >
 				<div role="tabpanel" class="tab-pane active " id="tab1" style="border: none">
-					{{ $doc->summary}}
+					{!! $doc->summary!!}
 				</div>
 				<div role="tabpanel" class="tab-pane " id="tab2" style="border: none">
-					{{ $doc->content}}
+					{!! $doc->content!!}
 				</div>
 				<div role="tabpanel" class="tab-pane" id="tab3">
 					<div class="media">
@@ -68,7 +68,7 @@
 						<div class="media-body">
 							<h4 class="media-heading">{{ $teacher->name}}</h4>
 							<p>
-								{{ $teacher->summary}}
+								{!! $teacher->summary!!}
 							</p>
 						</div>
 					</div>

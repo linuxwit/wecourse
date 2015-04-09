@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\Admin;
 use App\Account;
 use App\Http\Controllers\Controller;
+use App\Witleaf\Wechat\Wechat;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -93,7 +94,31 @@ class AccountController extends Controller {
 	 * @return Response
 	 */
 	public function edit($id) {
-		return view('admin.wechat.setting')->withAccount(Account::find($id));
+		$funs = array(
+			array(
+				'name' => '讲师介绍',
+				'type' => 'click',
+				'key' => 'TEACHER_INFO',
+			), array(
+				'name' => '最近课程',
+				'type' => 'click',
+				'key' => 'COURSE_LAST',
+			), array(
+				'name' => '课程排表',
+				'type' => 'click',
+				'key' => 'COURSE_PLAN',
+			), array(
+				'name' => '申请合作',
+				'type' => 'click',
+				'key' => '申请合作',
+			), array(
+				'name' => '在线互动',
+				'type' => 'view',
+				'url' => 'http://www.mf23.cn',
+			),
+		);
+
+		return view('admin.wechat.setting')->with(array('account' => Account::find($id), 'modules' => $funs));
 	}
 	/**
 	 * Update the specified resource in storage.
@@ -130,6 +155,52 @@ class AccountController extends Controller {
 			return Redirect::back()->withInput()->withErrors('保存失败！');
 		}
 	}
+
+	/**
+	 * 对微信菜单进行操作
+	 * {"button":[{"name":"培训课程",
+	 * "sub_button":[{"type":"click","key":"讲师介绍",
+	 * "name":"讲师介绍"},{"type":"click","key":"课程介绍","name":"课程介绍"}]},
+	 * {"name":"我的课程","type":"click","key":"讲师介绍"}]}
+	 */
+	public function menu(Request $request, $id, $action) {
+		$model = Account::find($id);
+		if ($model && $model->uid == Auth::id()) {
+			$model->menu = Input::get('button');
+			if ($model->save()) {
+				$return = null;
+				switch ($action) {
+					case 'publish':
+						$button = json_decode($model->menu);
+
+						//$model->encodingaeskey = '';
+						Log::debug($model->menu);
+						$return = $this->setmenu($model, $button);
+						break;
+					default:
+
+						break;
+				}
+				return array('msg' => '保存失败！', 'status' => $return);
+			} else {
+				return array('msg' => '保存失败！', 'status' => false);
+			}
+		}
+	}
+
+	protected function setmenu($account, $menu) {
+		$options = array(
+			'token' => $account->token, //填写你设定的key
+			//'encodingaeskey' => '', //填写加密用的EncodingAESKey
+			'appid' => $account->appid, //填写高级调用功能的app id
+			'appsecret' => $account->appsecret, //填写高级调用功能的密钥
+			'debug' => true,
+		);
+		$weObj = new Wechat($options);
+		$newmenu = json_decode($menu, true);
+		return $weObj->createMenu($newmenu);
+	}
+
 	/**
 	 * Remove the specified resource from storage.
 	 *

@@ -44,19 +44,19 @@
               </div>
               <div class="form-group">
                 <label class="col-lg-2 control-label" for="iBeginTime">开课时间<span class="text-danger">*</span></label>
-                <div class="col-lg-10">
-                  <input type="text" name="begintime" value="{{ Input::old('begintime')}}" class="form-control" placeholder="" required>
+                <div class="col-lg-4">
+                  <input type="text" name="begintime" value="{{ Input::old('begintime')}}" class="form-control form_datetime" placeholder="" required readonly>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-lg-2 control-label" for="endtime">结束时间<span class="text-danger">*</span></label>
-                <div class="col-lg-10">
-                  <input type="text" name="endtime" value="{{ Input::old('endtime')}}" class="form-control" placeholder="" required>
+                <div class="col-lg-4">
+                  <input type="text" name="endtime"  value="{{ Input::old('endtime')}}" class="form-control form_datetime" placeholder="" required readonly>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-lg-2 control-label" for="iCity">开课城市<span class="text-danger">*</span></label>
-                <div class="col-lg-10">
+                <div class="col-lg-4">
                   <input type="text" name="city" value="{{ Input::old('city')}}" class="form-control" placeholder="" required>
                 </div>
               </div>
@@ -68,13 +68,13 @@
               </div>
               <div class="form-group">
                 <label class="col-lg-2 control-label" for="currentprice">当前价格<span class="text-danger">*</span></label>
-                <div class="col-lg-10">
+                <div class="col-lg-4">
                   <input type="text" name="currentprice" value="{{ Input::old('currentprice')}}" class="form-control" placeholder="" required>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-lg-2 control-label" for="oldprice">市场价格<span class="text-danger">*</span></label>
-                <div class="col-lg-10">
+                <div class="col-lg-4">
                   <input type="text" name="oldprice" value="{{ Input::old('oldprice')}}" class="form-control" placeholder="" required>
                 </div>
               </div>

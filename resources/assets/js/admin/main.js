@@ -12,7 +12,7 @@ var submitFrom = function(formid, reload, modalid) {
 				if (reload) {
 					window.location.reload();
 				}
-			}else{
+			} else {
 				//TODO $form.find('.modal-message');
 				alert('操作失败');
 			}
@@ -20,26 +20,27 @@ var submitFrom = function(formid, reload, modalid) {
 		},
 		error: function(data) {
 			console.log(data)
-				alert('操作失败');
+			alert('操作失败');
 		}
 	});
 };
 
 $(function() {
+	$(".form_datetime").datetimepicker({
+		format: "yyyy-mm-dd hh:ii",
+		autoclose: true,
+		todayBtn: true,
+		startDate: "2013-02-14 10:00",
+		minuteStep: 10
+	});
+
 	$('textarea.editor').summernote({
 		height: 350,
 		tabsize: 2,
 		lang: 'zh-CN'
 	});
-
 	var $inputifle = $('input.inputfile');
-	var img = null;
-	if ($inputifle.attr('value')) {
-		img = ["<img src='" + $inputifle.attr('value') + "' class='file-preview-image' alt='' title=''>"];
-	}
-
-
-	$inputifle.fileinput({
+	var inputfileOption = {
 		removeTitle: '删除文件',
 		uploadTitle: '上传文件',
 		indicatorNewTitle: '没有上传完成',
@@ -74,10 +75,12 @@ $(function() {
 		previewFileType: 'image',
 		dropZoneTitle: '拖拽文件 &hellip;',
 		dropZoneTitleClass: 'file-drop-zone-title',
-		ajaxSettings: {},
-		initialPreview: img,
-	});
-
+		ajaxSettings: {}
+	};
+	if ($inputifle.attr('value')) {
+		inputfileOption.initialPreview = ["<img src='" + $inputifle.attr('value') + "' class='file-preview-image' alt='' title=''>"];
+	}
+	$inputifle.fileinput(inputfileOption);
 
 
 })

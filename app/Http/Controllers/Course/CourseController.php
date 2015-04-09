@@ -76,6 +76,7 @@ class CourseController extends Controller {
 			return Redirect::back()->withInput()->withErrors('提交报名申请失败失败！请重试');
 		}
 	}
+
 	public function newest() {
 		return view('course.index');
 	}

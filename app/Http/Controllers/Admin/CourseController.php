@@ -76,6 +76,7 @@ class CourseController extends Controller {
 			}
 		}
 	}
+
 	/**
 	 * Display the specified resource.
 	 *
@@ -137,6 +138,7 @@ class CourseController extends Controller {
 			return Redirect::back()->withInput()->withErrors('保存失败！');
 		}
 	}
+
 	/**
 	 * Remove the specified resource from storage.
 	 *

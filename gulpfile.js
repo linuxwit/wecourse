@@ -10,7 +10,7 @@ var gulp = require('gulp'),
     phpunit = require('gulp-phpunit');
 var paths = {
     'dev': {
-        'less': './resources/assets/less/',
+        'css': './resources/assets/css/',
         'js': './resources/assets/js/',
         'vendor': './resources/assets/vendor/'
     },
@@ -34,8 +34,7 @@ var paths = {
 gulp.task('css', function() {
     return gulp.src([
             paths.dev.vendor + 'bootstrap-fileinput/css/fileinput.css',
-            paths.dev.vendor + 'font-awesome/css/font-awesome.css',
-
+            paths.dev.vendor + 'font-awesome/css/font-awesome.css'
         ])
         .pipe(concat('vendor.css'))
         .pipe(gulp.dest(paths.production.css))
@@ -51,7 +50,9 @@ gulp.task('css', function() {
 gulp.task('admin-css', function() {
     return gulp.src([
             paths.dev.vendor + 'summernote/dist/summernote.css',
-            paths.dev.vendor + 'bootstrap-table/dist/bootstrap-table.min.css'
+            paths.dev.vendor + 'bootstrap-table/dist/bootstrap-table.min.css',
+            paths.dev.vendor + 'bootstrap-treeview/dist/bootstrap-treeview.min.css',
+            paths.dev.css + 'admin/*.css'
         ])
         .pipe(concat('admin.css'))
         .pipe(gulp.dest(paths.production.css))
@@ -76,10 +77,13 @@ gulp.task('vendor', function() {
 
 gulp.task('admin-js', function() {
     return gulp.src([
+            paths.dev.vendor + 'angular/angular.min.js',
             paths.dev.vendor + 'summernote/dist/summernote.js',
             paths.dev.vendor + 'summernote/lang/summernote-zh-CN.js',
             paths.dev.vendor + 'bootstrap-table/dist/bootstrap-table.min.js',
-            paths.dev.vendor + 'bootstrap-table/dist/local/bootstrap-table-zh-CN.min.js'
+            paths.dev.vendor + 'bootstrap-table/dist/local/bootstrap-table-zh-CN.min.js',
+            paths.dev.vendor + 'bootstrap-treeview/dist/bootstrap-treeview.min.js',
+            paths.dev.js + 'admin/*.js'
         ]).pipe(concat('admin.min.js'))
         .pipe(gulp.dest(paths.production.js));
 });
@@ -123,11 +127,13 @@ gulp.task('phpunit', function() {
 
 gulp.task('watch', function() {
     gulp.watch(paths.dev.less + '/*.less', ['css']);
+    gulp.watch(paths.dev.css + '/admin/*.css', ['admin-css']);
     gulp.watch(paths.dev.js + '/*.js', ['js']);
+    gulp.watch(paths.dev.js + '/admin/*.js', ['admin-js']);
     //gulp.watch('./tests/*.php', ['phpunit']);
 });
 
-gulp.task('default', ['css', 'admin-css','vendor','admin-js', 'js', 'phpunit', 'watch']);
+gulp.task('default', ['css', 'vendor', 'js', 'phpunit','admin-css','admin-js', 'watch']);
 /*
  |--------------------------------------------------------------------------
  | Elixir Asset Management
