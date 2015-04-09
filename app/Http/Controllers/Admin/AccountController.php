@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\Admin;
 use App\Account;
 use App\Http\Controllers\Controller;
+use App\Reply;
 use App\Witleaf\Wechat\Wechat;
 use Auth;
 use Illuminate\Http\Request;
@@ -166,24 +167,61 @@ class AccountController extends Controller {
 	public function menu(Request $request, $id, $action) {
 		$model = Account::find($id);
 		if ($model && $model->uid == Auth::id()) {
-			$model->menu = Input::get('button');
+			$menu = Input::get('button');
+			$old_menu = $model->menu;
+
+			$model->menu = json_encode($menu);
 			if ($model->save()) {
-				$return = null;
+				//将点击事件要回复的内容保存或更新到自动回复表中
+				$click_buttons = array();
+				foreach ($menu['button'] as $button) {
+					if (isset($button['sub_button'])) {
+						foreach ($button['sub_button'] as $sub_button) {
+
+							$click_buttons[$sub_button['name']] = $sub_button;
+
+						}
+					} else {
+
+						$click_buttons[$button['name']] = $button;
+
+					}
+				}
+				foreach ($click_buttons as $key => $button) {
+					$reply = Reply::whereRaw('uid=? and accountid=? and matchtype=? and matchvalue=?', array(Auth::id(), $id, Wechat::EVENT_MENU_CLICK, $key))->first();
+					if ($reply) {
+						$reply->msgtype = $button['fun'];
+						$reply->content = isset($button[$button['fun']]) ? $button[$button['fun']] : '';
+						$reply->save();
+					} else {
+						Reply::create(array(
+							'uid' => Auth::id(),
+							'accountid' => $id,
+							'matchtype' => Wechat::EVENT_MENU_CLICK,
+							'matchvalue' => $key,
+							'msgtype' => $button['fun'],
+							'content' => isset($button[$button['fun']]) ? $button[$button['fun']] : '',
+						));
+					}
+				}
+
+				$return = true;
 				switch ($action) {
 					case 'publish':
-						$button = json_decode($model->menu);
-
-						//$model->encodingaeskey = '';
-						Log::debug($model->menu);
-						$return = $this->setmenu($model, $button);
+						$return = $this->setmenu($model, $menu);
+						if ($return) {
+							//设置成功时，将原有菜单备份
+							$model->backupmenu = $old_menu;
+							$model->save();
+						}
 						break;
 					default:
 
 						break;
 				}
-				return array('msg' => '保存失败！', 'status' => $return);
+				return array('msg' => '操作成功', 'status' => $return);
 			} else {
-				return array('msg' => '保存失败！', 'status' => false);
+				return array('msg' => '操作失败，请重试！', 'status' => false);
 			}
 		}
 	}
@@ -197,8 +235,7 @@ class AccountController extends Controller {
 			'debug' => true,
 		);
 		$weObj = new Wechat($options);
-		$newmenu = json_decode($menu, true);
-		return $weObj->createMenu($newmenu);
+		return $weObj->createMenu($menu);
 	}
 
 	/**

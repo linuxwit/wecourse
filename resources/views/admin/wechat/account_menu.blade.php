@@ -71,14 +71,14 @@
 				<div class="row" ng-show="!selectedNode.sub_button ">
 					<div class="col-md-12">
 						<div class="btn-group btn-group-xs" role="group" aria-label="...">
-							<button type="button" class="btn btn-default btn-xs" ng-click="choose('click')">匹配关键字</button>
+							<button type="button" class="btn btn-default btn-xs" ng-click="choose('keyword')">匹配关键字</button>
 							<button type="button" class="btn btn-default btn-xs" ng-click="choose('text')">文本回复</button>
 							<button type="button" class="btn btn-default btn-xs" ng-click="choose('link')">跳转网页</button>
 							<button type="button" class="btn btn-default btn-xs" ng-click="choose('module')">业务模块</button>
 						</div>
 					</div>
 					<div class="col-md-12">
-						<div class="popover bottom " ng-class="{true: 'active', false: ''}[selectedNode.fun=='click']">
+						<div class="popover bottom " ng-class="{true: 'active', false: ''}[selectedNode.fun=='keyword']">
 							<div class="arrow one"></div>
 							<div class="popover-content">
 								<p><input type="text" id="keyword" class="form-control" placeholder="请输入关键字" ng-model="selectedNode.keyword"/></p>

@@ -23,18 +23,24 @@ app.controller('MpMenuCtrl', ['$scope', '$http', function($scope, $http) {
 		button: [{
 			name: '培训课程',
 			sub_button: [{
+				fun:'keyword',
 				type: 'click',
 				key: '讲师介绍',
+				keyword:'讲师介绍',
 				name: '讲师介绍'
 			}, {
+				fun:'text',
 				type: 'click',
 				key: '课程介绍',
-				name: '课程介绍'
+				name: '课程介绍',
+				text:'这里是内容'
 			}]
 		}, {
+			fun:'link',
 			name: '我的课程',
-			type: 'click',
-			key: '讲师介绍'
+			type: 'view',
+			url: 'http://m.baidu.com',
+			link:'http://m.baidu.com'
 		}]
 	};
 	$scope.addMenu = function() {
@@ -69,13 +75,14 @@ app.controller('MpMenuCtrl', ['$scope', '$http', function($scope, $http) {
 
 	$scope.choose = function(type) {
 		$scope.selectedNode.fun = type;
+		console.log(type);
 		switch (type) {
 			case 'keyword':
 			case "text":
 				$scope.selectedNode.type = 'click';
 				break;
 			case "link":
-				$scope.selectedNode.type = 'url';
+				$scope.selectedNode.type = 'view';
 			default:
 				break;
 		}
@@ -83,9 +90,7 @@ app.controller('MpMenuCtrl', ['$scope', '$http', function($scope, $http) {
 	$scope.save = function(url) {
 		console.log($scope.menu);
 
-		$http.post(url, {
-			button: $scope.menu
-		}, {
+		$http.post(url, $.param({button:$scope.menu}), {
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			}
