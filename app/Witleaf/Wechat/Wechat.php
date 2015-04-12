@@ -1562,7 +1562,6 @@ class Wechat {
 		if (!$this->access_token && !$this->checkAuth()) {
 			return false;
 		}
-
 		$result = $this->http_post(self::API_URL_PREFIX . self::MENU_CREATE_URL . 'access_token=' . $this->access_token, self::json_encode($data));
 
 		if ($result) {

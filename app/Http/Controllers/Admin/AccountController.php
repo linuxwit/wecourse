@@ -96,24 +96,22 @@ class AccountController extends Controller {
 	 */
 	public function edit($id) {
 		$funs = array(
-			array(
-				'name' => '讲师介绍',
+			'讲师介绍' => array(
 				'type' => 'click',
 				'key' => 'TEACHER_INFO',
-			), array(
-				'name' => '最近课程',
+			), '最近课程' => array(
 				'type' => 'click',
 				'key' => 'COURSE_LAST',
-			), array(
-				'name' => '课程排表',
+			),
+			'课程排表' => array(
 				'type' => 'click',
 				'key' => 'COURSE_PLAN',
-			), array(
-				'name' => '申请合作',
+			),
+			'申请合作' => array(
 				'type' => 'click',
 				'key' => '申请合作',
-			), array(
-				'name' => '在线互动',
+			),
+			'在线互动' => array(
 				'type' => 'view',
 				'url' => 'http://www.mf23.cn',
 			),
@@ -178,15 +176,30 @@ class AccountController extends Controller {
 					if (isset($button['sub_button'])) {
 						foreach ($button['sub_button'] as $sub_button) {
 
+							if (isset($sub_button['module'])) {
+								$module = json_decode($sub_button['module'], true);
+
+								$sub_button['type'] = $module['type'];
+								$sub_button['key'] = $module['key'];
+							}
+
 							$click_buttons[$sub_button['name']] = $sub_button;
 
 						}
 					} else {
-
+						if (isset($button['module'])) {
+							$module = json_decode($button['module'], true);
+							$button['type'] = $module['type'];
+							$button['key'] = $module['key'];
+						}
 						$click_buttons[$button['name']] = $button;
 
 					}
 				}
+
+				//删除原有生成的合成
+				Reply::whereRaw('uid=? and accountid=? and matchtype=?', array(Auth::id(), $id, Wechat::EVENT_MENU_CLICK))->delete();
+
 				foreach ($click_buttons as $key => $button) {
 					$reply = Reply::whereRaw('uid=? and accountid=? and matchtype=? and matchvalue=?', array(Auth::id(), $id, Wechat::EVENT_MENU_CLICK, $key))->first();
 					if ($reply) {
@@ -235,7 +248,12 @@ class AccountController extends Controller {
 			'debug' => true,
 		);
 		$weObj = new Wechat($options);
-		return $weObj->createMenu($menu);
+		$result = $weObj->createMenu($menu);
+		if ($result === false) {
+			Log::error('设置菜单错误' . $weObj->errCode . $weObj->errMsg);
+
+		}
+		return $result;
 	}
 
 	/**

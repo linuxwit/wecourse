@@ -23,21 +23,21 @@
 				</table>
 				<ul class="list-group">
 					<li ng-repeat="(i, item) in menu.button" class="list-group-item" >
-						<div class="row" ng-click="selectMenuItem(item)">
+						<div class="row" >
 							<div  class="col-md-8">
 								<a href="javascript:void(0)">
 									<span aria-hidden="true" class="glyphicon glyphicon-play"></span>
 								</a>
-								<input type="text" ng-model="item.name"/>
+								<input type="text" ng-model="item.name" ng-focus="selectMenuItem(item)"/>
 								<a href="javascript:void(0)" style="padding-left:5px " ng-click="addSubMenu(item)">
 									<span aria-hidden="true" class="glyphicon glyphicon-plus"></span>
 								</a>
 							</div>
 							<ul class="list-inline col-md-4" >
-								<li><a href="javascript:void(0)" ng-click="up(subitem,i)" ><span aria-hidden="true" class="glyphicon glyphicon-arrow-up"></span></a></li>
-								<li><a href="javascript:void(0)" ng-click="down(subitem,i)"><span aria-hidden="true" class="glyphicon glyphicon-arrow-down"></span></a></li>
-								<li><a href="javascript:void(0)" ng-click="toggle(subitem,i)"><span aria-hidden="true" class="glyphicon glyphicon-eye-open"></span></a></li>
-								<li><a href="javascript:void(0)" ng-click="remove(subitem,i)"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span></a></li>
+								<li><a href="javascript:void(0)" ng-click="up(true,i)" ><span aria-hidden="true" class="glyphicon glyphicon-arrow-up"></span></a></li>
+								<li><a href="javascript:void(0)" ng-click="down(true,i)"><span aria-hidden="true" class="glyphicon glyphicon-arrow-down"></span></a></li>
+								<li><a href="javascript:void(0)" ng-click="toggle(true,i)"><span aria-hidden="true" class="glyphicon glyphicon-eye-open"></span></a></li>
+								<li><a href="javascript:void(0)" ng-click="remove(true,i)"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span></a></li>
 							</ul>
 						</div>
 						<div class="row">
@@ -48,10 +48,10 @@
 											<span style="margin-left: 15px">|_</span><input type="text" ng-model="subitem.name"/>
 										</div>
 										<ul class="list-inline col-md-4" >
-											<li><a href="javascript:void(0)" ng-click="up(subitem,j)" ><span aria-hidden="true" class="glyphicon glyphicon-arrow-up"></span></a></li>
-											<li><a href="javascript:void(0)" ng-click="down(subitem,j)"><span aria-hidden="true" class="glyphicon glyphicon-arrow-down"></span></a></li>
-											<li><a href="javascript:void(0)" ng-click="toggle(subitem,j)"><span aria-hidden="true" class="glyphicon glyphicon-eye-open"></span></a></li>
-											<li><a href="javascript:void(0)" ng-click="remove(subitem,j)"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span></a></li>
+											<li><a href="javascript:void(0)" ng-click="up(false,i,j)" ><span aria-hidden="true" class="glyphicon glyphicon-arrow-up"></span></a></li>
+											<li><a href="javascript:void(0)" ng-click="down(false,i,j)"><span aria-hidden="true" class="glyphicon glyphicon-arrow-down"></span></a></li>
+											<li><a href="javascript:void(0)" ng-click="toggle(false,i,j)"><span aria-hidden="true" class="glyphicon glyphicon-eye-open"></span></a></li>
+											<li><a href="javascript:void(0)" ng-click="remove(false,i,j)"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span></a></li>
 										</ul>
 									</div>
 								</li>
@@ -99,10 +99,10 @@
 						<div class="popover bottom " ng-class="{true: 'active', false: ''}[selectedNode.fun=='module']">
 							<div class="arrow four"></div>
 							<div class="popover-content">
-								<select name="" class="form-control" id="module" ng-model="selectedNode.module">
+								<select name="" class="form-control" id="module" ng-model="selectedNode.module" ng-change="changeModule()">
 									<option value="">请选择</option>
-									@foreach ($modules as $item)
-										<option value="{{json_encode($item)}}">{{$item['name']}}</option>
+									@foreach ($modules as $key=>$item)
+										<option value="{{ json_encode($item)}}">{{$key}}</option>
 									@endforeach
 								</select>
 							</div>
