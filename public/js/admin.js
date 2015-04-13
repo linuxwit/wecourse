@@ -164,4 +164,51 @@ app.controller('MpMenuCtrl', ['$scope', '$http', function($scope, $http) {
 	}
 
 
+	$scope.up=function(isRoot,i,j){
+		console.log(isRoot,i,j);
+		if(isRoot){
+			if(i>0){
+				var clickItem=$scope.menu.button[i];
+				$scope.menu.button[i]=$scope.menu.button[i-1];
+				$scope.menu.button[i-1]=clickItem;
+			}
+		}
+		else{
+			if(j>0){
+				var clickItem=$scope.menu.button[i].sub_button[j];
+				$scope.menu.button[i].sub_button[j]=$scope.menu.button[i].sub_button[j-1];
+				$scope.menu.button[i].sub_button[j-1]=clickItem;
+			}
+		}
+	}
+
+	$scope.down=function(isRoot,i,j){
+		console.log(isRoot,i,j);
+		if(isRoot){
+			if(i<$scope.menu.button.length-1){
+				var clickItem=$scope.menu.button[i];
+				$scope.menu.button[i]=$scope.menu.button[i+1];
+				$scope.menu.button[i+1]=clickItem;
+			}
+		}
+		else{
+			if(j<$scope.menu.button[i].sub_button.length-1){
+				var clickItem=$scope.menu.button[i].sub_button[j];
+				$scope.menu.button[i].sub_button[j]=$scope.menu.button[i].sub_button[j+1];
+				$scope.menu.button[i].sub_button[j+1]=clickItem;
+			}
+		}
+	}
+
+  $scope.toggle=function(isRoot,i,j){
+		console.log(isRoot,i,j);
+		if(isRoot){
+			$scope.menu.button[i].hide=!($scope.menu.button[i].hide?$scope.menu.button[i].hide:false);
+		}
+		else{
+		  $scope.menu.button[i].sub_button[j].hide=!($scope.menu.button[i].sub_button[j].hide?$scope.menu.button[i].sub_button[j].hide:false);
+		}
+	}
+
+
 }]);

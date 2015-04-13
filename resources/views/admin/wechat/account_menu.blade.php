@@ -36,7 +36,11 @@
 							<ul class="list-inline col-md-4" >
 								<li><a href="javascript:void(0)" ng-click="up(true,i)" ><span aria-hidden="true" class="glyphicon glyphicon-arrow-up"></span></a></li>
 								<li><a href="javascript:void(0)" ng-click="down(true,i)"><span aria-hidden="true" class="glyphicon glyphicon-arrow-down"></span></a></li>
-								<li><a href="javascript:void(0)" ng-click="toggle(true,i)"><span aria-hidden="true" class="glyphicon glyphicon-eye-open"></span></a></li>
+								<li>
+									<a href="javascript:void(0)" ng-click="toggle(true,i)">
+										<span aria-hidden="true" class="glyphicon" ng-class="{true:'glyphicon-eye-open',false:'glyphicon-eye-close'}[!item.hide]"></span>
+									</a>
+								</li>
 								<li><a href="javascript:void(0)" ng-click="remove(true,i)"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span></a></li>
 							</ul>
 						</div>
@@ -50,7 +54,12 @@
 										<ul class="list-inline col-md-4" >
 											<li><a href="javascript:void(0)" ng-click="up(false,i,j)" ><span aria-hidden="true" class="glyphicon glyphicon-arrow-up"></span></a></li>
 											<li><a href="javascript:void(0)" ng-click="down(false,i,j)"><span aria-hidden="true" class="glyphicon glyphicon-arrow-down"></span></a></li>
-											<li><a href="javascript:void(0)" ng-click="toggle(false,i,j)"><span aria-hidden="true" class="glyphicon glyphicon-eye-open"></span></a></li>
+											<li>
+											<a href="javascript:void(0)" ng-click="toggle(false,i,j)">
+											<span aria-hidden="true" class="glyphicon" ng-class="{true:'glyphicon-eye-open',false:'glyphicon-eye-close'}[!subitem.hide]"></span>
+											</span>
+											</a>
+											</li>
 											<li><a href="javascript:void(0)" ng-click="remove(false,i,j)"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span></a></li>
 										</ul>
 									</div>
@@ -102,7 +111,7 @@
 								<select name="" class="form-control" id="module" ng-model="selectedNode.module" ng-change="changeModule()">
 									<option value="">请选择</option>
 									@foreach ($modules as $key=>$item)
-										<option value="{{ json_encode($item)}}">{{$key}}</option>
+									<option value="{{ json_encode($item)}}">{{$key}}</option>
 									@endforeach
 								</select>
 							</div>
