@@ -28,10 +28,10 @@ class CreateMpAccountTable extends Migration {
 			$table->string('password')->nullable(); //密码
 			$table->boolean('subscribeenable')->defualt(0); //关注回复
 			$table->string('subscribemsgtype')->nullable(); //回复类型
-			$table->text('subscribecontext')->nullable(); //定义回复消息内容，这里使用json
+			$table->text('subscribecontent')->nullable(); //定义回复消息内容，这里使用json
 			$table->boolean('nomatchenable')->defualt(0); //无匹配关键词时回复
 			$table->string('nomatchmsgtype')->nullable(); //回复类型
-			$table->text('nomatchcontext')->nullable(); //定义回复消息内容，这里使用json
+			$table->text('nomatchcontent')->nullable(); //定义回复消息内容，这里使用json
 			$table->integer('maxlbslength')->default(1000); //LBS最大查询距离（米）
 			$table->integer('times')->defualt(0); //接口处理次数
 			$table->softDeletes();

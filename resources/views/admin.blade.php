@@ -62,9 +62,12 @@
 			</div>
 		</nav>
 		@yield('content')
+
+		<toaster-container toaster-options="{'position-class': 'toast-bottom-right','close-button':true}"></toaster-container>
 		<!-- Scripts -->
 		<script src="/assets/js/vendor.min.js"></script>
 		<script src="/assets/js/admin.min.js"></script>
 		<script src="/js/admin.js"></script>
+
 	</body>
 </html>

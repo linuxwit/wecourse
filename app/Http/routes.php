@@ -42,4 +42,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
 	Route::resource('account', 'AccountController');
 
 	Route::post('account/{id}/menu/{action}', 'AccountController@menu');
+	Route::post('account/{id}/welcome/{action}', 'AccountController@welcome');
+});
+
+Route::group(array('prefix' => 'api'), function () {
+
+	// since we will be using this just for CRUD, we won't need create and edit
+	// Angular will handle both of those forms
+	// this ensures that a user can't access api/create or api/edit when there's nothing there
+	//Route::resource('comments', 'CommentController', array('only' => array('index', 'store', 'destroy')));
+
 });

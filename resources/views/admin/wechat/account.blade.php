@@ -23,15 +23,14 @@
 						<div class="panel-heading">
 							<span>{{$item->name}}</span>
 							<div class="dropdown pull-right">
-								<a id="dLabel" href="#" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
-									配置
-									<span class="caret"></span>
-								</a>
-								<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-									<li><a href="/admin/account/{{$item->id}}/edit#welcome">欢迎语</a></li>
-									<li><a href="/admin/account/{{$item->id}}/edit#menu">菜单</a></li>
-									<li><a href="/admin/account/{{$item->id}}/edit#info">信息</a></li>
-								</ul>
+
+
+								  <form action="{{ URL('admin/account/'.$item->id) }}" method="POST" style="display: inline;">
+                    <input name="_method" type="hidden" value="DELETE">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <button type="submit" class="btn btn-danger btn-xs"><span aria-hidden="true">×</span></button>
+                  </form>
+
 							</div>
 						</div>
 						<div class="panel-body">
@@ -43,11 +42,14 @@
 							<li class="list-group-item">AppSecret:<strong>{{$item->appsecret}}</strong></li>
 							<li class="list-group-item">Token:<strong>{{$item->token}}</strong></li>
 							<li class="list-group-item">EncodingaesKey:<strong>{{$item->encodingaeskey}}</strong></li>
+							<li class="list-group-item"><a id="dLabel" href="/admin/account/{{$item->id}}/edit"  role="button" aria-expanded="false">
+								配置
+							</a></li>
 						</ul>
 					</div>
 				</div>
 				@endforeach
-				<div class="col-sm-6 col-md-4">
+				<div class="col-sm-6 col-md-5">
 					<div class="panel panel-default box box-add-account">
 						<a href="#" data-toggle="modal" data-target="#add_wx_mp">添加公众帐号</a>
 					</div>
@@ -65,7 +67,7 @@
 				<h4 class="modal-title" id="myModalLabel">添加公众帐号</h4>
 			</div>
 			<div class="modal-body">
-				<div class="alert alert-danger modal-message" >
+				<div class="alert alert-danger modal-message hide" >
 				</div>
 				<form class="form-horizontal" id="formAccount" action="{{ URL('admin/account') }}" method="post">
 					<fieldset>
@@ -109,7 +111,6 @@
 								<input type="text" name="appsecret"  maxlength="32" class="form-control" placeholder="请在微信公众平台的开发者中心查找" required>
 							</div>
 						</div>
-						<button type="submit">提交</button>
 					</fieldset>
 				</form>
 			</div>

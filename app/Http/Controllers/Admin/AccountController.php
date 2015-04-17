@@ -86,7 +86,7 @@ class AccountController extends Controller {
 	 * @return Response
 	 */
 	public function show($id) {
-		//
+		return Account::find($id);
 	}
 	/**
 	 * Show the form for editing the specified resource.
@@ -131,7 +131,7 @@ class AccountController extends Controller {
 
 		}
 		$rules = array(
-			'name' => 'required|unique:mp_account,name',
+			'name' => 'required',
 			'type' => 'required',
 			'audit' => 'required|integer',
 			'appid' => 'required|max:18',
@@ -155,6 +155,19 @@ class AccountController extends Controller {
 		}
 	}
 
+	public function welcome(Request $request, $id, $action) {
+		$model = Account::find($id);
+		if ($model && $model->uid == Auth::id()) {
+			$model->subscribeenable = Input::get('enable') ? 1 : 0;
+			$model->subscribemsgtype = Input::get('type');
+			$model->subscribecontent = Input::get('content');
+			if ($model->save()) {
+				return array('msg' => '操作成功', 'status' => 'success');
+			} else {
+				return array('msg' => '操作失败', 'status' => 'error');
+			}
+		}
+	}
 	/**
 	 * 对微信菜单进行操作
 	 * {"button":[{"name":"培训课程",
@@ -190,10 +203,12 @@ class AccountController extends Controller {
 						if (isset($button['module'])) {
 							$module = json_decode($button['module'], true);
 							$button['type'] = $module['type'];
-							$button['key'] = $module['key'];
+							if (isset($module['key'])) {
+								$button['key'] = $module['key'];
+							}
+
 						}
 						$click_buttons[$button['name']] = $button;
-
 					}
 				}
 
@@ -232,9 +247,9 @@ class AccountController extends Controller {
 
 						break;
 				}
-				return array('msg' => '操作成功', 'status' => $return);
+				return array('msg' => '操作成功', 'status' => $return ? 'success' : 'error');
 			} else {
-				return array('msg' => '操作失败，请重试！', 'status' => false);
+				return array('msg' => '操作失败，请重试！', 'status' => error);
 			}
 		}
 	}
@@ -263,6 +278,10 @@ class AccountController extends Controller {
 	 * @return Response
 	 */
 	public function destroy($id) {
-		//
+		$account = Account::find($id);
+		if ($account) {
+			$account->delete();
+		}
+		return Redirect::to('admin/account');
 	}
 }

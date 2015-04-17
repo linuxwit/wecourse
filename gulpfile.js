@@ -52,6 +52,7 @@ gulp.task('admin-css', function() {
             paths.dev.vendor + 'summernote/dist/summernote.css',
             paths.dev.vendor + 'bootstrap-table/dist/bootstrap-table.min.css',
             paths.dev.vendor + 'bootstrap-treeview/dist/bootstrap-treeview.min.css',
+            paths.dev.vendor + 'angularjs-toaster/toaster.min.css',
             paths.dev.css + 'admin/*.css'
         ])
         .pipe(concat('admin.css'))
@@ -78,11 +79,16 @@ gulp.task('vendor', function() {
 gulp.task('admin-js', function() {
     return gulp.src([
             paths.dev.vendor + 'angular/angular.min.js',
+            paths.dev.vendor + 'angular-route/angular-route.min.js',
             paths.dev.vendor + 'summernote/dist/summernote.js',
             paths.dev.vendor + 'summernote/lang/summernote-zh-CN.js',
             paths.dev.vendor + 'bootstrap-table/dist/bootstrap-table.min.js',
             paths.dev.vendor + 'bootstrap-table/dist/local/bootstrap-table-zh-CN.min.js',
             paths.dev.vendor + 'bootstrap-treeview/dist/bootstrap-treeview.min.js',
+            paths.dev.vendor + 'angular-resource/angular-resource.min.js',
+            paths.dev.vendor + 'angular-animate/angular-animate.min.js',
+            paths.dev.vendor + 'angular-messages/angular-messages.min.js',
+            paths.dev.vendor + 'angularjs-toaster/toaster.min.js',
             paths.dev.js + 'admin/*.js'
         ]).pipe(concat('admin.min.js'))
         .pipe(gulp.dest(paths.production.js));
@@ -133,7 +139,7 @@ gulp.task('watch', function() {
     //gulp.watch('./tests/*.php', ['phpunit']);
 });
 
-gulp.task('default', ['css', 'vendor', 'js', 'phpunit','admin-css','admin-js', 'watch']);
+gulp.task('default', ['css', 'vendor', 'js', 'phpunit', 'admin-css', 'admin-js', 'watch']);
 /*
  |--------------------------------------------------------------------------
  | Elixir Asset Management

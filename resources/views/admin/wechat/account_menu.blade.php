@@ -4,7 +4,7 @@
 			<div class="btn-group btn-group-sm" role="group" aria-label="...">
 				<button type="button" class="btn btn-default btn-xs " ng-click="save('{{ URL('admin/account/'.$account->id) }}/menu/save')">保存</button>
 				<button type="button" class="btn btn-default btn-xs btn-group-sm" ng-click="save('{{ URL('admin/account/'.$account->id) }}/menu/publish')">保存并发布</button>
-				<button type="button" class="btn btn-default btn-xs btn-group-sm" ng-click="save('{{ URL('admin/account/'.$account->id) }}/menu?/revert')">撤消发布</button>
+				<button type="button" class="btn btn-default btn-xs btn-group-sm" ng-click="save('{{ URL('admin/account/'.$account->id) }}/menu/revert')">撤消发布</button>
 			</div>
 		</p>
 	</div>
