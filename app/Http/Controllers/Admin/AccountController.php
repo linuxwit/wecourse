@@ -137,7 +137,7 @@ class AccountController extends Controller {
 			'appid' => 'required|max:18',
 			'appsecret' => 'required|max:32',
 			'token' => 'required',
-			'encodingaeskey' => 'required',
+			//'encodingaeskey' => 'required',
 		);
 		$validator = $this->validate($request, $rules);
 		$modal->name = Input::get('name');
