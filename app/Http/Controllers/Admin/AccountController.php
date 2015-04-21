@@ -249,7 +249,8 @@ class AccountController extends Controller {
 				}
 				return array('msg' => '操作成功', 'status' => $return ? 'success' : 'error');
 			} else {
-				return array('msg' => '操作失败，请重试！', 'status' => error);
+				return array('msg' => '操作失败，请重试！', 'status' => 'error');
+
 			}
 		}
 	}
