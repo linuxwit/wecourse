@@ -73,6 +73,11 @@ app.controller('MpMenuCtrl', ['$scope', '$http', 'api', 'toaster', function($sco
 		if ($scope.menu && $scope.menu.button && $scope.menu.button.length >= 3) {
 			alert('微信公众号规定一级菜单不能超过3个');
 		} else {
+			if (!$scope.menu) {
+				$scope.menu = {
+					button: []
+				};
+			}
 			$scope.menu.button.push({
 				name: ''
 			});
