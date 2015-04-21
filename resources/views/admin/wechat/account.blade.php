@@ -22,15 +22,12 @@
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<span>{{$item->name}}</span>
-							<div class="dropdown pull-right">
-
-
-								  <form action="{{ URL('admin/account/'.$item->id) }}" method="POST" style="display: inline;">
-                    <input name="_method" type="hidden" value="DELETE">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <button type="submit" class="btn btn-danger btn-xs"><span aria-hidden="true">×</span></button>
-                  </form>
-
+							<div class="pull-right">
+								<form action="{{ URL('admin/account/'.$item->id) }}" method="POST" style="display: inline;">
+									<input name="_method" type="hidden" value="DELETE">
+									<input type="hidden" name="_token" value="{{ csrf_token() }}">
+									<button type="submit" class="btn btn-xs"><span aria-hidden="true">×</span></button>
+								</form>
 							</div>
 						</div>
 						<div class="panel-body">
