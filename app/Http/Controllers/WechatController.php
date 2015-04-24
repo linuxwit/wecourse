@@ -37,17 +37,14 @@ Class WechatController extends BaseController {
 			'appsecret' => $this->account->appsecret, //填写高级调用功能的密钥
 		);
 
-		log::debug($this->options['appid']);
+		log::debug(json_encode($this->options));
 		$this->weObj = new Wechat($this->options);
-		log::debug($this->options['appid']);
 		$this->weObj->valid();
 	}
 
 	public function index($id) {
 		Log::debug('收到请求' . $id);
-		if (!$this->init($id)) {
-			return;
-		}
+		$this->init($id);
 		Log::debug('通过检查');
 		$rev = $this->weObj->getRev();
 		$type = $rev->getRevType();
