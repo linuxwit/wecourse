@@ -13,9 +13,9 @@ Class WechatController extends BaseController {
 	protected $options;
 
 	protected function init($id) {
-		$this->account = Account::where('accountid', '=', $id)->first();
+		$this->account = Account::find($id);
 		if (!$this->account) {
-			Log::error('无法识别请求 accountid:' . $id);
+			Log::error('无法识别请求 id:' . $id);
 			return false;
 		}
 		$this->options = array(
