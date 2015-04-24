@@ -15,9 +15,9 @@ Class WechatController extends BaseController {
 	public function ping($id) {
 		$model = Account::find($id);
 		if ($model) {
-			echo $model->name;
+			$this->init($id);
 		} else {
-			echo '找不到帐号' . $id;
+			echo '非法帐号';
 		}
 	}
 
@@ -28,14 +28,19 @@ Class WechatController extends BaseController {
 			Log::error('无法识别请求 id:' . $id);
 			return false;
 		}
+		$this->account->times = $this->account->times + 1;
+		$this->account->save();
 		$this->options = array(
 			'token' => $this->account->token, //填写你设定的key
 			'encodingaeskey' => $this->account->encodingaeskey, //填写加密用的EncodingAESKey
 			'appid' => $this->account->appid, //填写高级调用功能的app id
 			'appsecret' => $this->account->appsecret, //填写高级调用功能的密钥
 		);
+
+		log::debug($this->options['appid']);
 		$this->weObj = new Wechat($this->options);
-		//$this->weObj->valid();
+		log::debug($this->options['appid']);
+		$this->weObj->valid();
 	}
 
 	public function index($id) {
