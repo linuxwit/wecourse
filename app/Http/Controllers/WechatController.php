@@ -13,10 +13,10 @@ Class WechatController extends BaseController {
 	protected $options;
 
 	protected function init($id) {
-		$this->account = Account::where('uid', '=', $id)->first();
+		$this->account = Account::where('accountid', '=', $id)->first();
 		if (!$this->account) {
-			Log::error('无法识别请求 Id:' . $id);
-			return;
+			Log::error('无法识别请求 accountid:' . $id);
+			return false;
 		}
 		$this->options = array(
 			'token' => $this->account->token, //填写你设定的key
@@ -29,7 +29,9 @@ Class WechatController extends BaseController {
 	}
 
 	public function index($id) {
-		$this->init($id);
+		if (!$this->init($id)) {
+			return;
+		}
 		Log::debug('通过检查');
 		$rev = $this->weObj->getRev();
 		$type = $rev->getRevType();

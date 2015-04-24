@@ -23,6 +23,7 @@ class CreateMpReplyTable extends Migration {
 		Schema::create('mp_reply', function (Blueprint $table) {
 			$table->increments('id');
 			$table->integer('uid');
+			$table->integer('accountid');
 			$table->string('matchtype', 120); //消息回复匹配规则 菜单点击 event | 发送关键字 word | 正则表达式 regex
 			$table->string('matchvalue', 500);
 			$table->string('msgtype', 10); //text,image,voice,music,video,news,lbs,biz
