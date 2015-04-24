@@ -13,6 +13,7 @@ Class WechatController extends BaseController {
 	protected $options;
 
 	protected function init($id) {
+
 		$this->account = Account::find($id);
 		if (!$this->account) {
 			Log::error('无法识别请求 id:' . $id);
@@ -29,6 +30,7 @@ Class WechatController extends BaseController {
 	}
 
 	public function index($id) {
+		Log::debug('收到请求'。$id);
 		if (!$this->init($id)) {
 			return;
 		}
