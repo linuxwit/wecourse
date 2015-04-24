@@ -39,7 +39,6 @@ Class WechatController extends BaseController {
 	}
 
 	public function index($id) {
-		echo $id;
 		Log::debug('收到请求' . $id);
 		if (!$this->init($id)) {
 			return;
