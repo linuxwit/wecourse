@@ -11,6 +11,8 @@
  */
 Route::post('/wechat/{id}', 'WechatController@index'); //微信接口
 
+Route::get('/wechat/{id}', 'WechatController@ping');
+
 Route::get('/', 'WelcomeController@index');
 Route::get('home', 'HomeController@index');
 

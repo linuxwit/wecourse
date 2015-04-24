@@ -12,6 +12,15 @@ Class WechatController extends BaseController {
 	protected $weObj;
 	protected $options;
 
+	public function ping($id) {
+		$model = Account::find($id);
+		if ($model) {
+			echo $model->name;
+		} else {
+			echo '找不到帐号' . $id;
+		}
+	}
+
 	protected function init($id) {
 
 		$this->account = Account::find($id);
@@ -30,7 +39,8 @@ Class WechatController extends BaseController {
 	}
 
 	public function index($id) {
-		Log::debug('收到请求'。$id);
+		echo $id;
+		Log::debug('收到请求' . $id);
 		if (!$this->init($id)) {
 			return;
 		}
