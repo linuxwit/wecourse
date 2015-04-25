@@ -15,7 +15,9 @@ Class WechatController extends BaseController {
 	public function ping($id) {
 		$model = Account::find($id);
 		if ($model) {
+			echo 'ok ';
 			$this->init($id);
+
 		} else {
 			echo '非法帐号';
 		}
@@ -30,6 +32,7 @@ Class WechatController extends BaseController {
 		}
 		$this->account->times = $this->account->times + 1;
 		$this->account->save();
+
 		$this->options = array(
 			'token' => $this->account->token, //填写你设定的key
 			'encodingaeskey' => $this->account->encodingaeskey, //填写加密用的EncodingAESKey
@@ -40,7 +43,7 @@ Class WechatController extends BaseController {
 		log::debug(json_encode($this->options));
 		$this->weObj = new Wechat($this->options);
 		Log::debug('begin valid');
-		//$this->weObj->valid();
+		$this->weObj->valid();
 	}
 
 	public function index($id) {
@@ -68,7 +71,8 @@ Class WechatController extends BaseController {
 				$this->doTextReply($id, $content);
 				break;
 			case Wechat::MSGTYPE_EVENT:
-				$key = $rev->getRevEvent()['EventKey'];
+				Log::debug(json_encode($rev->getRevEvent()));
+				$key = $rev->getRevEvent()['key'];
 				$event = $rev->getRevEvent()['event'];
 
 				Log::debug("响应事件,{$key}={$event}");
