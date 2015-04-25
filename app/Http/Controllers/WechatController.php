@@ -22,10 +22,11 @@ Class WechatController extends BaseController {
 	}
 
 	protected function init($id) {
+
 		$this->account = Account::find($id);
 		if (!$this->account) {
 			Log::error('无法识别请求 id:' . $id);
-			return;
+			return false;
 		}
 		$this->account->times = $this->account->times + 1;
 		$this->account->save();
@@ -35,6 +36,7 @@ Class WechatController extends BaseController {
 			'appid' => $this->account->appid, //填写高级调用功能的app id
 			'appsecret' => $this->account->appsecret, //填写高级调用功能的密钥
 		);
+
 		log::debug(json_encode($this->options));
 		$this->weObj = new Wechat($this->options);
 		$this->weObj->valid();
@@ -65,9 +67,9 @@ Class WechatController extends BaseController {
 				$this->doTextReply($id, $content);
 				break;
 			case Wechat::MSGTYPE_EVENT:
-				log::debug('响应事件')
+				$key = $rev->getRevEvent()['key'];
 				$event = $rev->getRevEvent()['event'];
-				$key = $rev->getRevEvent()['EventKey'];
+
 				Log::debug("响应事件,{$key}={$event}");
 				if ($key && $event) {
 					$this->doEventReply($key, $event, $id);
@@ -83,18 +85,17 @@ Class WechatController extends BaseController {
 		}
 	}
 
-	protected function doTextReply($accountid, $keyWord) {
-		$reply = Reply::whereRaw('accountid =? and matchtype = ? and matchvalue = ?', [$accountid, 'text', $keyWord])->first();
+	protected function doTextReply($uid, $keyWord) {
+		$reply = Reply::whereRaw('uid =? and matchtype = ? and matchvalue = ?', [$uid, 'text', $keyWord])->first();
 		if ($reply) {
 			$type = $reply->msgtype;
 			$this->weObj->$type(json_decode($reply->content))->reply();
 		} else {
 			Log::error('没有配置菜单响应用内容');
-			$this->weObj->text("非常抱谦，功能开发中，有问题请找客服")->reply();
 		}
 	}
 
-	protected function doEventReply($key, $event, $accountid) {
+	protected function doEventReply($key, $event, $uid) {
 		switch ($event) {
 			case Wechat::EVENT_SUBSCRIBE:
 				//TODO 保存用户到粉丝表
@@ -108,7 +109,7 @@ Class WechatController extends BaseController {
 				}
 				break;
 			case Wechat::EVENT_MENU_CLICK:
-				$reply = Reply::whereRaw('accountid =? and matchtype = ? and matchvalue = ?', [$accountid, $event, $key])->first();
+				$reply = Reply::whereRaw('uid =? and matchtype = ? and matchvalue = ?', [$uid, $event, $key])->first();
 				if ($reply) {
 					Log::debug('处理菜单事件');
 					$this->doMatchReply($reply);
