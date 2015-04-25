@@ -64,7 +64,7 @@ Class WechatController extends BaseController {
 				$key = $rev->getRevEvent()['key'];
 				$event = $rev->getRevEvent()['event'];
 				Log::debug("响应事件,key:{$key} ,event:{$event}");
-				$this->doEventReply($key, $event, $id);
+				$this->doEventReply($rev, $key, $event, $id);
 				break;
 			case Wechat::MSGTYPE_IMAGE:
 				$this->weObj->text('')->reply();
@@ -84,10 +84,20 @@ Class WechatController extends BaseController {
 		}
 	}
 
-	protected function doEventReply($key, $event, $accountid) {
+	protected function doEventReply($rev, $key, $event, $accountid) {
 		switch ($event) {
 			case Wechat::EVENT_SUBSCRIBE:
-				//TODO 保存用户到粉丝表
+				//保存用户到粉丝表
+				$fromusername = $rev->getRevFrom();
+
+				$user = $this->weObj->getUserInfo($fromusername);
+				$seach = array('accountid' => $accountid, 'openid' => $fromusername);
+				$data = array();
+				if ($user) {
+					$data = $user;
+				}
+				Model::updateOrCreate($seach, $data);
+
 				$account = $this->account;
 				Log::info('enable:' . $account->subscribeenable . ',msgtype' . $account->subscribemsgtype . ',content:' . $account->subscribecontent);
 				if ($account->subscribeenable == 1 && $account->subscribecontent) {
