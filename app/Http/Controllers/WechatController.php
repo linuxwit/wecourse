@@ -71,10 +71,8 @@ Class WechatController extends BaseController {
 				$this->doTextReply($id, $content);
 				break;
 			case Wechat::MSGTYPE_EVENT:
-				Log::debug(json_encode($rev->getRevEvent()));
 				$key = $rev->getRevEvent()['key'];
 				$event = $rev->getRevEvent()['event'];
-
 				Log::debug("响应事件,{$key}={$event}");
 				if ($key && $event) {
 					$this->doEventReply($key, $event, $id);
@@ -100,7 +98,7 @@ Class WechatController extends BaseController {
 		}
 	}
 
-	protected function doEventReply($key, $event, $uid) {
+	protected function doEventReply($key, $event, $accountid) {
 		switch ($event) {
 			case Wechat::EVENT_SUBSCRIBE:
 				//TODO 保存用户到粉丝表
@@ -114,7 +112,7 @@ Class WechatController extends BaseController {
 				}
 				break;
 			case Wechat::EVENT_MENU_CLICK:
-				$reply = Reply::whereRaw('uid =? and matchtype = ? and matchvalue = ?', [$uid, $event, $key])->first();
+				$reply = Reply::whereRaw('accountid =? and matchtype = ? and matchvalue = ?', [$accountid, $event, $key])->first();
 				if ($reply) {
 					Log::debug('处理菜单事件');
 					$this->doMatchReply($reply);
