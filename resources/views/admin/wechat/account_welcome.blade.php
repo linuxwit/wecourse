@@ -10,16 +10,16 @@
 				</div>
 			</div>
 		</div>
-		<div class="form-group hide">
+		<div class="form-group">
 			<label for="name" class="col-sm-2 col-md-2 control-label">响应类型</label>
 			<div class="col-sm-10 col-md-6">
 				<div class="radio">
 					<label>
-						<input type="radio" name="replytype" id="replytype1" value="text" checked ng-model="welcome.type">
+						<input type="radio" name="replytype" id="replytype1" ng-checked="welcome.type=='text'"  ng-model="welcome.type">
 						文字
 					</label>
-					<label>
-						<input type="radio" name="replytype" id="replytype2" value="article" ng-model="welcome.type">
+					<label class="hide">
+						<input type="radio" name="replytype" id="replytype2"  ng-checked="welcome.type=='news'"  ng-model="welcome.type">
 						图文
 					</label>
 				</div>

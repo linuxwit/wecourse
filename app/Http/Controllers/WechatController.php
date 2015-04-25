@@ -88,16 +88,17 @@ Class WechatController extends BaseController {
 		switch ($event) {
 			case Wechat::EVENT_SUBSCRIBE:
 				//TODO 保存用户到粉丝表
-				//
-
+				Log::info($event);
 				$account = $this->account;
 				if ($account->subscribeenable && $account->subscribecontent) {
-					if ($this->account->suscribemsgtype == 'text') {
+					if ($ccount->suscribemsgtype == 'text') {
 						$weObj->text($account->subscribecontent)->reply();
 					} else if ($account->suscribemsgtype == 'news') {
 						$news = json_decode($account->subscribecontent, true);
 						$weObj->news($news)->reply();
 					}
+				} else {
+					Log::info('没有设置关注欢迎信息'+$accountid);
 				}
 				break;
 			case Wechat::EVENT_UNSUBSCRIBE:
