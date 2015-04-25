@@ -114,33 +114,35 @@ app.controller('MpMenuCtrl', ['$scope', '$http', 'api', 'toaster', function($sco
 		if (!$scope.selectedNode.key) {
 			$scope.selectedNode.key = $scope.selectedNode.name;
 		}
-
 		console.log(fun);
 		switch (fun) {
 			case 'keyword':
 				$scope.selectedNode.type = 'click';
+				
 				delete $scope.selectedNode.url;
 				delete $scope.selectedNode.text;
-				delete $scope.selectedNode.link;
 				delete $scope.selectedNode.module;
 				break;
 			case "text":
 				$scope.selectedNode.type = 'click';
+				$scope.selectedNode.key = $scope.selectedNode.name;
+
 				delete $scope.selectedNode.url;
 				delete $scope.selectedNode.keyword;
-				delete $scope.selectedNode.link;
 				delete $scope.selectedNode.module;
+
 				break;
 			case "link":
 				$scope.selectedNode.type = 'view';
+				$scope.selectedNode.key = $scope.selectedNode.name;
+
 				delete $scope.selectedNode.keyword;
-				delete $scope.selectedNode.link;
+				delete $scope.selectedNode.text;
 				delete $scope.selectedNode.module;
 				break;
 			case 'module':
 				delete $scope.selectedNode.url;
 				delete $scope.selectedNode.keyword;
-				delete $scope.selectedNode.link;
 				delete $scope.selectedNode.text;
 			default:
 				break;
