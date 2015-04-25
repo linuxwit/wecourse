@@ -209,8 +209,6 @@ class AccountController extends Controller {
 					}
 				}
 
-				var_dump($click_buttons);
-
 				//删除原有生成的合成
 				Reply::whereRaw('uid=? and accountid=? and matchtype=?', array(Auth::id(), $id, Wechat::EVENT_MENU_CLICK))->delete();
 
