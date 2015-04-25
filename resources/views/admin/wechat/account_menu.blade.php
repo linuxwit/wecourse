@@ -102,7 +102,7 @@
 						<div class="popover bottom " ng-class="{true: 'active', false: ''}[selectedNode.fun=='link']">
 							<div class="arrow three"></div>
 							<div class="popover-content">
-								<p><input type="url" class="form-control" id="url" placeholder="请输入要跳转的网络地址" ng-model="selectedNode.url" /></p>
+								<p><input type="url" class="form-control" placeholder="请输入要跳转的网络地址" ng-model="selectedNode.url"/></p>
 							</div>
 						</div>
 						<div class="popover bottom " ng-class="{true: 'active', false: ''}[selectedNode.fun=='module']">

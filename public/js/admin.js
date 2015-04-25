@@ -106,7 +106,7 @@ app.controller('MpMenuCtrl', ['$scope', '$http', 'api', 'toaster', function($sco
 
 	$scope.selectMenuItem = function(item) {
 		$scope.selectedNode = item;
-		console.log(item);
+		console.log($scope.selectedNode);
 	};
 
 	$scope.choose = function(fun) {
@@ -118,7 +118,6 @@ app.controller('MpMenuCtrl', ['$scope', '$http', 'api', 'toaster', function($sco
 		switch (fun) {
 			case 'keyword':
 				$scope.selectedNode.type = 'click';
-				
 				delete $scope.selectedNode.url;
 				delete $scope.selectedNode.text;
 				delete $scope.selectedNode.module;
@@ -133,9 +132,9 @@ app.controller('MpMenuCtrl', ['$scope', '$http', 'api', 'toaster', function($sco
 
 				break;
 			case "link":
+				console.log($scope.selectedNode.url);
 				$scope.selectedNode.type = 'view';
 				$scope.selectedNode.key = $scope.selectedNode.name;
-
 				delete $scope.selectedNode.keyword;
 				delete $scope.selectedNode.text;
 				delete $scope.selectedNode.module;
@@ -147,6 +146,7 @@ app.controller('MpMenuCtrl', ['$scope', '$http', 'api', 'toaster', function($sco
 			default:
 				break;
 		}
+
 	};
 
 	$scope.changeModule = function() {
