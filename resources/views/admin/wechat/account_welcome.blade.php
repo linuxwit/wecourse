@@ -15,11 +15,11 @@
 			<div class="col-sm-10 col-md-6">
 				<div class="radio">
 					<label>
-						<input type="radio" name="replytype" id="replytype1" ng-checked="welcome.type=='text'"  ng-model="welcome.type">
+						<input type="radio" name="replytype" id="replytype1" ng-checked="welcome.type=='text'" value="text"  ng-model="welcome.type">
 						文字
 					</label>
 					<label class="hide">
-						<input type="radio" name="replytype" id="replytype2"  ng-checked="welcome.type=='news'"  ng-model="welcome.type">
+						<input type="radio" name="replytype" id="replytype2"  ng-checked="welcome.type=='news'"  value="news" ng-model="welcome.type">
 						图文
 					</label>
 				</div>
