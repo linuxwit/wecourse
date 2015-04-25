@@ -4,6 +4,7 @@ use Log;
 use \App\Account;
 use \App\Message;
 use \App\Reply;
+use \App\WechatUser;
 use \App\Witleaf\Wechat\Wechat;
 
 Class WechatController extends BaseController {
