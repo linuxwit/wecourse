@@ -117,7 +117,7 @@ Class WechatController extends BaseController {
 				$fromusername = $rev->getRevFrom();
 				Log::info('unsubscribe:' . $fromusername);
 				$search = array('uid' => $account->uid, 'accountid' => $accountid, 'openid' => $fromusername);
-				WechatUser::update($search, array('subscribe' => 0));
+				WechatUser::updateOrCreate($search, array('subscribe' => 0));
 				break;
 			case Wechat::EVENT_MENU_CLICK:
 				$reply = Reply::whereRaw('accountid =? and matchtype = ? and matchvalue = ?', [$accountid, $event, $key])->first();
