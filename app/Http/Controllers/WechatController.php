@@ -92,10 +92,10 @@ Class WechatController extends BaseController {
 				Log::info('enable:' . $account->subscribeenable . ',msgtype' . $account->subscribemsgtype . ',content:' . $account->subscribecontent);
 				if ($account->subscribeenable == 1 && $account->subscribecontent) {
 					if ($account->subscribemsgtype == 'text') {
-						$weObj->text($account->subscribecontent)->reply();
+						$this->weObj->text($account->subscribecontent)->reply();
 					} else if ($account->subscribemsgtype == 'news') {
 						$news = json_decode($account->subscribecontent, true);
-						$weObj->news($news)->reply();
+						$this->weObj->news($news)->reply();
 					}
 				} else {
 					Log::info('没有设置关注欢迎信息'+$accountid);
