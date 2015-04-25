@@ -67,7 +67,7 @@ Class WechatController extends BaseController {
 				$this->doTextReply($id, $content);
 				break;
 			case Wechat::MSGTYPE_EVENT:
-				$key = $rev->getRevEvent()['key'];
+				$key = $rev->getRevEvent()['EventKey'];
 				$event = $rev->getRevEvent()['event'];
 
 				Log::debug("响应事件,{$key}={$event}");
@@ -85,17 +85,18 @@ Class WechatController extends BaseController {
 		}
 	}
 
-	protected function doTextReply($uid, $keyWord) {
-		$reply = Reply::whereRaw('uid =? and matchtype = ? and matchvalue = ?', [$uid, 'text', $keyWord])->first();
+	protected function doTextReply($accountid, $keyWord) {
+		$reply = Reply::whereRaw('accountid =? and matchtype = ? and matchvalue = ?', [$accountid, 'text', $keyWord])->first();
 		if ($reply) {
 			$type = $reply->msgtype;
 			$this->weObj->$type(json_decode($reply->content))->reply();
 		} else {
 			Log::error('没有配置菜单响应用内容');
+			$this->weObj->text("非常抱谦，功能开发中，有问题请找客服")->reply();
 		}
 	}
 
-	protected function doEventReply($key, $event, $uid) {
+	protected function doEventReply($key, $event, $accountid) {
 		switch ($event) {
 			case Wechat::EVENT_SUBSCRIBE:
 				//TODO 保存用户到粉丝表
@@ -109,7 +110,7 @@ Class WechatController extends BaseController {
 				}
 				break;
 			case Wechat::EVENT_MENU_CLICK:
-				$reply = Reply::whereRaw('uid =? and matchtype = ? and matchvalue = ?', [$uid, $event, $key])->first();
+				$reply = Reply::whereRaw('accountid =? and matchtype = ? and matchvalue = ?', [$accountid, $event, $key])->first();
 				if ($reply) {
 					Log::debug('处理菜单事件');
 					$this->doMatchReply($reply);
