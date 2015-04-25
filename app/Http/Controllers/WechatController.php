@@ -40,7 +40,7 @@ Class WechatController extends BaseController {
 		log::debug(json_encode($this->options));
 		$this->weObj = new Wechat($this->options);
 		Log::debug('begin valid');
-		$this->weObj->valid();
+		//$this->weObj->valid();
 	}
 
 	public function index($id) {
