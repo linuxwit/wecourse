@@ -88,8 +88,8 @@ Class WechatController extends BaseController {
 		switch ($event) {
 			case Wechat::EVENT_SUBSCRIBE:
 				//TODO 保存用户到粉丝表
-				Log::info('enable:' . $account->subscribeenable . ',msgtype' . $account->suscribemsgtype . ',content:' . $account->subscribecontent);
 				$account = $this->account;
+				Log::info('enable:' . $account->subscribeenable . ',msgtype' . $account->suscribemsgtype . ',content:' . $account->subscribecontent);
 				if ($account->subscribeenable && $account->subscribecontent) {
 					if ($account->suscribemsgtype == 'text') {
 						$weObj->text($account->subscribecontent)->reply();
