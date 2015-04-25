@@ -63,12 +63,8 @@ Class WechatController extends BaseController {
 			case Wechat::MSGTYPE_EVENT:
 				$key = $rev->getRevEvent()['key'];
 				$event = $rev->getRevEvent()['event'];
-				Log::debug("响应事件,{$key}={$event}");
-				if ($key && $event) {
-					$this->doEventReply($key, $event, $id);
-				} else {
-					$this->weObj->text('no key or no event')->reply();
-				}
+				Log::debug("响应事件,key:{$key} ,event:{$event}");
+				$this->doEventReply($key, $event, $id);
 				break;
 			case Wechat::MSGTYPE_IMAGE:
 				$this->weObj->text('')->reply();
@@ -93,13 +89,16 @@ Class WechatController extends BaseController {
 			case Wechat::EVENT_SUBSCRIBE:
 				//TODO 保存用户到粉丝表
 				if ($this->account->subscribeenable && $this->account->subscribecontent) {
-					$content = json_decode(json, true);
+					$countent = $this->account->subscribecontent;
 					if ($account->suscribemsgtype == 'text') {
-						$weObj->text($content['content'])->reply();
+						$weObj->text($countent)->reply();
 					} else if ($account->suscribemsgtype == 'news') {
-						$weObj->news(json_decode($content))->reply();
+						$weObj->news(json_decode(json_decode($countent, true)))->reply();
 					}
 				}
+				break;
+			case Wechat::EVENT_UNSUBSCRIBE:
+				Log::info('unsubcribe');
 				break;
 			case Wechat::EVENT_MENU_CLICK:
 				$reply = Reply::whereRaw('accountid =? and matchtype = ? and matchvalue = ?', [$accountid, $event, $key])->first();
@@ -154,12 +153,12 @@ Class WechatController extends BaseController {
 	private function doNoMatchReply() {
 		//已经设置无匹配关键字回复
 		if ($this->account->nomatchenable && $this->account->nomatchcontent) {
-			$content = json_decode($this->account->nomatchcontent, true);
 			switch ($this->account->nomatchmsgtype) {
 				case Wechat::MSGTYPE_TEXT:
-					$this->weObj->text($content['content'])->reply();
+					$this->weObj->text($this->account->nomatchcontent)->reply();
 					break;
 				case Wechat::MSGTYPE_NEWS:
+					$content = json_decode($this->account->nomatchcontent, true);
 					$this->weObj->news($content)->reply();
 					break;
 				default:
