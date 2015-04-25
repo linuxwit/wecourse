@@ -88,12 +88,15 @@ Class WechatController extends BaseController {
 		switch ($event) {
 			case Wechat::EVENT_SUBSCRIBE:
 				//TODO 保存用户到粉丝表
-				if ($this->account->subscribeenable && $this->account->subscribecontent) {
-					$countent = $this->account->subscribecontent;
-					if ($account->suscribemsgtype == 'text') {
-						$weObj->text($countent)->reply();
+				//
+
+				$account = $this->account;
+				if ($account->subscribeenable && $account->subscribecontent) {
+					if ($this->account->suscribemsgtype == 'text') {
+						$weObj->text($account->subscribecontent)->reply();
 					} else if ($account->suscribemsgtype == 'news') {
-						$weObj->news(json_decode(json_decode($countent, true)))->reply();
+						$news = json_decode($account->subscribecontent, true);
+						$weObj->news($news)->reply();
 					}
 				}
 				break;
