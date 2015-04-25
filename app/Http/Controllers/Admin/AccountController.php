@@ -188,7 +188,6 @@ class AccountController extends Controller {
 				foreach ($menu['button'] as $button) {
 					if (isset($button['sub_button'])) {
 						foreach ($button['sub_button'] as $sub_button) {
-
 							if (isset($sub_button['module'])) {
 								$module = json_decode($sub_button['module'], true);
 
@@ -210,25 +209,26 @@ class AccountController extends Controller {
 					}
 				}
 
+				var_dump($click_buttons);
+
 				//删除原有生成的合成
 				Reply::whereRaw('uid=? and accountid=? and matchtype=?', array(Auth::id(), $id, Wechat::EVENT_MENU_CLICK))->delete();
 
 				foreach ($click_buttons as $key => $button) {
-					$reply = Reply::whereRaw('uid=? and accountid=? and matchtype=? and matchvalue=?', array(Auth::id(), $id, Wechat::EVENT_MENU_CLICK, $key))->first();
-					if ($reply) {
-						$reply->msgtype = $button['fun'];
-						$reply->content = isset($button[$button['fun']]) ? $button[$button['fun']] : '';
-						$reply->save();
+					$content = '';
+					if ($button['fun'] == 'link') {
+						$content = $button['url'];
 					} else {
-						Reply::create(array(
-							'uid' => Auth::id(),
-							'accountid' => $id,
-							'matchtype' => Wechat::EVENT_MENU_CLICK,
-							'matchvalue' => $key,
-							'msgtype' => $button['fun'],
-							'content' => isset($button[$button['fun']]) ? $button[$button['fun']] : '',
-						));
+						$content = isset($button[$button['fun']]) ? $button[$button['fun']] : '';
 					}
+					Reply::create(array(
+						'uid' => Auth::id(),
+						'accountid' => $id,
+						'matchtype' => Wechat::EVENT_MENU_CLICK,
+						'matchvalue' => $button['key'],
+						'msgtype' => $button['fun'],
+						'content' => $content,
+					));
 				}
 
 				$return = true;

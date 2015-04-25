@@ -126,7 +126,7 @@ Class WechatController extends BaseController {
 
 			switch ($type) {
 				case Wechat::MSGTYPE_TEXT:
-					$this->weObj->text($$reply->content)->reply();
+					$this->weObj->text($reply->content)->reply();
 					break;
 				case Wechat::MSGTYPE_NEWS:
 					$content = json_decode($reply->content, true);
