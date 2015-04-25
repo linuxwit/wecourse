@@ -195,9 +195,7 @@ class AccountController extends Controller {
 								$sub_button['type'] = $module['type'];
 								$sub_button['key'] = $module['key'];
 							}
-
 							$click_buttons[$sub_button['name']] = $sub_button;
-
 						}
 					} else {
 						if (isset($button['module'])) {

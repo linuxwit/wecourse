@@ -123,20 +123,22 @@ Class WechatController extends BaseController {
 		Log::debug('处理Match回复,消息类型为' . $type);
 		if ($reply->content) {
 			Log::debug('处理Match回复,内容为' . $reply->content);
-			$content = json_decode($reply->content, true);
+
 			switch ($type) {
 				case Wechat::MSGTYPE_TEXT:
-					$this->weObj->text($content['text'])->reply();
+					$this->weObj->text($$reply->content)->reply();
 					break;
 				case Wechat::MSGTYPE_NEWS:
+					$content = json_decode($reply->content, true);
 					$this->weObj->news($content)->reply();
 					break;
 				case 'keyword':
 					//TODO 关键字回复
-					$this->weObj->text($content['text'])->reply();
+					$this->weObj->text($reply->content)->reply();
 					break;
 				case 'module':
-
+					$content = json_decode($reply->content, true);
+					$this->weObj->text($reply->content)->reply();
 					break;
 				default:
 					Log::error('unknow no match msg type:' . $this->account->nomatchmsgtype);
