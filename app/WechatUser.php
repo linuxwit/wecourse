@@ -26,7 +26,8 @@ class WechatUser extends Model {
 		, 'mobile'
 		, 'job_title'
 		, 'address'
-		, 'company',
+		, 'company'
+		, 'remark',
 	];
 
 }

@@ -88,21 +88,23 @@ Class WechatController extends BaseController {
 	protected function doEventReply($rev, $key, $event, $accountid) {
 		switch ($event) {
 			case Wechat::EVENT_SUBSCRIBE:
+			case Wechat::EVENT_UNSUBSCRIBE:
 				//保存用户到粉丝表
 				$account = $this->account;
 				$fromusername = $rev->getRevFrom();
-				Log::info('subscribe' . $fromusername);
+				Log::info('subscribe:' . $fromusername);
 				$user = $this->weObj->getUserInfo($fromusername);
 				Log::debug(json_encode($user));
 				$search = array('uid' => $account->uid, 'accountid' => $accountid, 'openid' => $fromusername);
 				Log::debug(json_encode($search));
+				if ($event === Wechat::EVENT_UNSUBSCRIBE) {
+					$user = array('subscribe' => 0);
+				}
 				$data = array();
 				if ($user) {
 					$data = $user;
 				}
 				$return = WechatUser::updateOrCreate($search, array_merge($search, $data));
-				Log::debug('save return' . $return);
-
 				Log::info('enable:' . $account->subscribeenable . ',msgtype' . $account->subscribemsgtype . ',content:' . $account->subscribecontent);
 				if ($account->subscribeenable == 1 && $account->subscribecontent) {
 					if ($account->subscribemsgtype == 'text') {
@@ -114,9 +116,6 @@ Class WechatController extends BaseController {
 				} else {
 					Log::info('没有设置关注欢迎信息'+$accountid);
 				}
-				break;
-			case Wechat::EVENT_UNSUBSCRIBE:
-				Log::info('unsubcribe');
 				break;
 			case Wechat::EVENT_MENU_CLICK:
 				$reply = Reply::whereRaw('accountid =? and matchtype = ? and matchvalue = ?', [$accountid, $event, $key])->first();
