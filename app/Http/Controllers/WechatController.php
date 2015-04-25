@@ -7,24 +7,19 @@ use \App\Reply;
 use \App\Witleaf\Wechat\Wechat;
 
 Class WechatController extends BaseController {
-
 	protected $account;
 	protected $weObj;
 	protected $options;
-
 	public function ping($id) {
 		$model = Account::find($id);
 		if ($model) {
 			echo 'ok ';
 			$this->init($id);
-
 		} else {
 			echo '非法帐号';
 		}
 	}
-
 	protected function init($id) {
-
 		$this->account = Account::find($id);
 		if (!$this->account) {
 			Log::error('无法识别请求 id:' . $id);
@@ -32,27 +27,23 @@ Class WechatController extends BaseController {
 		}
 		$this->account->times = $this->account->times + 1;
 		$this->account->save();
-
 		$this->options = array(
 			'token' => $this->account->token, //填写你设定的key
 			'encodingaeskey' => $this->account->encodingaeskey, //填写加密用的EncodingAESKey
 			'appid' => $this->account->appid, //填写高级调用功能的app id
 			'appsecret' => $this->account->appsecret, //填写高级调用功能的密钥
 		);
-
 		log::debug(json_encode($this->options));
 		$this->weObj = new Wechat($this->options);
 		Log::debug('begin valid');
 		$this->weObj->valid();
 	}
-
 	public function index($id) {
 		Log::debug('收到请求' . $id);
 		$this->init($id);
 		Log::debug('通过检查');
 		$rev = $this->weObj->getRev();
 		$type = $rev->getRevType();
-
 		Log::debug('记录用户操作信息');
 		//记录用户操作信息
 		Message::create([
@@ -63,7 +54,6 @@ Class WechatController extends BaseController {
 			'createtime' => $rev->getRevCtime(),
 			'context' => json_encode($rev->getRevData()), //TODO
 		]);
-
 		Log::debug('响应用请求');
 		switch ($type) {
 			case Wechat::MSGTYPE_TEXT:
@@ -141,6 +131,13 @@ Class WechatController extends BaseController {
 				case Wechat::MSGTYPE_NEWS:
 					$this->weObj->news($content)->reply();
 					break;
+				case 'keyword':
+					//TODO 关键字回复
+					$this->weObj->text($content['text'])->reply();
+					break;
+				case 'module':
+
+					break;
 				default:
 					Log::error('unknow no match msg type:' . $this->account->nomatchmsgtype);
 					$this->weObj->text('')->reply();
@@ -152,7 +149,6 @@ Class WechatController extends BaseController {
 			$this->weObj->text('')->reply();
 		}
 	}
-
 	private function doNoMatchReply() {
 		//已经设置无匹配关键字回复
 		if ($this->account->nomatchenable && $this->account->nomatchcontent) {
@@ -174,7 +170,6 @@ Class WechatController extends BaseController {
 			$this->weObj->text('')->reply();
 		}
 	}
-
 	public function setmenu($id) {
 		$account = Account::where('uid', '=', $id)->first();
 		if (!$account) {
