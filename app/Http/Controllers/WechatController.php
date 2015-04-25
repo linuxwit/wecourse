@@ -89,14 +89,15 @@ Class WechatController extends BaseController {
 			case Wechat::EVENT_SUBSCRIBE:
 				//保存用户到粉丝表
 				$fromusername = $rev->getRevFrom();
-
+				Log::info('subscribe' . $fromusername);
 				$user = $this->weObj->getUserInfo($fromusername);
+				Log::debug(json_encode($user));
 				$seach = array('accountid' => $accountid, 'openid' => $fromusername);
 				$data = array();
 				if ($user) {
 					$data = $user;
 				}
-				Model::updateOrCreate($seach, array_merge($seach, $data));
+				WechatUser::updateOrCreate($seach, array_merge($seach, $data));
 
 				$account = $this->account;
 				Log::info('enable:' . $account->subscribeenable . ',msgtype' . $account->subscribemsgtype . ',content:' . $account->subscribecontent);
