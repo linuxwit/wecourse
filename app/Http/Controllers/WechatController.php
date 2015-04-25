@@ -100,7 +100,7 @@ Class WechatController extends BaseController {
 				if ($user) {
 					$data = $user;
 				}
-				$return = WechatUser::updateOrCreate($seach, array_merge($search, $data));
+				$return = WechatUser::updateOrCreate($search, array_merge($search, $data));
 				Log::debug('save return' . $return);
 
 				Log::info('enable:' . $account->subscribeenable . ',msgtype' . $account->subscribemsgtype . ',content:' . $account->subscribecontent);
