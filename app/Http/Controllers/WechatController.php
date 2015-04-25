@@ -91,7 +91,7 @@ Class WechatController extends BaseController {
 				Log::info($event);
 				$account = $this->account;
 				if ($account->subscribeenable && $account->subscribecontent) {
-					if ($ccount->suscribemsgtype == 'text') {
+					if ($account->suscribemsgtype == 'text') {
 						$weObj->text($account->subscribecontent)->reply();
 					} else if ($account->suscribemsgtype == 'news') {
 						$news = json_decode($account->subscribecontent, true);
