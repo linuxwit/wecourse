@@ -39,6 +39,7 @@ Class WechatController extends BaseController {
 
 		log::debug(json_encode($this->options));
 		$this->weObj = new Wechat($this->options);
+		Log::debug('begin valid');
 		$this->weObj->valid();
 	}
 
@@ -67,7 +68,7 @@ Class WechatController extends BaseController {
 				$this->doTextReply($id, $content);
 				break;
 			case Wechat::MSGTYPE_EVENT:
-				$key = $rev->getRevEvent()['key'];
+				$key = $rev->getRevEvent()['EventKey'];
 				$event = $rev->getRevEvent()['event'];
 
 				Log::debug("响应事件,{$key}={$event}");
