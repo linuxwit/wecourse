@@ -22,11 +22,10 @@ Class WechatController extends BaseController {
 	}
 
 	protected function init($id) {
-
 		$this->account = Account::find($id);
 		if (!$this->account) {
 			Log::error('无法识别请求 id:' . $id);
-			return false;
+			return;
 		}
 		$this->account->times = $this->account->times + 1;
 		$this->account->save();
@@ -36,7 +35,6 @@ Class WechatController extends BaseController {
 			'appid' => $this->account->appid, //填写高级调用功能的app id
 			'appsecret' => $this->account->appsecret, //填写高级调用功能的密钥
 		);
-
 		log::debug(json_encode($this->options));
 		$this->weObj = new Wechat($this->options);
 		$this->weObj->valid();
@@ -67,9 +65,9 @@ Class WechatController extends BaseController {
 				$this->doTextReply($id, $content);
 				break;
 			case Wechat::MSGTYPE_EVENT:
-				$key = $rev->getRevEvent()['EventKey'];
+				log::debug('响应事件')
 				$event = $rev->getRevEvent()['event'];
-
+				$key = $rev->getRevEvent()['EventKey'];
 				Log::debug("响应事件,{$key}={$event}");
 				if ($key && $event) {
 					$this->doEventReply($key, $event, $id);
