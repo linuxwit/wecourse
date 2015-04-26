@@ -14,6 +14,15 @@ if(strpos($_SERVER["HTTP_USER_AGENT"],"MicroMessenger"))
 else
     echo "http/1.1 401 Unauthorized";
 
+
+    ,
+    "repositories": [{
+        "type": "composer",
+        "url": "http://pkg.phpcomposer.com/repo/packagist/"
+    }, {
+        "packagist": false
+    }
+
 流程：
  1.注册帐号，生成一个URL和一个token,绑定公众号
  绑定公众号：
