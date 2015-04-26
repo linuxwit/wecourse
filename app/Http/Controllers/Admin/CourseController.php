@@ -131,11 +131,24 @@ class CourseController extends Controller {
 			Log::debug('have cover');
 			$file = Input::file('cover');
 			$media = $this->upload($file, Auth::id(), '/upload/image/course/');
-
-			var_dump($media);
-
 			$model->cover = $media->cloudurl;
 		}
+
+		$rules = [
+			'title' => 'required|max:100',
+			'subtitle' => 'required|max:120',
+			'begintime' => 'required|date',
+			'endtime' => 'required|date',
+			'city' => 'required|max:50',
+			'address' => 'required|max:200',
+			'summary' => 'required',
+			'cover' => 'required',
+			'online' => 'required',
+			'content' => 'required',
+		];
+		$validator = $this->validate($request, $rules);
+
+		var_dump($validator);
 
 		if ($course->save()) {
 			return Redirect::to('admin/course');
