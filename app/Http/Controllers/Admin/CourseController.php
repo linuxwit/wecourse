@@ -103,6 +103,7 @@ class CourseController extends Controller {
 	 * @return Response
 	 */
 	public function update(Request $request, $id) {
+		Log::debug('udpate');
 		$rules = [
 			'title' => 'required|max:100',
 			'subtitle' => 'required|max:120',
@@ -128,15 +129,15 @@ class CourseController extends Controller {
 		$course->currentprice = Input::get('currentprice');
 		$course->oldprice = Input::get('oldprice');
 		if (Input::hasFile('cover')) {
-			Log::debug('have cover');
+		
 			$file = Input::file('cover');
 			$media = $this->upload($file, Auth::id(), '/upload/image/course/');
 			if ($media && $media->cloudurl) {
-
+				Log::debug('')
 				$model->cover = $media->cloudurl;
 			}
 		}
-		Log::debug('cover:' . $model->cover);
+
 		$rules = [
 			'title' => 'required|max:100',
 			'subtitle' => 'required|max:120',
