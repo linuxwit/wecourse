@@ -131,9 +131,12 @@ class CourseController extends Controller {
 			Log::debug('have cover');
 			$file = Input::file('cover');
 			$media = $this->upload($file, Auth::id(), '/upload/image/course/');
-			$model->cover = $media->cloudurl;
-		}
+			if ($media && $media->cloudurl) {
 
+				$model->cover = $media->cloudurl;
+			}
+		}
+		Log::debug('cover:' . $model->cover);
 		$rules = [
 			'title' => 'required|max:100',
 			'subtitle' => 'required|max:120',
