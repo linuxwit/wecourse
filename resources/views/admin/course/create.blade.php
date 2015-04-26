@@ -39,7 +39,7 @@
               <div class="form-group">
                 <label class="col-lg-2 control-label" for="iSumarry">课程大纲<span class="text-danger">*</span></label>
                 <div class="col-lg-10">
-                  <textarea  name="summary" class="editor" >{{ Input::old('summary')}} </textarea>
+                  <textarea  name="summary" class="editor" >{{ Input::old('summary')}}</textarea>
                 </div>
               </div>
               <div class="form-group">

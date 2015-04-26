@@ -65,7 +65,7 @@ class CourseController extends Controller {
 		];
 		$validator = $this->validate($request, $rules);
 
-		$inputs = Input::only('title', 'content', 'subtitle', 'begintime', 'endtime', 'address', 'city', 'cover', 'online', 'content', 'currentprice', 'oldprice', 'teacherid');
+		$inputs = Input::only('title', 'content', 'subtitle', 'summary', 'begintime', 'endtime', 'address', 'city', 'cover', 'online', 'content', 'currentprice', 'oldprice', 'teacherid');
 		if (Input::hasFile('cover')) {
 			$file = Input::file('cover');
 			$media = $this->upload($file, Auth::id(), '/upload/image/course/');
