@@ -49,6 +49,7 @@ abstract class Controller extends BaseController {
 		$file = storage_path() . $media->localpath;
 		Log::debug('upload file:' . $file);
 		list($ret, $error) = $upManager->putFile($token, $media->id, $file, $params, $mime);
+		Log::debug('upload file:' . $error);
 		if ($error) {
 			$media->sync = -1;
 		} else {
