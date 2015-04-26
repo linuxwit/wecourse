@@ -3,6 +3,7 @@ use App\Account;
 use App\Http\Controllers\Controller;
 use App\Reply;
 use App\Witleaf\Wechat\Wechat;
+use App\Witleaf\Wecourse\Course;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -116,7 +117,8 @@ class AccountController extends Controller {
 				'url' => 'http://www.mf23.cn',
 			),
 		);
-
+		$course = new Course();
+		$funs = $course->getModules();
 		return view('admin.wechat.setting')->with(array('account' => Account::find($id), 'modules' => $funs));
 	}
 	/**
@@ -190,9 +192,13 @@ class AccountController extends Controller {
 						foreach ($button['sub_button'] as $sub_button) {
 							if (isset($sub_button['module'])) {
 								$module = json_decode($sub_button['module'], true);
-
 								$sub_button['type'] = $module['type'];
-								$sub_button['key'] = $module['key'];
+								if (isset($module['key'])) {
+									$sub_button['key'] = $module['key'];
+								}
+								if (isset($module['url'])) {
+									$sub_button['url'] = $module['url'];
+								}
 							}
 							$click_buttons[$sub_button['name']] = $sub_button;
 						}
@@ -203,7 +209,9 @@ class AccountController extends Controller {
 							if (isset($module['key'])) {
 								$button['key'] = $module['key'];
 							}
-
+							if (isset($module['url'])) {
+								$button['url'] = $module['url'];
+							}
 						}
 						$click_buttons[$button['name']] = $button;
 					}

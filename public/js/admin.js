@@ -132,7 +132,6 @@ app.controller('MpMenuCtrl', ['$scope', '$http', 'api', 'toaster', function($sco
 
 				break;
 			case "link":
-				console.log($scope.selectedNode.url);
 				$scope.selectedNode.type = 'view';
 				$scope.selectedNode.key = $scope.selectedNode.name;
 				delete $scope.selectedNode.keyword;
@@ -152,12 +151,12 @@ app.controller('MpMenuCtrl', ['$scope', '$http', 'api', 'toaster', function($sco
 	$scope.changeModule = function() {
 		if ($scope.selectedNode.module) {
 			var module = angular.fromJson($scope.selectedNode.module);
-			console.log(module);
+			$scope.selectedNode.type = module.type;
 			if (module.type == 'click') {
-				$scope.selectedNode.type = module.type;
 				$scope.selectedNode.key = module.key;
+			}else if(module.type == 'view'){
+				$scope.selectedNode.url = module.url;
 			}
-			console.log($scope.selectedNode);
 		} else {
 			$scope.selectedNode.type = '';
 			$scope.selectedNode.key = '';

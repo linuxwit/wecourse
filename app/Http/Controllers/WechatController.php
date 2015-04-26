@@ -11,6 +11,7 @@ Class WechatController extends BaseController {
 	protected $account;
 	protected $weObj;
 	protected $options;
+
 	public function ping($id) {
 		$model = Account::find($id);
 		if ($model) {
@@ -20,6 +21,7 @@ Class WechatController extends BaseController {
 			echo '非法帐号';
 		}
 	}
+
 	protected function init($id) {
 		$this->account = Account::find($id);
 		if (!$this->account) {

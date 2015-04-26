@@ -108,6 +108,8 @@ return [
 		'ak' => 'YG9uh4iBBLoeX20AeoAZKQIctJjn0fdH5UXoPNkC',
 		'sk' => 'lZAgNj8yCY_TmcPbcX4fPHPqB-Zg1h7IlaOyZpcb',
 	),
+
+	'domain' => 'http://new.lovejog.com',
 	/*
 	|--------------------------------------------------------------------------
 	| Autoloaded Service Providers
