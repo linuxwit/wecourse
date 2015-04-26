@@ -4,6 +4,7 @@ use App\Http\Controllers\Controller;
 use Auth;
 use Illuminate\Http\Request;
 use Input;
+use Log;
 use Redirect;
 
 class CourseController extends Controller {
@@ -127,6 +128,7 @@ class CourseController extends Controller {
 		$course->currentprice = Input::get('currentprice');
 		$course->oldprice = Input::get('oldprice');
 		if (Input::hasFile('cover')) {
+			Log::debug('have cover');
 			$file = Input::file('cover');
 			$media = $this->upload($file, Auth::id(), '/upload/image/course/');
 
