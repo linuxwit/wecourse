@@ -130,7 +130,7 @@ class CourseController extends Controller {
 		if (Input::hasFile('cover')) {
 			$file = Input::file('cover');
 			$media = $this->upload($file, Auth::id(), '/upload/image/course/');
-			Log::dubug($media->cover);
+			Log::dubug('url is:' . $media->cloudurl);
 			$model->cover = $media->cloudurl;
 		}
 

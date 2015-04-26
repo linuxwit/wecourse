@@ -57,7 +57,6 @@ abstract class Controller extends BaseController {
 			$media->cloudurl = $media->id;
 		}
 		$update = $media->update();
-		Log::debug('media' . json_encode($update));
 		Log::debug('upload error' . json_encode($error));
 		Log::debug('upload result:' . json_encode($ret));
 		return $media;
