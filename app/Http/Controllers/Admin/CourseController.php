@@ -131,7 +131,9 @@ class CourseController extends Controller {
 			$file = Input::file('cover');
 			$media = $this->upload($file, Auth::id(), '/upload/image/course/');
 			$model->cover = $media->cloudurl;
+			Log::dubug($model->cover);
 		}
+
 		if ($course->save()) {
 			return Redirect::to('admin/course');
 		} else {
