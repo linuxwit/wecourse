@@ -126,11 +126,13 @@ class CourseController extends Controller {
 		$course->online = Input::get('online');
 		$course->currentprice = Input::get('currentprice');
 		$course->oldprice = Input::get('oldprice');
-
+		Log::debug('update');
 		if (Input::hasFile('cover')) {
 			$file = Input::file('cover');
 			$media = $this->upload($file, Auth::id(), '/upload/image/course/');
-			Log::dubug('url is:' . $media->cloudurl);
+
+			var_dump($media);
+
 			$model->cover = $media->cloudurl;
 		}
 
