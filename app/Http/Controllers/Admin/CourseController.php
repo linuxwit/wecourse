@@ -67,7 +67,7 @@ class CourseController extends Controller {
 		$inputs = Input::only('title', 'content', 'subtitle', 'begintime', 'endtime', 'address', 'city', 'cover', 'online', 'content', 'currentprice', 'oldprice', 'teacherid');
 		if (Input::hasFile('cover')) {
 			$file = Input::file('cover');
-			$media = $this->upload($file, Auth::id(), '/upload/image/course');
+			$media = $this->upload($file, Auth::id(), '/upload/image/course/');
 			$model = Course::create(array_merge($inputs, array('uid' => Auth::id(), 'cover' => $media->cloudurl, 'teacherid' => 1)));
 			if ($model) {
 				return Redirect::to('admin/course');
