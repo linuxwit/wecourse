@@ -86,6 +86,16 @@
                   <textarea name="content" class="editor" >{{ $doc->content }}</textarea>
                 </div>
               </div>
+                   <div class="form-group">
+                <label class="col-lg-2 control-label" for="iName">讲师</label>
+                <div class="col-lg-10">
+                  <select name="teacherid" class="form-control">
+                    @foreach ($teachers as $item )
+                      <option value="{{$item->id}}" {{ $doc->teacherid==$item->id ? 'selected': ''}} >{{$item->name}}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
               <div class="form-group">
                 <label class="col-lg-2 control-label" for="iName">是否发布</label>
                 <div class="col-lg-10">

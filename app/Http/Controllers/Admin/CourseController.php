@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\Admin;
 use App\Course;
 use App\Http\Controllers\Controller;
+use App\Teacher;
 use Auth;
 use Illuminate\Http\Request;
 use Input;
@@ -43,7 +44,9 @@ class CourseController extends Controller {
 	 * @return Response
 	 */
 	public function create() {
-		return view('admin.course.create');
+		return view('admin.course.create', [
+			'teachers' => Teacher::all(),
+		]);
 	}
 	/**
 	 * Store a newly created resource in storage.
@@ -65,11 +68,11 @@ class CourseController extends Controller {
 		];
 		$validator = $this->validate($request, $rules);
 
-		$inputs = Input::only('title', 'content', 'subtitle', 'summary', 'begintime', 'endtime', 'address', 'city', 'cover', 'online', 'content', 'currentprice', 'oldprice', 'teacherid');
+		$inputs = Input::only('teacherid', 'title', 'content', 'subtitle', 'summary', 'begintime', 'endtime', 'address', 'city', 'cover', 'online', 'content', 'currentprice', 'oldprice', 'teacherid');
 		if (Input::hasFile('cover')) {
 			$file = Input::file('cover');
 			$media = $this->upload($file, Auth::id(), '/upload/image/course/');
-			$model = Course::create(array_merge($inputs, array('uid' => Auth::id(), 'cover' => $media->cloudurl, 'teacherid' => 1)));
+			$model = Course::create(array_merge($inputs, array('uid' => Auth::id(), 'cover' => $media->cloudurl)));
 			if ($model) {
 				return Redirect::to('admin/course');
 			} else {
@@ -94,7 +97,10 @@ class CourseController extends Controller {
 	 * @return Response
 	 */
 	public function edit($id) {
-		return view('admin.course.edit')->withDoc(Course::find($id));
+		return view('admin.course.edit', [
+			'doc' => Course::find($id),
+			'teachers' => Teacher::all(),
+		]);
 	}
 	/**
 	 * Update the specified resource in storage.
@@ -128,6 +134,7 @@ class CourseController extends Controller {
 		$course->online = Input::get('online');
 		$course->currentprice = Input::get('currentprice');
 		$course->oldprice = Input::get('oldprice');
+		$course->teacherid = Input::get('teacherid');
 		if (Input::hasFile('cover')) {
 
 			$file = Input::file('cover');
@@ -137,22 +144,6 @@ class CourseController extends Controller {
 				$course->cover = $media->cloudurl;
 			}
 		}
-
-		$rules = [
-			'title' => 'required|max:100',
-			'subtitle' => 'required|max:120',
-			'begintime' => 'required|date',
-			'endtime' => 'required|date',
-			'city' => 'required|max:50',
-			'address' => 'required|max:200',
-			'summary' => 'required',
-			'cover' => 'required',
-			'online' => 'required',
-			'content' => 'required',
-		];
-		$validator = $this->validate($request, $rules);
-
-		var_dump($validator);
 
 		if ($course->save()) {
 			return Redirect::to('admin/course');
