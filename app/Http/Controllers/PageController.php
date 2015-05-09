@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers;
 
-use App\Witleaf\Course;
-use Request;
+use App\Witleaf\Wecourse\Course;
+use Input;
 
 class PageController extends Controller {
 
@@ -11,13 +11,18 @@ class PageController extends Controller {
 	 * @return Response
 	 */
 	public function aboutUs() {
-		$code = Request::getQueryString('code');
-		$state = Request::getQueryString('state');
-		$wechat = Course::getWechat($state);
-		$result = $wechat->getOauthAccessToken();
+		$result = null;
+		$code = Input::get('code');
+		$state = Input::get('state');
+		if ($state && $code) {
+			$course = new Course();
+			$wechat = $course->getWechat($state);
+			if ($wechat) {
+				$result = $wechat->getOauthAccessToken();
+			}
+		}
 
-		var_dump($result);
-
+		return view('page.aboutus', ['result' => $result]);
 	}
 
 }
