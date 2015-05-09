@@ -96,30 +96,15 @@ class AccountController extends Controller {
 	 * @return Response
 	 */
 	public function edit($id) {
-		$funs = array(
-			'讲师介绍' => array(
-				'type' => 'click',
-				'key' => 'TEACHER_INFO',
-			), '最近课程' => array(
-				'type' => 'click',
-				'key' => 'COURSE_LAST',
-			),
-			'课程排表' => array(
-				'type' => 'click',
-				'key' => 'COURSE_PLAN',
-			),
-			'申请合作' => array(
-				'type' => 'click',
-				'key' => '申请合作',
-			),
-			'在线互动' => array(
-				'type' => 'view',
-				'url' => 'http://www.mf23.cn',
-			),
-		);
+		$account = Account::find($id);
 		$course = new Course();
-		$funs = $course->getModules();
-		return view('admin.wechat.setting')->with(array('account' => Account::find($id), 'modules' => $funs));
+		if ($account && $course) {
+			$funs = $course->getModules($account);
+			return view('admin.wechat.setting')->with(array('account' => $account, 'modules' => $funs));
+		} else {
+			Redirect::to('admin/account');
+		}
+
 	}
 	/**
 	 * Update the specified resource in storage.

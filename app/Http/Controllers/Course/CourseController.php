@@ -37,13 +37,23 @@ class CourseController extends Controller {
 	}
 	public function detail($id) {
 		$course = Course::find($id);
-		return view('course.detail', ['doc' => $course, 'teacher' => $course->teacher]);
+		if ($course) {
+			return view('course.detail', ['doc' => $course, 'teacher' => $course->teacher]);
+		} else {
+			return Redirect::to('course');
+		}
+
 	}
 	public function showJoin($id) {
-		return view('course.join')->withDoc(Course::find($id));
+		$course = Course::find($id);
+		if ($course) {
+			return view('course.join', ['doc' => $course]);
+		} else {
+			return Redirect::to('course');
+		}
 	}
-	public function join(Request $request, $id) {
 
+	public function join(Request $request, $id) {
 		$rules = [
 			'name' => 'required|max:100',
 			'mobile' => 'required|max:120',

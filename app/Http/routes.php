@@ -9,12 +9,13 @@
 | and give it the controller to call when that URI is requested.
 |
  */
-Route::post('/wechat/{id}', 'WechatController@index'); //微信接口
+Route::post('wechat/{id}', 'WechatController@index'); //微信接口
+Route::get('wechat/{id}', 'WechatController@ping');
 
-Route::get('/wechat/{id}', 'WechatController@ping');
-
-Route::get('/', 'WelcomeController@index');
+Route::get('/', 'WelcomeController@index'); //网站首页
 Route::get('home', 'HomeController@index');
+
+Route::get('aboutus', 'PageController@aboutUs'); //关于我们
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
@@ -26,14 +27,15 @@ Route::group(['namespace' => 'Course'], function () {
 	Route::get('course/{id}', 'CourseController@detail');
 	Route::get('course', 'CourseController@index');
 
-	Route::post('course/{id}/join', 'CourseController@join');
+	Route::post('course/{id}/join', 'CourseController@join'); //报名
 });
 
 Route::group(['namespace' => 'Teacher'], function () {
-	Route::get('teacher/{id}', 'TeacherController@detail');
-	Route::get('teacher', 'TeacherController@index');
+	Route::get('teacher/{id}', 'TeacherController@detail'); //显示讲师详细
+	Route::get('teacher', 'TeacherController@index'); //显示所有老师
 });
 
+//后台管理
 Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin'], function () {
 	Route::resource('course', 'CourseController');
 	Route::resource('teacher', 'TeacherController');
@@ -43,6 +45,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
 
 	Route::resource('account', 'AccountController');
 
+	//帐号设置
 	Route::post('account/{id}/menu/{action}', 'AccountController@menu');
 	Route::post('account/{id}/welcome/{action}', 'AccountController@welcome');
 });

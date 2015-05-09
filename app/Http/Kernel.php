@@ -28,6 +28,7 @@ class Kernel extends HttpKernel {
 		'admin' => 'App\Http\Middleware\Administor',
 		'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
 		'guest' => 'App\Http\Middleware\RedirectIfAuthenticated',
+		'weixin' => 'App\Http\Middleware\Weixin',
 	];
 
 }
