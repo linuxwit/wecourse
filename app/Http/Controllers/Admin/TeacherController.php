@@ -61,7 +61,6 @@ class TeacherController extends Controller {
 		if (Input::hasFile('avatar')) {
 			$file = Input::file('avatar');
 			$media = $this->upload($file, Auth::id(), '/upload/image/teacher/');
-			$model->avatar = $media->cloudurl;
 			$model = Teacher::create(array_merge($inputs, array('uid' => Auth::id(), 'avatar' => $media->cloudurl)));
 			if ($model) {
 				return Redirect::to('admin/teacher');
