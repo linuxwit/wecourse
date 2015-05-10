@@ -27,7 +27,7 @@
 		<div class="media">
 			<div class="media-left">
 				<a href="/course/{{ $doc->id }}">
-					<img class="media-object" src="{{ Config::get('app.qiniu')['domain'].$doc->cover }}" alt="{{$doc->title}}">
+					<img class="media-object responsive" src="{{ Config::get('app.qiniu')['domain'].$doc->cover }}" alt="{{$doc->title}}">
 				</a>
 			</div>
 			<div class="media-body">
@@ -61,12 +61,12 @@
 				<div role="tabpanel" class="tab-pane" id="tab3">
 					<div class="media">
 						<div class="media-left">
-							<a href="/wecourse/teacher/1">
-								<img class="media-object img-circle" style="height: 50px;widows: 50px;" src="" alt="">
+							<a href="/wecourse/teacher/{{$teacher->id}}">
+								<img class="media-object img-circle" style="height: 50px;widows: 50px;" src="{{ Config::get('app.qiniu')['domain'].$teacher->avatar }}" alt="">
 							</a>
 						</div>
 						<div class="media-body">
-							<h4 class="media-heading">{{ $teacher->name}}</h4>
+							<h4 class="media-heading">{{ $teacher->name }}</h4>
 							<p>
 								{!! $teacher->summary!!}
 							</p>
