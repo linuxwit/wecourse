@@ -1,17 +1,44 @@
 <?php namespace App\Http\Controllers;
 
 use App\Media;
+use App\Witleaf\Wecourse\Course;
 use Config;
+use Cookie;
 use Illuminate\Foundation\Bus\DispatchesCommands;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Input;
 use Log;
 use Qiniu\Auth;
 use Qiniu\Storage\UploadManager;
 
 abstract class Controller extends BaseController {
 
+	private $OPEN_ID_KEY = 'openid';
+
+	protected $opneid = '';
 	use DispatchesCommands, ValidatesRequests;
+
+	protected function autoLoginInWechat() {
+		$this->openid = Cookie::get($this->OPEN_ID_KEY, '');
+		if (empty($this->openid)) {
+			$code = Input::get('code');
+			$state = Input::get('state');
+			if ($state && $code) {
+				$course = new Course();
+				$wechat = $course->getWechat($state);
+				if ($wechat) {
+					$result = $wechat->getOauthAccessToken();
+					if ($result) {
+						$this->openid = $result['openid'];
+						Cookie::forever($this->OPEN_ID_KEY, $this->openid);
+					}
+				}
+			}
+		}
+
+		//TODO, 如果绑定了微信，则可以自动进入系统
+	}
 
 	protected function upload($file, $uid, $folder = '/upload/image/teacher/') {
 		$local = $folder . date('ymd') . '/';

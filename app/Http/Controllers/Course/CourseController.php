@@ -14,7 +14,9 @@ class CourseController extends Controller {
 	 * @return void
 	 */
 	public function __construct() {
+		$this->autoLoginInWechat();
 	}
+
 	public function index() {
 		$model = new Course;
 		$builder = $model->orderBy('id', 'desc');
