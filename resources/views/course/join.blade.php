@@ -1,6 +1,6 @@
 @extends('app')
 @section('content')
-<div class="container-fluid">
+<div class="container">
     <div class="well">
         <form class="form-horizontal" action="/course/{{$doc->id}}/join" accept-charset="UTF-8" method="post">
             <input type="hidden" name="spm" value="{{Input::get('spm')}}">

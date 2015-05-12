@@ -11,4 +11,8 @@ class Teacher extends Model {
 	protected $table = 'wc_teacher';
 
 	protected $fillable = ['name', 'uid', 'title', 'avatar', 'content', 'summary', 'phone', 'mobile', 'address'];
+
+	public function course() {
+		return $this->hasMany('App\Course', 'teacherid', 'id');
+	}
 }

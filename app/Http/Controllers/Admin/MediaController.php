@@ -1,7 +1,9 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Media;
 use Illuminate\Http\Request;
+use Input;
 
 class MediaController extends Controller {
 	public function __construct() {
@@ -13,7 +15,24 @@ class MediaController extends Controller {
 	 * @return Response
 	 */
 	public function index() {
-		//
+
+		$model = new Media;
+		$builder = $model->orderBy('id', 'desc');
+		$input = Input::all();
+		foreach ($input as $field => $value) {
+			if (empty($value)) {
+				continue;
+			}
+			if (!isset($this->fields_all[$field])) {
+				continue;
+			}
+			$search = $this->fields_all[$field];
+			$builder->whereRaw($search['search'], [$value]);
+		}
+		$models = $builder->paginate(5);
+		return view('admin.media.index', [
+			'docs' => $models,
+		]);
 	}
 
 	/**

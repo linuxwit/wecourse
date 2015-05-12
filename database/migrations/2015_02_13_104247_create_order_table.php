@@ -24,7 +24,7 @@ class CreateOrderTable extends Migration {
 			$table->string('mobile', 16); // 手机
 			$table->string('copmany', 100); //公司
 			$table->string('title'); //职位
-			$table->string('spm'); //广告码，用于统计效果
+			$table->string('spm'); //广告码，用于统计推广渠道效果
 			$table->string('source'); //推荐人,谁介绍来报名的
 			$table->string('country')->nullable();
 			$table->string('provice')->nullable();

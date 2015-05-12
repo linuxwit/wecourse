@@ -1,8 +1,20 @@
 @extends('admin')
 @section('content')
-<div class="container">
+<div class="container-fluid">
   <div class="row">
-    <div class="col-lg-12">
+    <div class="col-md-12 col-lg-12">
+      <ol class="breadcrumb">
+        <li><a href="/admin/teacher">讲师管理</a></li>
+        <li class="active">讲师列表</li>
+      </ol>
+    </div>
+    <div class="col-md-2 col-lg-2">
+      <ul class="list-group">
+        <li class="list-group-item"><a href="/admin/teacher/create">新增讲师</a></li>
+        <li class="list-group-item"><a href="/admin/teacher">讲师列表</a></li>
+      </ul>
+    </div>
+     <div class="col-md-10 col-lg-10">
       <div class="panel panel-default">
         <div class="panel-heading">讲师管理</div>
         <div class="panel-body">

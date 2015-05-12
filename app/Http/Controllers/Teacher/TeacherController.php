@@ -37,7 +37,9 @@ class TeacherController extends Controller {
 			$builder->whereRaw($search['search'], [$value]);
 		}
 		$models = $builder->paginate(8);
-		return view('teacher.index')->withDocs($model);
+		return view('teacher.index', [
+			'docs' => $models,
+		]);
 	}
 
 	/**
@@ -46,6 +48,11 @@ class TeacherController extends Controller {
 	 * @return Response
 	 */
 	public function detail($id) {
-		return view('teacher.detail')->withDoc(Teacher::find($id));
+		$teacher = Teacher::find($id);
+		if ($teacher) {
+			return view('teacher.detail', ['doc' => $teacher, 'courses' => $teacher->course]);
+		} else {
+			return Redirect::to('teacher');
+		}
 	}
 }

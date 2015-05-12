@@ -5,7 +5,7 @@
 		@foreach ($docs as $item)
 		<div class="col-sm-6 col-md-4">
 			<div class="thumbnail">
-				<a href="/course/{{ $item->id }}" class="img-responsive"><img src="{{ Config::get('app.qiniu')['domain'].$item->cover }}" alt="{{$item->title}}"></a>
+				<a href="/course/{{ $item->id }}"  ><img style="height: 200px;" src="{{ Config::get('app.qiniu')['domain'].$item->cover }}?imageView2/2/h/200" alt="{{$item->title}}"></a>
 				<div class="caption">
 					<h4><a href="/course/{{ $item->id }}" title="{{$item->title}}">{{$item->title}}</a></h4>
 					<p class="subtitle">{{ $item->subtitle }}</p>

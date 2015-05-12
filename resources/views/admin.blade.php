@@ -28,30 +28,31 @@
 				</div>
 				<div class="collapse navbar-collapse" id="nav-header-1">
 					<ul class="nav navbar-nav">
-						<li><a href="/course">课程</a></li>
-						<li><a href="/teacher">讲师</a></li>
+						@if (Auth::user()->isadmin)
+						<li><a href="/admin/user">用户管理</a></li>
+						@endif
+						@if (Auth::user()->ispartner || Auth::user()->isadmin)
+						<li><a href="/admin/account">微信管理</a></li>
+						<li><a href="/admin/course">课程管理</a></li>
+						<li><a href="/admin/teacher">讲师管理</a></li>
+						<li><a href="/admin/order">订单管理</a></li>
+						<li><a href="/admin/media">图片管理</a></li>
+						@endif
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						@if (Auth::guest())
 						<li><a href="/auth/login">登录</a></li>
 						<li><a href="/auth/register">免费注册</a></li>
 						@else
+							@if (Auth::user()->isadmin)
+								<li><a href="/" target="_blank">浏览效果</a></li>
+							@endif
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 								{{ Auth::user()->name }}
 								<span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu" role="menu">
-								@if (Auth::user()->isadmin)
-								<li><a href="/backbone/user/index">用户管理</a></li>
-								@endif
-								@if (Auth::user()->ispartner || Auth::user()->isadmin)
-								<li><a href="/admin/account">微信管理</a></li>
-								<li><a href="/admin/course">课程管理</a></li>
-								<li><a href="/admin/teacher">讲师管理</a></li>
-								<li><a href="/admin/order">订单管理</a></li>
-								<li><a href="/admin/media">图片管理</a></li>
-								@endif
 								<li><a href="/user/profile">我的设置</a></li>
 								<li><a href="/auth/logout">安全退出</a></li>
 							</ul>
@@ -62,12 +63,10 @@
 			</div>
 		</nav>
 		@yield('content')
-
 		<toaster-container toaster-options="{'position-class': 'toast-bottom-right','close-button':true}"></toaster-container>
 		<!-- Scripts -->
 		<script src="/assets/js/vendor.min.js"></script>
 		<script src="/assets/js/admin.min.js"></script>
 		<script src="/js/admin.js"></script>
-
 	</body>
 </html>

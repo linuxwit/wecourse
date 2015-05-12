@@ -22,8 +22,12 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
-Route::group(['namespace' => 'Course'], function () {
+Route::group(['namespace' => 'Course', 'middleware' => 'auth'], function () {
 	Route::get('course/{id}/join', 'CourseController@showJoin');
+});
+
+Route::group(['namespace' => 'Course'], function () {
+
 	Route::get('course/{id}', 'CourseController@detail');
 	Route::get('course', 'CourseController@index');
 
@@ -41,8 +45,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
 	Route::resource('teacher', 'TeacherController');
 
 	Route::resource('user', 'UserController');
-	//Route::resource('media', 'MediaController');
-
+	Route::resource('media', 'MediaController');
+	Route::resource('order', 'OrderController');
 	Route::resource('account', 'AccountController');
 
 	//帐号设置

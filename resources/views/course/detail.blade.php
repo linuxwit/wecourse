@@ -6,7 +6,7 @@
 		<div class="col-md-12">
 			<div class="thumbnail">
 				<a href="/wecourse/course/{{ $doc->id }}" class="img-responsive">
-					<img src="{{ Config::get('app.qiniu')['domain'].$doc->cover }}" alt="{{$doc->title}}"></a>
+					<img  src="{{ Config::get('app.qiniu')['domain'].$doc->cover }}" alt="{{$doc->title}}"></a>
 				</a>
 				<div class="caption">
 					<h4><a href="/wecourse/course/{{ $doc->id }}">{{$doc->title}}</a>
@@ -26,8 +26,8 @@
 	<div class="well hidden-xs hidden-sm">
 		<div class="media">
 			<div class="media-left">
-				<a href="/course/{{ $doc->id }}">
-					<img class="media-object responsive" src="{{ Config::get('app.qiniu')['domain'].$doc->cover }}" alt="{{$doc->title}}">
+				<a href="/course/{{ $doc->id }}" >
+					<img class="media-object img-responsive" src="{{ Config::get('app.qiniu')['domain'].$doc->cover }}?imageView2/2/w/450" alt="{{$doc->title}}">
 				</a>
 			</div>
 			<div class="media-body">
@@ -52,17 +52,17 @@
 				</li>
 			</ul>
 			<div class="tab-content" >
-				<div role="tabpanel" class="tab-pane active " id="tab1" style="border: none">
+				<div role="tabpanel" class="tab-pane active " id="tab1" style="border: none;padding: 8px ">
 					{!! $doc->summary!!}
 				</div>
-				<div role="tabpanel" class="tab-pane " id="tab2" style="border: none">
+				<div role="tabpanel" class="tab-pane " id="tab2" style="border: none;padding: 8px ">
 					{!! $doc->content!!}
 				</div>
-				<div role="tabpanel" class="tab-pane" id="tab3">
+				<div role="tabpanel" class="tab-pane" id="tab3" style="border: none;padding: 8px 12px">
 					<div class="media">
 						<div class="media-left">
-							<a href="/wecourse/teacher/{{$teacher->id}}">
-								<img class="media-object img-circle" style="height: 50px;widows: 50px;" src="{{ Config::get('app.qiniu')['domain'].$teacher->avatar }}" alt="">
+							<a href="/teacher/{{$teacher->id}}">
+								<img class="media-object img-circle" style="height: 80px;width: 80px;" src="{{ Config::get('app.qiniu')['domain'].$teacher->avatar }}" alt="">
 							</a>
 						</div>
 						<div class="media-body">

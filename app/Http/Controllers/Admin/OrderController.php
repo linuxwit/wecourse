@@ -1,10 +1,10 @@
 <?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\User;
+use App\Order;
 use Illuminate\Support\Facades\Input;
 
-class UserController extends Controller {
+class OrderController extends Controller {
 
 	public function __construct() {
 		$this->middleware('auth');
@@ -16,7 +16,7 @@ class UserController extends Controller {
 	 */
 	public function index() {
 
-		$model = new User;
+		$model = new Order;
 		$builder = $model->orderBy('id', 'desc');
 		$input = Input::all();
 		foreach ($input as $field => $value) {
@@ -29,8 +29,8 @@ class UserController extends Controller {
 			$search = $this->fields_all[$field];
 			$builder->whereRaw($search['search'], [$value]);
 		}
-		$models = $builder->paginate(20);
-		return view('admin.user.index', [
+		$models = $builder->paginate(10);
+		return view('admin.order.index', [
 			'docs' => $models,
 		]);
 	}

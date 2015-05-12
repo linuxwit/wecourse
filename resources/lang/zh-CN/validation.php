@@ -94,8 +94,9 @@ return array(
 		),
 		'password' => array(
 			'required' => '密码必须设置',
-			'confirmed' => '二次密码不能为空',
+			'confirmed' => '重复密码不能为空',
 		),
+
 	),
 
 	/*

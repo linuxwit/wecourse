@@ -83,7 +83,7 @@ class CourseController extends Controller {
 		);
 
 		if ($order) {
-			return Redirect::back()->withSuccess('报名成功！很快我们的客服人员将会与您联系');
+			return Redirect::back()->withSuccess('非常感谢您的参与，很快我们的客服人员将会与您联系');
 		} else {
 			return Redirect::back()->withInput()->withErrors('提交报名申请失败失败！请重试');
 		}
