@@ -4,17 +4,10 @@
   <div class="row">
     <div class="col-md-12 col-lg-12">
       <ol class="breadcrumb">
-        <li><a href="/admin/user">用户管理</a></li>
-        <li class="active">用户列表</li>
+        <li class="active">用户管理</li>
       </ol>
     </div>
-    <div class="col-md-2 col-lg-2">
-      <ul class="list-group">
-        <li class="list-group-item"><a href="/admin/user/create">添加用户</a></li>
-        <li class="list-group-item"><a href="/admin/user">用户列表</a></li>
-      </ul>
-    </div>
-    <div class="col-md-10 col-lg-10">
+    <div class="col-md-12 col-lg-12">
       <div class="panel panel-default">
         <div class="panel-heading">用户管理</div>
         <div class="panel-body">

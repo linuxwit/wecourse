@@ -4,56 +4,55 @@
 	<div class="row">
 		<div class="col-md-12 col-lg-12">
 			<ol class="breadcrumb">
-				<li><a href="#">微信管理</a></li>
-				<li class="active">我的公众号</li>
+				<li><a href="/admin/account">微信管理</a></li>
+				<li class="active">消息管理</li>
 			</ol>
 		</div>
 		<div class="col-md-2 col-lg-2">
 			<ul class="list-group">
 				<li class="list-group-item"><a href="/admin/account">我的公众号</a></li>
 				<li class="list-group-item"><a href="/admin/message">消息管理</a></li>
-				<li class="list-group-item"><a href="/admin/wechatuser">粉丝管理</a></li>
 				<li class="list-group-item"><a href="/admin/media">素材管理</a></li>
 			</ul>
 		</div>
-		<div class="col-md-10 col-lg-10">
-			<div class="row">
-				@foreach ($accounts as $item)
-				<div class="col-sm-6 col-md-5">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<span>{{$item->name}}</span>
-							<div class="pull-right">
-								<form action="{{ URL('admin/account/'.$item->id) }}" method="POST" style="display: inline;">
-									<input name="_method" type="hidden" value="DELETE">
-									<input type="hidden" name="_token" value="{{ csrf_token() }}">
-									<button type="submit" class="btn btn-xs"><span aria-hidden="true">×</span></button>
-								</form>
-							</div>
-						</div>
-						<div class="panel-body">
-							<p></p>
-						</div>
-						<ul class="list-group">
-							<li class="list-group-item">接口地址：<strong>http://xue.mf23.cn/wechat/{{$item->id}}</strong></li>
-							<li class="list-group-item">AppId:<strong>{{$item->appid}}</strong></li>
-							<li class="list-group-item">AppSecret:<strong>{{$item->appsecret}}</strong></li>
-							<li class="list-group-item">Token:<strong>{{$item->token}}</strong></li>
-							<li class="list-group-item">EncodingaesKey:<strong>{{$item->encodingaeskey}}</strong></li>
-							<li class="list-group-item"><a id="dLabel" href="/admin/account/{{$item->id}}/edit"  role="button" aria-expanded="false">
-								配置
-							</a></li>
-						</ul>
-					</div>
-				</div>
-				@endforeach
-				<div class="col-sm-6 col-md-5">
-					<div class="panel panel-default box box-add-account">
-						<a href="#" data-toggle="modal" data-target="#add_wx_mp">添加公众帐号</a>
-					</div>
-				</div>
-			</div>
-		</div>
+	   <div class="col-md-10 col-lg-10">
+      <div class="panel panel-default">
+        <div class="panel-heading">消息管理</div>
+        <div class="panel-body">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>编号</th>
+                <th>粉丝呢称</th>
+                <th>消息内容</th>
+                <th>发送时间</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach ($docs as $item)
+              <tr>
+                <td>{{$item->id}}</td>
+                <td>{{$item->wechatuser->nickname}}</td>
+                <td>{{$item->context}}</td>
+                <td>{{$item->msgtype}}</td>
+                <td>{{$item->createtime}}</td>
+                <td>
+                  <a href="{{ URL('admin/message/'.$item->id.'/reply') }}" class="btn btn-success btn-xs">回复</a>
+                  <form action="{{ URL('admin/message/'.$item->id) }}" method="POST" style="display: inline;">
+                    <input name="_method" type="hidden" value="DELETE">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <button type="submit" class="btn btn-danger btn-xs">删除</button>
+                  </form>
+                </td>
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
+          <?php echo $docs->render();?>
+        </div>
+      </div>
+    </div>
 	</div>
 </div>
 <!-- Modal -->
