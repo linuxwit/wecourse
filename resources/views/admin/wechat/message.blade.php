@@ -34,9 +34,8 @@
               <tr>
                 <td>{{$item->id}}</td>
                 <td>{{$item->wechatuser->nickname}}</td>
-                <td>{{$item->context}}</td>
-                <td>{{$item->msgtype}}</td>
-                <td>{{$item->createtime}}</td>
+                <td>{{ json_decode($item->context)->Content}}</td>
+                <td>{{$item->created_at}}</td>
                 <td>
                   <a href="{{ URL('admin/message/'.$item->id.'/reply') }}" class="btn btn-success btn-xs">回复</a>
                   <form action="{{ URL('admin/message/'.$item->id) }}" method="POST" style="display: inline;">

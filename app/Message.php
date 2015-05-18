@@ -8,6 +8,6 @@ class Message extends Model {
 	protected $fillable = array('accountid', 'tousername', 'fromusername', 'msgtype', 'type', 'context', 'createtime');
 
 	public function wechatuser() {
-		return $this->hasOne('App\WechatUser', 'openid', 'fromusername');
+		return $this->belongsTo('App\WechatUser', 'fromusername', 'openid');
 	}
 }

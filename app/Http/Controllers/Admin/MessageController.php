@@ -17,7 +17,7 @@ class MessageController extends Controller {
 	public function index() {
 
 		$model = new Message;
-		$builder = $model->wechatuser()->orderBy('id', 'desc');
+		$builder = $model->with('wechatuser')->orderBy('id', 'desc');
 		//$builder->where('type', '=', 0);
 		$input = Input::all();
 		foreach ($input as $field => $value) {
@@ -30,6 +30,7 @@ class MessageController extends Controller {
 			$search = $this->fields_all[$field];
 			$builder->whereRaw($search['search'], [$value]);
 		}
+
 		$models = $builder->paginate(20);
 		return view('admin.wechat.message', [
 			'docs' => $models,
