@@ -50,7 +50,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
 	Route::resource('account', 'AccountController');
 	Route::resource('message', 'MessageController');
 
-	Route::get('wechatuser', 'WechatUserController@index');
+	Route::get('wechatuser', 'WechatuserController@index');
 	//帐号设置
 	Route::post('account/{id}/menu/{action}', 'AccountController@menu');
 	Route::post('account/{id}/welcome/{action}', 'AccountController@welcome');

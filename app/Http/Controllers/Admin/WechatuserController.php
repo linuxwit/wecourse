@@ -4,7 +4,7 @@ use App\Http\Controllers\Controller;
 use App\WechatUser;
 use Illuminate\Support\Facades\Input;
 
-class WechatUserController extends Controller {
+class WechatuserController extends Controller {
 
 	public function __construct() {
 		$this->middleware('auth');
