@@ -40,7 +40,7 @@
 							个人资料 </a>
 						</li>
 						<li>
-							<a href="{{ url('/user/password') }}" target="_blank">
+							<a href="{{ url('/user/password') }}" >
 								<i class="glyphicon glyphicon-ok"></i>
 							修改密码 </a>
 						</li>

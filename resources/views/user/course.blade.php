@@ -40,7 +40,7 @@
 							个人资料 </a>
 						</li>
 						<li>
-							<a href="{{ url('/user/password') }}" target="_blank">
+							<a href="{{ url('/user/password') }}">
 								<i class="glyphicon glyphicon-ok"></i>
 							修改密码 </a>
 						</li>
@@ -60,21 +60,17 @@
 								<th class="text-center">课程名称</th>
 								<th class="text-center">联系姓名</th>
 								<th class="text-center">联系电话</th>
-								<th class="text-center">所在公司</th>
-								<th class="text-center">当前职位</th>
 								<th class="text-center">报名时间</th>
 							</tr>
 						</thead>
 						<tbody>
 							@foreach ($docs as $item)
 							<tr>
-								<td >{{$item->id}}</td>
-								<td>{{$item->itemtitle}}</td>
+								<td>{{$item->id}}</td>
+								<td><a href="{{ url('course/'.$item->id) }}"> {{$item->itemtitle}}</a></td>
 								<td>{{$item->name}}</td>
 								<td>{{$item->mobile}}</td>
-								<td>{{$item->company}}</td>
-								<td>{{$item->title}}</td>
-								<td>{{$item->created_at}}</td>
+								<td>{{date('Y-m-d',strtotime($item->created_at))}}</td>
 							</tr>
 							@endforeach
 						</tbody>

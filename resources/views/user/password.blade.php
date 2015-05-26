@@ -66,9 +66,9 @@
 					<form class="form-horizontal" role="form" method="POST" action="/user/password">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 						<div class="form-group">
-							<label class="col-md-4 control-label">邮箱</label>
+							<label class="col-md-4 control-label">呢称</label>
 							<div class="col-md-6">
-								<input type="email" class="form-control" name="email" value="{{ $user->name }}">
+								<input type="email" class="form-control" name="email" value="{{ $user->name }}" disabled>
 							</div>
 						</div>
 						<div class="form-group">

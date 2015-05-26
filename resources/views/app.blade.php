@@ -43,7 +43,7 @@
 								<span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu" role="menu">
-								<li><a href="/user/profile">我的设置</a></li>
+								<li><a href="/user/course">个人中心</a></li>
 								<li><a href="/auth/logout">安全退出</a></li>
 							</ul>
 						</li>
