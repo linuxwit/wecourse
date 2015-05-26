@@ -21,20 +21,20 @@
 				<!-- END SIDEBAR USER TITLE -->
 				<!-- SIDEBAR BUTTONS -->
 				<!-- <div class="profile-userbuttons">
-							<button type="button" class="btn btn-success btn-sm">Follow</button>
-							<button type="button" class="btn btn-danger btn-sm">Message</button>
+										<button type="button" class="btn btn-success btn-sm">Follow</button>
+										<button type="button" class="btn btn-danger btn-sm">Message</button>
 				</div>
 				-->
 				<!-- END SIDEBAR BUTTONS -->
 				<!-- SIDEBAR MENU -->
 				<div class="profile-usermenu">
 					<ul class="nav">
-						<li>
+						<li class="active">
 							<a href="{{ url('/user/course') }}">
 								<i class="glyphicon glyphicon-home"></i>
 							我的课程 </a>
 						</li>
-						<li class="active">
+						<li>
 							<a  href="{{ url('/user/profile') }}">
 								<i class="glyphicon glyphicon-user"></i>
 							个人资料 </a>
@@ -51,40 +51,35 @@
 		</div>
 		<div class="col-md-9">
 			<div class="profile-content">
-				<div class="panel-heading" style="border-bottom: 2px solid #EEE">个人资料</div>
+				<div class="panel-heading" style="border-bottom: 2px solid #DDD">我的课程</div>
 				<div class="panel-body">
-					@if (count($errors) > 0)
-					<div class="alert alert-danger">
-						<strong>注意!</strong> 请更正以下输入信息.<br><br>
-						<ul>
-							@foreach ($errors->all() as $error)
-							<li>{{ $error }}</li>
+					<table class="table table-bordered text-center">
+						<thead class="text-center">
+							<tr >
+								<th class="text-center">编号</th>
+								<th class="text-center">课程名称</th>
+								<th class="text-center">联系姓名</th>
+								<th class="text-center">联系电话</th>
+								<th class="text-center">所在公司</th>
+								<th class="text-center">当前职位</th>
+								<th class="text-center">报名时间</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach ($docs as $item)
+							<tr>
+								<td >{{$item->id}}</td>
+								<td>{{$item->itemtitle}}</td>
+								<td>{{$item->name}}</td>
+								<td>{{$item->mobile}}</td>
+								<td>{{$item->company}}</td>
+								<td>{{$item->title}}</td>
+								<td>{{$item->created_at}}</td>
+							</tr>
 							@endforeach
-						</ul>
-					</div>
-					@endif
-					<form class="form-horizontal" role="form" method="POST" action="/user/password">
-						<input type="hidden" name="_token" value="{{ csrf_token() }}">
-						<div class="form-group">
-							<label class="col-md-4 control-label">邮箱</label>
-							<div class="col-md-6">
-								<input type="email" class="form-control" name="email" value="{{ $user->email }}" readonly>
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-md-4 control-label">呢称</label>
-							<div class="col-md-6">
-								<input type="text" class="form-control" name="name" value="{{ $user->name }}">
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="col-md-6 col-md-offset-4">
-								<button type="submit" class="btn btn-primary">
-								提交
-								</button>
-							</div>
-						</div>
-					</form>
+						</tbody>
+					</table>
+					<?php echo $docs->render();?>
 				</div>
 			</div>
 		</div>

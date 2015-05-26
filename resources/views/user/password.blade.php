@@ -34,12 +34,12 @@
 								<i class="glyphicon glyphicon-home"></i>
 							我的课程 </a>
 						</li>
-						<li class="active">
+						<li>
 							<a  href="{{ url('/user/profile') }}">
 								<i class="glyphicon glyphicon-user"></i>
 							个人资料 </a>
 						</li>
-						<li>
+						<li class="active">
 							<a href="{{ url('/user/password') }}" target="_blank">
 								<i class="glyphicon glyphicon-ok"></i>
 							修改密码 </a>
@@ -51,7 +51,7 @@
 		</div>
 		<div class="col-md-9">
 			<div class="profile-content">
-				<div class="panel-heading" style="border-bottom: 2px solid #EEE">个人资料</div>
+				<div class="panel-heading" style="border-bottom: 2px solid #EEE">重置密码</div>
 				<div class="panel-body">
 					@if (count($errors) > 0)
 					<div class="alert alert-danger">
@@ -68,13 +68,19 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label">邮箱</label>
 							<div class="col-md-6">
-								<input type="email" class="form-control" name="email" value="{{ $user->email }}" readonly>
+								<input type="email" class="form-control" name="email" value="{{ $user->name }}">
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-md-4 control-label">呢称</label>
+							<label class="col-md-4 control-label">密码</label>
 							<div class="col-md-6">
-								<input type="text" class="form-control" name="name" value="{{ $user->name }}">
+								<input type="password" class="form-control" name="password" value="">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-4 control-label">重置密码</label>
+							<div class="col-md-6">
+								<input type="password" class="form-control" name="password_confirmation" value="">
 							</div>
 						</div>
 						<div class="form-group">

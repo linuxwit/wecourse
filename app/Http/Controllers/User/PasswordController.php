@@ -1,11 +1,12 @@
 <?php namespace App\Http\Controllers\User;
+
 use App\Http\Controllers\Controller;
 use App\Profile;
 use App\User;
 use Auth;
 use Illuminate\Contracts\Auth\Authenticatable;
 
-class ProfileController extends Controller {
+class PasswordController extends Controller {
 
 	/**
 	 * Create a new controller instance.
@@ -21,7 +22,7 @@ class ProfileController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function updateProfile(Authenticatable $user) {
+	public function updatePassword(Authenticatable $user) {
 		return view('user.profile', ['user' => Profile::findOrFail($user->id)]);
 	}
 
@@ -33,7 +34,7 @@ class ProfileController extends Controller {
 	public function show() {
 		$user = User::findOrFail(Auth::user()->id);
 		$profile = Profile::where('uid', '=', $user->id)->first();
-		return view('user.profile', ['user' => $user, 'profile' => $profile]);
+		return view('user.password', ['user' => $user, 'profile' => $profile]);
 	}
 
 }

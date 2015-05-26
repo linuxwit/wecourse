@@ -26,6 +26,12 @@ Route::group(['namespace' => 'Course', 'middleware' => 'auth'], function () {
 	Route::get('course/{id}/join', 'CourseController@showJoin');
 });
 
+Route::group(['namespace' => 'User', 'middleware' => 'auth'], function () {
+	Route::get('user/profile', 'ProfileController@show');
+	Route::get('user/password', 'PasswordController@show');
+	Route::get('user/course', 'CourseController@show');
+});
+
 Route::group(['namespace' => 'Course'], function () {
 
 	Route::get('course/{id}', 'CourseController@detail');
