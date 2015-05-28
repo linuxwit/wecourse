@@ -4,9 +4,14 @@ use App\Http\Controllers\Controller;
 use App\Profile;
 use App\User;
 use Auth;
+use Illuminate\Http\Request;
+
 use Illuminate\Contracts\Auth\Authenticatable;
 
 class PasswordController extends Controller {
+
+
+   private $redirectTo='/auth/logout';
 
 	/**
 	 * Create a new controller instance.
@@ -17,14 +22,6 @@ class PasswordController extends Controller {
 		$this->middleware('auth');
 	}
 
-	/**
-	 * Update the user's profile.
-	 *
-	 * @return Response
-	 */
-	public function updatePassword(Authenticatable $user) {
-		return view('user.profile', ['user' => Profile::findOrFail($user->id)]);
-	}
 
 	/**
 	 * 显示用户设置信息
@@ -36,5 +33,32 @@ class PasswordController extends Controller {
 		$profile = Profile::where('uid', '=', $user->id)->first();
 		return view('user.password', ['user' => $user, 'profile' => $profile]);
 	}
+
+    /**
+     * Reset the given user's password.
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function updatePassword(Request $request)
+    {
+        $this->validate($request, [
+            'password' => 'required|confirmed',
+        ]);
+
+        $credentials = $request->only(
+           'password', 'password_confirmation'
+        );
+        $user = User::findOrFail(Auth::user()->id);
+        $user->password = bcrypt($credentials['password']);
+
+        if($user->save()){
+            return redirect($this->redirectTo);
+        }else{
+            return redirect()->back()->withErrors(['msg'=>'修改密码失败']);
+        }
+
+
+    }
 
 }

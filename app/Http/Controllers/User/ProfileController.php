@@ -22,7 +22,8 @@ class ProfileController extends Controller {
 	 * @return Response
 	 */
 	public function updateProfile(Authenticatable $user) {
-		return view('user.profile', ['user' => Profile::findOrFail($user->id)]);
+
+        return 'abc';
 	}
 
 	/**
@@ -31,8 +32,11 @@ class ProfileController extends Controller {
 	 * @return Response
 	 */
 	public function show() {
-		$user = User::findOrFail(Auth::user()->id);
-		$profile = Profile::where('uid', '=', $user->id)->first();
+		$user = User::with('Profile')->findOrFail(Auth::user()->id);
+		$profile = $user->profile;
+        if(!$profile)
+            $profile=new Profile();
+
 		return view('user.profile', ['user' => $user, 'profile' => $profile]);
 	}
 

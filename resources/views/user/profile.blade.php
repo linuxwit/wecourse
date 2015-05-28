@@ -77,6 +77,54 @@
 								<input type="text" class="form-control" name="name" value="{{ $user->name }}">
 							</div>
 						</div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">姓名</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="realname" value="{{ $profile->realname }}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">性别</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="sex" value="{{ $profile->sex }}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">微信</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="wechat" value="{{ $profile->wechat }}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">手机</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="phone" value="{{ $profile->phone }}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">公司</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="company" value="{{ $profile->company }}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">职位</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="title" value="{{ $profile->title }}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">QQ</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="qq" value="{{ $profile->qq }}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">个性签名</label>
+                            <div class="col-md-6">
+                                <textarea class="form-control" name="sign">{{ $profile->sign }}</textarea>
+                            </div>
+                        </div>
 						<div class="form-group">
 							<div class="col-md-6 col-md-offset-4">
 								<button type="submit" class="btn btn-primary">

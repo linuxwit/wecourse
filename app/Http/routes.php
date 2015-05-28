@@ -27,8 +27,13 @@ Route::group(['namespace' => 'Course', 'middleware' => 'auth'], function () {
 });
 
 Route::group(['namespace' => 'User', 'middleware' => 'auth'], function () {
+
 	Route::get('user/profile', 'ProfileController@show');
+    Route::post('user/profile', 'ProfileController@updateProfile');
+
 	Route::get('user/password', 'PasswordController@show');
+    Route::post('user/password', 'PasswordController@updatePassword');
+
 	Route::get('user/course', 'CourseController@show');
 });
 
