@@ -63,7 +63,7 @@
 						</ul>
 					</div>
 					@endif
-					<form class="form-horizontal" role="form" method="POST" action="/user/password">
+					<form class="form-horizontal" role="form" method="POST" action="{{ url('/user/profile') }}">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 						<div class="form-group">
 							<label class="col-md-4 control-label">邮箱</label>
@@ -86,13 +86,12 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">性别</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="sex" value="{{ $profile->sex }}">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">微信</label>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" name="wechat" value="{{ $profile->wechat }}">
+                                <label class="radio-inline">
+                                    <input type="radio" name="sex" id="sex1" {{ $profile->sex==1?'checked':'' }} value="1"> 男
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="sex" id="sex2" {{ $profile->sex==2?'checked':'' }}  value="2"> 女
+                                </label>
                             </div>
                         </div>
                         <div class="form-group">
@@ -111,6 +110,12 @@
                             <label class="col-md-4 control-label">职位</label>
                             <div class="col-md-6">
                                 <input type="text" class="form-control" name="title" value="{{ $profile->title }}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">微信</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="weixin" value="{{ $profile->weixin }}">
                             </div>
                         </div>
                         <div class="form-group">

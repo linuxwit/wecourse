@@ -93,7 +93,7 @@ return array(
 			'unique' => '邮箱已经被注册',
 		),
 		'password' => array(
-			'required' => '密码必须设置',
+			'required' => '密码不能为空',
 			'confirmed' => '重复密码不能为空',
 		),
 

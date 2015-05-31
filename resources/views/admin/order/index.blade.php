@@ -23,7 +23,6 @@
                 <th>课程名称</th>
                 <th>渠道</th>
                 <th>推荐人</th>
-                <th>操作</th>
               </tr>
             </thead>
             <tbody>
@@ -37,14 +36,6 @@
                 <td>{{$item->itemtitle}}</td>
                 <td>{{$item->spm}}</td>
                 <td>{{$item->source}}</td>
-                <td>
-                  <a href="{{ URL('admin/user/'.$item->id.'/edit') }}" class="btn btn-success btn-xs">编辑</a>
-                  <form action="{{ URL('admin/user/'.$item->id) }}" method="POST" style="display: inline;">
-                    <input name="_method" type="hidden" value="DELETE">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <button type="submit" class="btn btn-danger btn-xs">删除</button>
-                  </form>
-                </td>
               </tr>
               @endforeach
             </tbody>
