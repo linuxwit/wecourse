@@ -35,4 +35,11 @@ class AuthController extends Controller {
 		$this->middleware('guest', ['except' => 'getLogout']);
 	}
 
+    protected function getFailedLoginMessage()
+    {
+
+        return '用户或密码错误，请重新输入';
+
+    }
+
 }
